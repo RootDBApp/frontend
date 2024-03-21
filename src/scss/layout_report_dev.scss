@@ -1,0 +1,55 @@
+.reports-container {
+  flex-grow: 1;
+
+  h1 {
+    text-align: center;
+
+    .p-button {
+      margin-left: $spacer * 1.5;
+
+      .pi {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  [id~=sql_editor_query_init_], [id~=sql_editor_query_cleanup_] {
+    width: inherit;
+  }
+
+  .grid-report-content-dev {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-rows:
+      min-content
+      auto
+      min-content;
+    grid-gap: 0;
+    grid-template-areas:
+      "report-query-init"
+      "report-data-views"
+      "report-query-cleanup";
+    height: 100%;
+
+    .grid-report-area-query-init {
+      grid-area: report-query-init;
+      position: relative;
+    }
+
+    .grid-report-area-data-views {
+      grid-area: report-data-views;
+    }
+
+    .grid-report-area-query-cleanup {
+      grid-area: report-query-cleanup;
+      position: relative;
+    }
+  }
+}
+
+.data-view-message-error {
+  margin: 1rem !important;
+  background-color: var(--surface-a) !important;
+  color: var(--text-color) !important;
+  border-width: 1px !important;
+}

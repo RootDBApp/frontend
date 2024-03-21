@@ -1,0 +1,61 @@
+#div-login {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+
+  .card-login {
+    min-width: 400px;
+    max-width: 500px;
+    min-height: 350px;
+  }
+
+  .login-logo {
+    display: block;
+    background: url(/logo.svg) no-repeat center;
+    background-size: 104px 110px;
+    width: 100px;
+    height: 100px;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    z-index: 2;
+    border-radius: 50%;
+  }
+}
+
+#animated-background {
+
+  height: 100vh;
+  width: 100vw;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: auto;
+  background: linear-gradient(
+                  315deg,
+                  rgb(66, 75, 137) 3%,
+                  rgb(44, 93, 133) 38%,
+                  rgb(40, 76, 115) 68%,
+                  rgb(19, 25, 68) 98%
+  );
+  animation: gradient 30s ease infinite;
+  background-size: 400% 400%;
+  background-attachment: fixed;
+
+  @keyframes gradient {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+}

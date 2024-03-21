@@ -1,0 +1,160 @@
+.layout.expanded-data-view {
+  height: auto !important;
+
+  .data-view-container {
+    position: static !important;
+    top: unset !important;
+    left: unset !important;
+    width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+
+    display: flex;
+    flex-flow: column;
+
+    [id~=sql_editor_dataview_] {
+      width: inherit;
+    }
+
+    [id~=js_editor_code_data_view_] {
+      width: inherit;
+    }
+
+    &.table .data-view-card > .p-card-body > .p-card-content {
+      grid-template-columns: 3fr minmax(600px, 1fr) !important;
+    }
+
+    .data-view-card {
+      flex-grow: 1;
+
+      & > .p-card-body, & > .p-card-body > .p-card-content {
+        padding: 0 !important;
+      }
+
+      & > .p-card-body > .p-card-content {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 0;
+
+        .subgrid-area-data-view-params {
+
+          .custom-editor {
+            width: 100%;
+            border-radius: 10px !important;
+            border-bottom-left-radius: 0 !important;
+            border-bottom-right-radius: 0 !important;
+          }
+
+          &:not(.hidden) {
+            display: flex;
+
+            .dataview-panel {
+              flex-grow: 1;
+              padding-top: 1rem;
+            }
+          }
+        }
+
+        .subgrid-area-data-view-view {
+          overflow: auto;
+          position: relative;
+
+          flex-grow: 1;
+          display: flex;
+          flex-flow: column;
+
+
+          .graphSkeleton {
+            height: 100% !important;
+            width: 100% !important;
+          }
+
+          .canvas-container {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 30vh;
+            margin: auto 0;
+          }
+
+          .switch-view {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            opacity: 50%;
+
+            &:hover {
+              opacity: 100%;
+            }
+          }
+        }
+      }
+    }
+
+    &.client {
+      display: block;
+
+      .data-view-card > .p-card-body > .p-card-content {
+        display: flex!important;
+      }
+    }
+
+    &.info {
+      .data-view-card {
+        .p-colorpicker-preview {
+          width: 5rem !important;
+        }
+
+        .subgrid-area-data-view-view {
+          background-color: var(--surface-b);
+        }
+
+        .dev-info {
+          position: relative;
+          margin: auto;
+          width: 500px;
+          min-height: 300px;
+          display: flex;
+        }
+      }
+    }
+
+    &.text {
+      .data-view-card {
+        .dev-text {
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}
+
+.react-grid-item > .react-resizable-handle {
+  &::after {
+    border-color: var(--text-color);
+  }
+
+  &.react-resizable-handle-se {
+    bottom: 0.25rem;
+    right: 0.25rem;
+  }
+}
+
+.react-grid-item.react-grid-placeholder {
+  background-color: var(--gray-300);
+}
+
+.react-grid-item.react-draggable .react-grid-layout-draggable-handle {
+  cursor: move;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+
+  &:hover {
+    background-color: var(--surface-c);
+  }
+}
+
+.react-grid-layout, .react-grid-item {
+  transition: none !important;
+}

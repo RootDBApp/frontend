@@ -1,0 +1,1 @@
+export type TBadgeSeverityType = 'success' | 'info' | 'warning' | 'danger' | null | undefined;

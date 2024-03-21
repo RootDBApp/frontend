@@ -1,0 +1,1 @@
+export type TIconPos = 'top' | 'bottom' | 'left' | 'right' | undefined;

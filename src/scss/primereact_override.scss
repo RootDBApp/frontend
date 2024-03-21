@@ -1,0 +1,31 @@
+.subgrid-area-data-view-params {
+
+  .field {
+    margin-bottom: 0.2rem;
+  }
+
+  .p-accordion .p-accordion-header .p-accordion-header-link {
+    padding: 0 !important;
+  }
+
+  .p-accordion-content {
+    cursor: default;
+  }
+
+  .p-accordion-tab:hover {
+    cursor: grabbing !important;
+  }
+
+  h3 {
+    margin: 0.2rem;
+  }
+
+  h4 {
+    margin: 0.1rem;
+    font-weight: normal;
+  }
+  //h4:hover {
+  //  background-color: var(--surface-d);
+  //  background-blend-mode: darken;
+  //}
+}

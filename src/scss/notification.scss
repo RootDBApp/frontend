@@ -1,0 +1,31 @@
+.notification-wrapper {
+
+  .notification-icon {
+    margin-right: $spacer !important;
+  }
+  .notification-content {
+    display: flex;
+    flex-flow: column;
+    .notification-title {
+      font-weight: bolder;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.service-messages {
+  //.p-message-wrapper {
+  //
+  //  flex-direction: column;
+  //  align-content: flex-start;
+  //}
+  .p-message-summary {
+    font-weight: bolder;
+  }
+
+  .p-message-detail {
+  }
+}

@@ -1,0 +1,27 @@
+.p-tooltip {
+  max-width: 30rem;
+
+  &.w-auto {
+    max-width: none !important;
+  }
+
+  &.no-arrow {
+    .p-tooltip-arrow {
+      display: none;
+    }
+  }
+
+  &.report-parameters-tab-preview {
+    background-color: var(--surface-a);
+
+    .p-tooltip-arrow {
+      border-bottom-color: var(--surface-a)  !important;
+      background-color: var(--surface-a);
+    }
+
+    .p-tooltip-text {
+      background-color: var(--surface-a);
+    }
+  }
+}
+

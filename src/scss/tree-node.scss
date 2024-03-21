@@ -1,0 +1,10 @@
+.p-tree .p-tree-container .p-treenode {
+  .p-badge {
+    background-color: var(--surface-d);
+    color: var(--text-color) !important;
+  }
+
+  &, .p-treenode-leaf {
+    padding-right: 0 !important;
+  }
+}

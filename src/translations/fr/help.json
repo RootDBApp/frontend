@@ -1,0 +1,406 @@
+{
+    "cards" : {
+        "configure_connector" : {
+            "title" : "Connecteur",
+            "subtitle" : "Comment configurer un connecteur",
+            "summary" : "C'est la première chose à faire : configurer un accès à vos données.",
+            "to_know" : {
+                "title" : "Important à savoir",
+                "1" : "Pour l'instant, RootDB supporte les base de données <strong>MySQL</strong>, <strong>MariaDB</strong> et <strong>PostgreSQL</strong>. Le support d'autres types de base de données, tel que Microsoft SQL server arriveront prochainement.",
+                "2" : "RootDB supporte les connexions chiffrées aux bases de données distantes. (si la base de données que à laquelle vous voulez accéder n'est pas sur le même serveur.)"
+            },
+            "setup_access" : {
+                "title" : "Accéder au formulaire de configuration",
+                "1" : "Cliquer sur le <strong>menu Utilisateur</strong> dans la barre d'en-tête, aller dans le sous-menu <strong>Administration</strong>.",
+                "2" : "Et cliquer sur <strong>Connecteurs...</strong>"
+            },
+            "connector_configuration" : {
+                "title" : "Configuration du connecteur",
+                "1" : "Avant de configurer un connecteur",
+                "2" : "Vous devez configurer un utilisateur dans la base données pour que l'API de RootDB puisse y accéder.<br />Ci-dessous un example des permissions à configurer sur votre base de données :<br /><br />",
+                "3" : "L'adresse IP à autoriser est disponible dans le formulaire de configuration. Assurez-vous que votre base de données soit accessible depuis l'extérieur.",
+                "3_1" : "Pour référence vous pouvez consulter la <1>documentation pour MariaDB.<2></2></1>",
+                "4" : "Configuration et test",
+                "5" : "Une fois que les permissions sont configurées sur votre base de données vous n'avez plus qu'à remplir l'hôte, le port & co.",
+                "6" : "Vous pouvez tester l'accès à la base de données et une fois validé, les permissions pour l'utilisateur seront affichées, vous permettant de vérifier que tout est OK."
+            }
+        },
+        "first_report" : {
+            "title" : "Votre premier rapport",
+            "subtitle" : "Comment créer un rapport",
+            "summary" : "Les différentes étapes permettant de créer un rapport, avec explication de l'interface de développement.",
+            "to_know" : {
+                "title" : "Important à savoir",
+                "1" : "Votre rapport ne sera pas visible par défaut pour les utilisateurs ne possédant que le role \"Viewer\". Donc n'oubliez pas de mettre à jour la configuration du rapport pour le rendre visible quand il est prêt pour les utilisateurs."
+            },
+            "where_to_start" : {
+                "title" : "Ou est-ce qu'il faut cliquer ?",
+                "1" : "Si vous cliquez sur le bouton <strong>+</strong> dans l'en-tête, vous devrez sélectionner le répertoire dans lequel stocker ce rapport.",
+                "2" : "Et si vous cliquez directement sur le bouton <strong>Créer un rapport</strong>, le répertoire du nouveau rapport sera automatiquement sélectionné."
+            },
+            "report_configuration" : {
+                "title" : "Configuration du rapport",
+                "1" : "Le nom du rapport par défaut. Vous ne pouvez pas utiliser les valeurs des éventuels paramètres en entrée du rapport dans ce champ. Ce champ est utilisé dans l'onglet du rapport.",
+                "2" : "Le champ \"titre\" accepte les éventuelles valeurs des paramètres en entrée du rapport. Si ce champ est utilisé, c'est celui-là qui sera utilisé lors de l'affichage d'un rapport plutôt que le champ \"nom\". (consultez l'aide \"Paramètres de rapport\")",
+                "3" : "Vous pouvez associer ce rapport à une catégorie...",
+                "4" : "... et le ranger dans un répertoire afin de filtrer facilement les rapports dans l'onglet Accueil. (barre latérale de gauche)",
+                "5" : "Enfin, vous devez sélectionner le connecteur (base de données) que vous souhaitez utiliser avec ce rapport."
+            },
+            "report_data_view_configuration" : {
+                "title" : "Configuration d'une vue",
+                "0" : "Un rapport peut contenir une ou plusieurs types de vues, donc vous devez configurer au moins une vue pour afficher les données.",
+                "1" : "Le nom de la vue telle qu'elle apparaîtra toujours dans les sélecteurs de vues - pour les développeurs.",
+                "2" : "Si vous configurez un \"titre\" pour cette vue, c'est ce \titre\" qui sera utilisé dans le rapport est affiché. Ce champ accepte des valeurs de paramètres de rapport.  (consultez l'aide \"Paramètres de rapport\")",
+                "3" : "Ici vous pouvez sélectionner le type de vue à créer. Pour l'instant, un tableau ou un graphique.",
+                "4" : "Cette option est utilisée quand on vous avez besoin de récupérer beaucoup de lignes de résultats, avec beaucoup de données par ligne. Vous pouvez obtenir vos résultats morceaux par morceaux avec option activée, en spécifiant le nombre de lignes par morceau.",
+                "5" : "Vous avez un accès complet à deux des plus populaires bibliothèque de génération de graphiques. <strong>La plus facile à utiliser est Chart.js</strong>",
+                "6" : "Sélectionnez ensuite le type de graphique que vous souhaitez utiliser et vous aurez du code javascript prêt à l'emploi. Si vous ne savez pas encore et êtes familier d'une de ces bibliothèques, alors vous pouvez choisir <strong>personnalisé</strong> ou vous aurez à configurer vous-même le code javascript."
+            },
+            "report_parameters" : {
+                "title" : "Paramètres de rapport",
+                "0" : "Les paramètres d'un rapport sont expliqués dans l'aide dédiée \"Paramètres d'un rapport\"",
+                "1" : "Donc, pour l'instant, fermez cette fenêtre modale et éditer la vue."
+            },
+            "development_interface" : {
+                "title" : "Interface de développement",
+                "0" : "Nous y voilà, ceci est l'interface de développement principale dans laquelle vous passerez la majorité de votre temps. Heureux ? :)<br/>La capture à gauche présente l'interface en mode développement de graphique.",
+                "1" : "Cette icône, dans l'onglet du rapport, fermera le mode l'édition de la vue et affichera toutes les vues du rapport.",
+                "2" : "Utilisez ce sélecteur de vues pour... switcher entre les vues du rapport.",
+                "3" : "Le menu du rapport ou vous trouverez quelques options utiles.",
+                "4" : "Le bouton lecture de gauche : pour exécuter le rapport (toutes les vues) avec les paramètres actuels. Le bouton lecture de droite est affiché seulement si il y a des paramètres configuré pour ce rapport et vous permettra de changer les paramètres du rapport avant de l'exécuter.",
+                "5" : "Utilisez ce bouton <strong>+</strong> pour ajouter une nouvelle vue au rapport.",
+                "6" : "Menu de la vue en cours d'édition.",
+                "7" : "Édition de la requête SQL principale. Une seule requête est autorisé ici. C'est cette requête qui va récupérer les données à utiliser pour la vue. Les principales fonctionnalités sont :",
+                "7_1" : "Raccourcis clavier pour exécuter la requête, activer le mode plein-écran.",
+                "7_2" : "Auto-complétion pour les tables et les vues de la base de données, et les paramètres du rapport.",
+                "7_3" : "Coloration syntaxique pour le SQL.",
+                "8" : "Cette partie de l'interface affiche un éditeur javascript quand vous éditez un graphique ou bien un module de configuration clé-en-main lorsque vous éditez un tableau.",
+                "9" : "À chaque fois que vous exécutez la requête ou que vous mettez à jour le code javascript ou bien mettez à jour une option dans le module de configuration d'un tableau, le graphique ou tableau est rafraichi.",
+                "10" : "Utilisez ce switch pour... switcher entre le graphique et les données brutes retournées par la requête. Disponible uniquement lorsque vous éditez un graphique.",
+                "11" : "Si vous ne voulez pas utiliser le raccourci clavier pour sauvegarder et exécuter la requête actuelle, alors utilisez ce bouton.",
+                "12" : "Tous les évènement relatifs au rapport courant seront affichés ici."
+            },
+            "auto_completion" : {
+                "title" : "Exemple d'auto-completion"
+            },
+            "raw_data" : {
+                "title" : "Exemple d'affichage des données brutes"
+            }
+        },
+        "report_parameters" : {
+            "title" : "Paramètres de rapport",
+            "subtitle" : "Tout ce que vous devez savoir",
+            "summary" : "Comment configurer un paramètre de rapport, comment créer des paramètres personnalisés.",
+            "to_know" : {
+                "title" : "Bon à savoir",
+                "1" : "Les rapports peuvent avoir des paramètres en entrée. Ils permettent, la plupart du temps, de filtrer les requêtes SQL en les restreignant à des intervalles de dates, des IDs particuliers...",
+                "2" : "Quand une nouvelle organisation est configurée, des paramètres en entrée par défaut sont créés. Par exemple un sélecteur de date, des cases à cocher oui/non, des champs génériques texte ou nombre.",
+                "3" : "Vous pouvez bien sûr créer vos propres paramètres en entrée et cette aide est là pour vous guider."
+            },
+            "input_parameters" : {
+                "title" : "Paramètres en entrée",
+                "1" : "Pour voir les paramètres en entrée déjà existants, les modifier ou en créer de nouveaux, cliquer sur l'icône des paramètres en entrée dans la barre de menu.",
+                "2" : "La première chose à faire est de nommer votre nouveau paramètre. C'est ce nom qui apparaitra dans la liste de sélection d'un paramètre, quand vous configurerez plus tard les paramètres disponibles pour un rapport.",
+                "3" : "Le paramètre peut avoir un ou des valeurs par défaut. Par exemple, si il s'agit d'un simple champ texte, vous pouvez lui assigner une valeur par défaut. Si il s'agit d'un paramètre de type multi-sélection, vous pouvez assigner une ou plusieurs valeurs afin de pré-sélectionner une ou plusieurs entrées par défaut. (séparées par des virgules)",
+                "4" : "Différents types de paramètres sont disponibles. Il s'agit de l'apparence que prendra le paramètre : case à cocher, simple champ texte, liste de sélection... <br/>Quand vous sélectionnez un type de paramètre, une requête SQL d'exemple vous montre comment générer des valeurs pour votre paramètre.<br/>Par exemple, s'il s'agit de case à cocher ou bien d'une liste de sélection, vous avez besoin d'afficher les valeurs possibles que pourra sélectionner l'utilisateur du rapport.",
+                "5" : "Vous devez également spécifier de quel type sera la valeur du paramètre.",
+                "6" : "Votre paramètre doit être lié - ou pas - à un connecteur.<br/>C'est à dire :<br/>Si votre paramètre ne nécessite pas de requête SQL <strong>ou bien</strong> la requête SQL peut s'exécuter sur n'importe quelle base de données alors vous pouvez choisir le connecteur spécial \"tous les connecteurs\".<br/><br/>Mais si votre requête est dépendante d'une base de données (parce que vous devez interroger des tables bien spécifiques) - ce qui sera généralement le cas, alors vous devez sélectionner le bon connecteur, qui utilise la bonne base de données pour votre requête SQL.",
+                "7" : "Dans cet éditeur vous pouvez écrire <strong>une</strong> requête vous permettant de récupérer, généralement, le couple <strong>code -> valeur</strong> qui servira à remplir la liste de sélection, les options de case à cocher etc...",
+                "8" : "Si vous avez besoin de faire une requête SQL pour récupérer la valeur par défaut d'un paramètre, écrivez là dans cet éditeur.",
+                "9" : "Enfin, pour vérifier votre paramètre, vous pouvez cliquer sur le bouton \"aperçu\" afin de voir à quoi il ressemblera. Si il y des erreurs (SQL entre autre), vérifiez dans l'onglet \"Log\" accessible depuis la barre de menu."
+            },
+            "access_setup_report_parameters" : {
+                "title" : "Accéder à la configuration des paramètres d'un rapport",
+                "1" : "Lorsque vous êtes dans un onglet rapport, affichez le menu du rapport...",
+                "2" : "... et sélectionnez l'option \"Configurer les paramètres en entré\""
+            },
+            "add_report_parameters" : {
+                "title" : "Ajout d'un paramètre au rapport",
+                "1" : "La première chose à faire est de nommer votre paramètre. C'est ce nom qui apparaitra pour les utilisateurs de votre rapport quand ils afficheront la popup permettant de configurer les différents paramètres du rapport avant son exécution.",
+                "2" : "Dans vos requêtes SQL, vous pourrez accéder à la valeur d'un paramètre en utilisant le nom de la variable que vous aurez défini dans ce champ : <strong>@variableName</strong>.",
+                "3" : "Sélectionnez un des paramètres en entrée que vous aurez créé précédemment.",
+                "4" : "Si le paramètre que vous avez sélectionné possède une valeur par défaut mais qu'elle ne convient pour ce rapport, vous pouvez surcharger cette valeur ici.",
+                "5" : "Cette option permet d'aligner horizontalement les paramètres car, par défaut, les paramètres s'affichent les uns en dessous des autres.",
+                "6" : "Si ce rapport est intégré dans un site externe vous avez la possibilité de faire en sorte de cacher un paramètre. Car vous pouvez très bien intégrer le rapport avec des paramètres fixes et, par conséquent, souhaiter que l'utilisateur puisse modifier uniquement certains paramètres et pas d'autres."
+            },
+            "usage_in_sql" : {
+                "title" : "Utilisation des paramètres en SQL",
+                "1" : "Voici quelques exemple en SQL vous montrant de quelle manière vous pouvez utiliser les valeurs des paramètres en entrée du rapport dans vos requêtes.",
+                "2" : "Exemple le plus simple, récupérer la valeur d'un paramètre retournant qu'une seule valeur :",
+                "3" : "Exemple quand le paramètre retourne plusieurs valeurs (multi-sélection)  :"
+            },
+            "auto_completion" : {
+                "title" : "Auto-completion des variables correspondant aux paramètres du rapport"
+            },
+            "auto_completion_title" : {
+                "title" : "Afficher les valeurs d'un paramètre",
+                "12" : "Que ce soit dans le titre ou la description d'une vue ou d'un rapport, vous avez la possibilité d'afficher les valeurs d'un paramètre.<br/> Utilisez le caractère <strong>[</strong> pour sélectionner le paramètre à afficher."
+            },
+            "report_parameters_value_display" : {
+                "title" : "Exemple d'affichage des valeurs d'un paramètre dans la description d'un rapport"
+            }
+        },
+        "keyboard_shortcuts" : {
+            "title" : "Raccourcis clavier",
+            "subtitle" : "Pour gagner du temps",
+            "summary" : "Liste de tous les raccourcis clavier disponibles.",
+            "header" : {
+                "shortcut" : "Raccourci clavier",
+                "context" : "Contexte",
+                "action" : "Action"
+            },
+            "1" : {
+                "context" : "Disponible partout",
+                "action" : "Aller vers l'onglet de gauche."
+            },
+            "2" : {
+                "context" : "Disponible partout",
+                "action" : "Aller vers l'onglet de droite."
+            },
+            "3" : {
+                "context" : "Rapport",
+                "action" : "Exécuter le rapport avec les paramètres actuels."
+            },
+            "4" : {
+                "context" : "Rapport (développeur)",
+                "action" : "Afficher/cacher les requêtes d'initialisation."
+            },
+            "5" : {
+                "context" : "Rapport (développeur)",
+                "action" : "Afficher/cacher les requêtes de nettoyage."
+            },
+            "6" : {
+                "context" : "Rapport (développeur)<br/>> Édition d'une vue",
+                "action" : "Afficher/cacher la requête principale de la vue."
+            },
+            "7" : {
+                "context" : "Rapport (développeur)<br/>> Édition d'une vue<br/>> <strong>Éditeur de requête principale</strong>",
+                "action" : "Sauvegarde la requête et l'exécute."
+            },
+            "8" : {
+                "context" : "Éditeur",
+                "action" : "Basculer en mode plein écran."
+            },
+            "9" : {
+                "context" : "Rapport (développeur)<br/>> Édition d'une vue<br/>> <strong>Éditeur de code javascript</strong>",
+                "action" : "Sauvegarde le code javascript."
+            },
+            "10" : {
+                "context" : "Console SQL (développeur)",
+                "action" : "Commenter la ou les lignes."
+            },
+            "11" : {
+                "context" : "Console SQL (développeur)",
+                "action" : "Exécuter toutes les requêtes."
+            },
+            "12" : {
+                "context" : "Console SQL (développeur)",
+                "action" : "Exécuter les requêtes sélectionnées."
+            },
+            "13" : {
+                "context" : "Disponible partout",
+                "action" : "Fermer l'onglet actuel."
+            },
+            "14" : {
+                "context" : "Disponible partout",
+                "action" : "Fermer tous les onglets."
+            },
+            "15" : {
+                "context" : "Disponible partout",
+                "action" : "Ouvre l'onglet des journaux. (et sélectionne automatiquement les journaux du rapport actif)"
+            }
+        },
+        "interface_overview" : {
+            "title" : "Aperçu de l'interface",
+            "subtitle" : "Concepts clés",
+            "summary" : "",
+            "to_know" : {
+                "title" : "Bon à savoir",
+                "1" : "L'application se base sur des onglets, ce qui veut dire que vous pouvez ouvrir plusieurs rapports en même temps."
+            },
+            "home_tab" : {
+                "title" : "Onglet Accueil",
+                "1" : "Menu utilisateur ou vous pourrez configurez quelques préférences, mettre à jour votre profil accéder à des modules d'administration, si votre utilisateur possède les droits, voir la version actuelle de RootDB et un lien vers les notes de version, quand une mise à jour est disponible, et vous déconnecter.",
+                "2" : "La barre latérale de gauche vous permet de filtrer les rapports par répertoire rapidement ainsi que de chercher un répertoire en particulier.",
+                "3" : "Vous pouvez chercher un rapport par son nom en cliquant sur la loupe dans la barre de menu.",
+                "4" : "En cliquant sur les icônes représentant des dossiers vous pouvez plier / déplier toute l'arborescence d'un répertoire.",
+                "5" : "Vous permet d'ajouter un rapport à votre liste de rapports favoris, que vous pourrez retrouver en sélectionnant <strong>Favoris</strong> dans la barre latérale gauche.",
+                "6" : "Si un rapport possède des paramètres, cliquez sur cette icône pour les afficher, les configurer et exécuter le rapport.",
+                "7" : "Cette icône permet de lancer un rapport avec ces paramètres par défaut. (si il en possède)"
+            },
+            "report_tab" : {
+                "title" : "Onglet rapport",
+                "1" : "Lorsque vous afficher un rapport, vous retrouvez les mêmes options que dans l'onget Accueil, mais cette fois-ci dans la barre de menu.",
+                "2" : "Vous pouvez changer donc les paramètres du rapport facilement."
+            },
+            "home_tab_as_dev" : {
+                "title" : "Onglet Accueil vu par un développeur",
+                "1" : "Vous pouvez afficher directement depuis cet onglet le module de configuration du rapport, sans avoir à l'ouvrir.",
+                "2" : "Il est possible d'éditer directement un vue en particulier en la sélectionnant dans la liste déroulante qui s'affichera en cliquant sur l'icône représentant un crayon.",
+                "3" : "Cliquez sur l'icône écran dans la barre de menu pour afficher la console SQL dans un nouvel onglet.",
+                "4" : "C'est ici que vous pourrez créer des paramètres en entrée pour vos rapports. Reportez vous à l'aide \"Paramètres de rapport\" pour plus d'information.",
+                "5" : "Pour créer un rapport. Reportez vous à l'aide \"Votre premier rapport\" pour plus d'information.",
+                "6" : "La barre de debug vous permettra de voir tout ce qui passe au niveau de l'application. Les erreurs ou les évènements relatifs aux rapports s'afficheront ici. (erreur SQL, côté API, erreur javascript etc...)"
+            },
+            "report_tab_as_dev" : {
+                "title" : "Onglet rapport vu par un développeur",
+                "1" : "Vous pouvez exécuter qu'une seule vue à la fois en cliquant ici.",
+                "2" : "L'icône crayon vous permettra de passer en mode édition de la vue.",
+                "3" : "Afficher le module de configuration de la vue.",
+                "4" : "Et vous pouvez supprimer une vue directement ici."
+            }
+        },
+        "report_links" : {
+            "title" : "Liens entre les rapports",
+            "subtitle" : "Créer des liens pour naviguer dans vos rapports.",
+            "summary" : "À partir d'un exemple concret, découvrez comment générer plusieurs types de liens entre vos rapports.",
+            "to_know" : {
+                "title" : "Important à savoir",
+                "1" : "Cet exemple vous montre comment créer des liens entre vos rapports dans vos tableaux.",
+                "2" : "Pour un exemple de lien avec un graphique, avec Chart.js par exemple, vous pouvez consulter des exemples concrets sur le site de <1>démonstration<2></2></1>."
+            },
+            "example_report" : {
+                "title" : "Rapport cible",
+                "1" : "Le rapport \"Films\", visible sur le site de démonstration, contient beaucoup de paramètres en entrée."
+            },
+            "report_with_links" : {
+                "title" : "Rapport contenant des liens",
+                "1" : "La colonne \"Film title\", du rapport \"Current rentals\", contient des liens vers 2 rapports :",
+                "2" : "Un lien vers le rapport cible \"Film\",",
+                "3" : "Et deux autres liens vers ce même rapport :",
+                "4" : "un lien pour ouvrir ce rapport dans le même onglet,",
+                "5" : "et un autre pour l'ouvrir dans un nouvel onglet."
+            },
+            "access_report_link_configuration" : {
+                "title" : "Accéder au formulaire de configuration des liens",
+                "1" : "Éditer la vue contenant le tableau et cliquer sur l'onglet contenant les options relatives à l'affichage des colonnes.",
+                "2" : "En étendant les options de la colonne pour laquelle vous souhaitez ajouter un ou des liens, cliquez sur le bouton \"Liens vers des rapports\"."
+            },
+            "report_link_configuration" : {
+                "title" : "Configuration d'un lien",
+                "1" : "Vous pouvez donner un label au lien que vous allez créer.<br/>Cela est utile dans le cas ou la colonne contient plusieurs liens, car, étant alors affichés dans une popup, ils doivent avoir un label pour qu'ils soit possible de les différencier.<br/>Mais si la colonne ne contient qu'un seul lien, alors aucune popup n'est affichée.<br/>Le lien sera mis sur la valeur de la colonne, avec une icône de lien.",
+                "2" : "Séléction du rapport ciblé. À noter que vous ne pourrez sélectionner que des rapports contenant des paramètres en entrée dans cette liste déroulante.",
+                "3" : "Une fois le rapport cible sélectionné, tous ses paramètres en entrée seront listés.<br/>Ils seront ajoutés à l'URL lorsque l'utilisateur cliquera dessus.<br/>Vous avez la possibilité d'ignorer des paramètres afin qu'ils ne soient pas présents dans l'URL.",
+                "4" : {
+                    "1" : "Pour chaque paramètre vous devez indiquer de quelle manière récupérer sa valeur :",
+                    "2" : "Si vous sélectionnez \"Valeur de la colonne\", la valeur utilisée pour ce paramètre correspondra à la valeur de l'une des colonnes de ce rapport, à sélectionner dans la liste déroulante à droite.",
+                    "3" : "Si vous sélectionnez \"Paramètre du rapport\", la valeur utilisée pour ce paramètre correspondra à un des paramètres en entrée de ce rapport, à sélectionner dans la liste déroulante à droite."
+                }
+            },
+            "link_same_report" : {
+                "title" : "Créer un lien vers le même rapport",
+                "1" : "Lorsque le rapport cible que vous avez sélectionné est le même que le rapport que vous êtes entrain d'éditer, vous avez alors la possibilité de faire en sorte que ce lien s'ouvre dans le même onglet.<br/>Cela permettra aux utilisateurs de filtrer plus rapidement le rapport, sans passez par la popup contenant tous les paramètres en entrée."
+            }
+        }
+    },
+    "credits" : {
+        "thanks" : "Liste non exhaustive des projets open-source utilisés par RootDB."
+    },
+    "quick_overview" : {
+        "common" : {
+            "consult_help" : "N'hésitez pas à consulter la rubrique d'aide dédiée :"
+        },
+        "dev" : {
+            "0" : {
+                "title" : "Bienvenue sur RootDB",
+                "1" : "Merci d’utiliser RootDB.",
+                "2" : "Ce tour du propriétaire a pour but de vous présenter tout ce qu’il faut savoir pour débuter le reporting avec RootDB: la terminologie employée, la structure d’un rapport et les points essentiels l'interface utilisateur.",
+                "3" : "Vous pouvez y accéder à tout moment depuis le menu utilisateur."
+            },
+            "1" : {
+                "title" : "Connecteur, rapport & Vue",
+                "1" : "Un <strong>rapport</strong> est constitué de :",
+                "2" : "une ou plusieurs vues permettant d’afficher des données sous forme, principalement, de tableaux ou de graphiques.",
+                "3" : "requêtes SQL exécutées avant / après le rendu des vues afin d’initialiser des variables ou tables temporaires qui pourront être utilisées dans les requêtes SQL des vues.",
+                "4" : "paramètres en entrée, afin de filtrer les données à récupérer en base de données. Ces paramètres sont utilisés dans les requêtes SQL.",
+                "5" : "Une <strong>vue</strong> est composée de 3 éléments :",
+                "6" : "une requête SQL, pour récupérer les données.",
+                "7" : "du code javascript dans le cas d’un graphique ou une interface de configuration dans le cas d’un tableau.",
+                "8" : "la vue, à proprement parler, des données : un graphique ou un tableau.",
+                "9" : "Avant toute chose il vous faudra configurer au moins un <strong>connecteur</strong> qui représente une connexion à une base de données. (Mysql/MariaDB/PostgreSQL pour l'instant)",
+                "10" : "Une fois le connecteur créé, vous pourrez commencer à créer des rapports."
+            },
+            "2" : {
+                "title" : "C’est root",
+                "1" : "En ce qui concerne la manière dont les données sont récupérées et la création des graphiques, RootDB a fait le choix de donner le plus de latitudes possible au développeur ce qui implique qu’il doit connaître :",
+                "2" : "le language SQL - car oui, bien maîtrisé, il permet de faire énormément de choses.",
+                "3" : "connaitre le javascript car RootDB donne un accès complet à Chart.js ou D3.js - permettant ainsi l’utilisation directe de la documentation officielle de ces deux bibliothèques.",
+                "4" : "À noter que RootDB fourni des modèles de graphiques prêt à l'emploi avec requête SQL d'exemple, pour les graphiques les plus communs. Cela permet d'avoir une base de code javascript sur laquelle développer les fonctionnalités du graphique, au besoin."
+            },
+            "3" : {
+                "title" : "Barre de menu",
+                "0" : "Rien d’extra-ordinaire ici :)",
+                "1" : "Menu utilisateur ou vous pourrez configurez quelques préférences, mettre à jour votre profil, accéder à des modules d'administration (si votre utilisateur possède les droits), voir la version actuelle de RootDB et un lien vers les notes de version, quand une mise à jour est disponible.",
+                "2" : "Permet d'ouvrir l'onglet <strong>Aide</strong>, contenant tout ce qu'il faut savoir concernant la création de rapport.",
+                "3" : "Permet d'afficher l'onglet <strong>Accueil</strong>, qui liste tous les rapports disponibles.",
+                "4" : "Ouvre une <strong>console SQL</strong>, avec affichage des tables et vues des base de données. Vous pourrez également de créer des brouillons de requêtes SQL.",
+                "5" : "Affiche l'onglet <strong>log</strong>, permettant d'afficher les logs applicatifs et de les filtrer par rapport.",
+                "6" : "Ouvre l'onglet des <strong>Paramètres en entrée des rapports</strong>.",
+                "7" : "Cherchez un rapport en cliquant ici.",
+                "8" : "Ouvre l'assistant de création de rapport."
+            },
+            "4" : {
+                "title" : "Options de lancement et gestion du rapport",
+                "1" : "Exécuter directement le rapport, en utilisant les paramètres en entrée par défaut. (si il y en a)",
+                "2" : "Permet de configurer les paramètres en entrée du rapport et de l'exécuter.",
+                "3" : "Ajouter ou enlever ce rapport des favoris.",
+                "4" : "Ouvrir la fenêtre de configuration du rapport. (titre, description, visibilité, emplacement, permissions, options de partage...)",
+                "5" : "Permet de directement sélectionner une vue afin d'éditer son code."
+            },
+            "5" : {
+                "title" : "Onglet rapport",
+                "1" : "Vous trouverez ici le menu principal du rapport afin de gérer ses vues, le configurer, gérer ses paramètres en entrée ou bien éditer les requêtes SQL d'initialisation ou nettoyage.",
+                "2" : "Indicateur de visibilité du rapport. Par défaut il n'est visible que par le développeur. Vous pouvez cliquer ici pour le rendre visible, ou pas.",
+                "6" : "Comme il est possible d'avoir le même rapport ouvert dans plusieurs onglets, vous pouvez voir les paramètres en entrée utilisés dans chaque onglet en appuyant sur un onglet, en mode mobile, ou bien en laissant le curseur de la souris au dessus d'un onglet."
+            },
+            "6" : {
+                "title" : "Options d'une vue",
+                "1" : "Pour supprimer la vue d'un rapport. (avec fenêtre de confirmation)",
+                "2" : "Configuration de la vue. (titre, description...)",
+                "3" : "Éditer le code SQL / javascript de la vue.",
+                "4" : "Exécuter la vue.",
+                "5" : "Exporter en CSV les données de la vue, uniquement disponible pour la vue de type tableau."
+            }
+        },
+        "viewer_or_admin" : {
+            "0" : {
+                "title" : "Bienvenue sur RootDB",
+                "1" : "Merci d’utiliser RootDB.",
+                "2" : "Ce tour du propriétaire a pour but de vous présenter tout ce qu’il faut savoir pour utiliser RootDB: la terminologie employée, la structure d’un rapport et les points essentiels l'interface utilisateur.",
+                "3" : "Vous pouvez y accéder à tout moment depuis le menu utilisateur."
+            },
+            "1" : {
+                "title" : "Rapport & Vue",
+                "1" : "Un <strong>rapport</strong> est constitué de :",
+                "2" : "une ou plusieurs <strong>vues</strong> permettant d’afficher des données sous forme, principalement, de tableaux ou de graphiques.",
+                "3" : "paramètres en entrée, afin de filtrer les données à récupérer en base de données."
+            },
+            "2" : {
+                "title" : "Barre de menu",
+                "0" : "Rien d’extra-ordinaire ici :)",
+                "1" : "Menu utilisateur ou vous pourrez configurez quelques préférences, mettre à jour votre profil, accéder à des modules d'administration (si votre utilisateur possède les droits), voir la version actuelle de RootDB et un lien vers les notes de version, quand une mise à jour est disponible.",
+                "2" : "Permet d'ouvrir l'onglet <strong>Aide</strong>, contenant tout ce qu'il faut savoir concernant la création de rapport.",
+                "3" : "Permet d'afficher l'onglet <strong>Accueil</strong>, qui liste tous les rapports disponibles.",
+                "4" : "Cherchez un rapport en cliquant ici."
+            },
+            "3" : {
+                "title" : "Options de lancement rapport",
+                "1" : "Exécuter directement le rapport, en utilisant les paramètres en entrée par défaut. (si il y en a)",
+                "2" : "Permet de configurer les paramètres en entrée du rapport et de l'exécuter.",
+                "3" : "Ajouter ou enlever ce rapport des favoris."
+            },
+            "4" : {
+                "title" : "Onglet rapport",
+                "1" : "Vous trouverez ici le menu principal du rapport afin de gérer ses vues, le configurer, gérer ses paramètres en entrée ou bien éditer les requêtes SQL d'initialisation ou nettoyage.",
+                "2" : "Indicateur de visibilité du rapport. Par défaut il n'est visible que par le développeur. Vous pouvez cliquer ici pour le rendre visible, ou pas.",
+                "6" : "Comme il est possible d'avoir le même rapport ouvert dans plusieurs onglets, vous pouvez voir les paramètres en entrée utilisés dans chaque onglet en appuyant sur un onglet, en mode mobile, ou bien en laissant le curseur de la souris au dessus d'un onglet."
+            },
+            "5" : {
+                "title" : "Options d'une vue",
+                "1" : "Exporter en CSV les données de la vue, uniquement disponible pour la vue de type tableau."
+            }
+        }
+    },
+    "not_now" : "Pas maintenant",
+    "view" : "Voir"
+}

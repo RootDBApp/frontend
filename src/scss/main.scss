@@ -1,0 +1,51 @@
+$enable-responsive-font-sizes: true;
+$enable-prefers-reduced-motion-media-query: false;
+
+
+@import 'toastify/main';
+
+@import "~primeflex/core/variables";
+@import "variables";
+
+@import "general";
+
+@import "~primeflex/primeflex";
+@import "~primereact/resources/primereact.css";
+@import "~primeicons/primeicons.css";
+@import "primereact_override";
+
+@import "icons";
+@import "layout_help";
+@import "layout_home";
+@import "layout_main";
+@import "layout_parameter_inputs";
+@import "layout_report_dev";
+@import "layout_sql_console";
+@import "header";
+@import "header-tabs";
+@import "contextual-menu";
+@import "divider";
+@import "menu";
+@import "form";
+@import "login";
+@import "settings";
+@import "react-ace";
+@import "text-colors";
+@import "layout-data-view-grid";
+@import "notification";
+@import "dialog";
+@import "button";
+@import "tooltip";
+@import "table";
+@import "debug";
+
+@import 'data-view';
+
+@import "footer";
+
+// components override
+@import "tree-node";
+
+@import "border-radius";
+
+@import "animation";

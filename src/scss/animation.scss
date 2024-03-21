@@ -1,0 +1,16 @@
+.flash {
+  color:#fff;
+  -webkit-animation: flash linear 1.2s;
+  animation: flash linear 1.2s;
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  80% { opacity: 1; color:#fff; }
+  83% { opacity: 0; color:#fff; }
+  86% { opacity: 1; color:#fff;}
+  89% { opacity: 0}
+  92% { opacity: 1; color:#fff;}
+  95% { opacity: 0; color:#fff;}
+  100% { opacity: 1; color:#fff;}
+}

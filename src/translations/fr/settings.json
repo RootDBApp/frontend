@@ -1,0 +1,156 @@
+{
+    "current_value" : "Valeur actuelle",
+    "category" : {
+        "delete_category_alert_one" : "{{count}} rapport sera supprimé avec cette catégorie.",
+        "delete_category_alert_other" : "{{count}} rapports seront supprimés avec cette catégorie.",
+        "move_report_to_this_category_one" : "Bouger le rapport vers cette catégorie",
+        "move_report_to_this_category_other" : "Bouger les {{count}} rapports vers cette catégorie",
+        "no_reports_in_this_category" : "Pas de rapport dans cette catégorie"
+    },
+    "directory" : {
+        "delete_directory_alert_one" : "{{count}} rapport sera supprimé avec ce répertoire.",
+        "delete_directory_alert_other" : "{{count}} rapports seront supprimés ce répertoire.",
+        "move_report_to_this_directory_one" : "Bouger le rapport vers ce répertoire",
+        "move_report_to_this_directory_other" : "Bouger les {{count}} rapports vers ce répertoire",
+        "no_reports_in_this_directory" : "Pas de rapport dans ce répertoire"
+    },
+    "editor_preferences" : {
+        "font_size" : "Taille des caractères",
+        "highlight_active_line" : "Mise en surbrillance de la ligne active",
+        "show_line_number" : "Afficher les numéros de ligne",
+        "show_print_margin" : "Afficher la marge",
+        "tab_size" : "Taille des tabulations",
+        "title" : "Préférences de l'éditeur",
+        "theme" : "Thème"
+    },
+    "global_administration" : {
+        "connector" : {
+            "action_to_perform" : "Action à réaliser",
+            "affected_reports" : "Rapports concernés",
+            "affected_parameter_inputs" : "Paramètres en entrée concernés",
+            "all_connectors" : "tous les connecteurs",
+            "assign_to_another_connector" : "assigner à un autre connecteur",
+            "connector" : "Connecteur",
+            "connector_configuration" : "Configuration des connecteurs",
+            "users_management" : "Gestion des utilisateurs",
+            "connectors" : "Connecteurs",
+            "cipher_in_use" : "Chiffrement utilisé",
+            "database_connection" : "Connexion à la base de données",
+            "database_name" : "Nom de la base de données",
+            "database_name_tooltip" : "Pour une connexion de type PostgreSQL, ce champ correspond au schéma à utiliser par défaut.",
+            "delete_connector_alert_one" : "{{count}} rapport sera supprimé avec ce connecteur",
+            "delete_connector_alert_other" : "{{count}} rapports seront supprimés avec ce connecteur",
+            "delete_input_parameter_alert_one" : "{{count}} paramètre en entrée sera supprimé avec ce connecteur",
+            "delete_input_parameter_alert_other" : "{{count}} paramètres en entrée seront supprimés avec ce connecteur",
+            "encryption" : "Chiffrement",
+            "grants" : "Autorisations",
+            "host" : "Hôte",
+            "ip_address_to_authorize" : "Adresse IP à autoriser",
+            "mysql_ssl_verify_server_cert" : "Verifier le certificat du serveur",
+            "no_connector_configured" : "Pas de connecteur configuré.",
+            "no_dev" : "Pas de compte développeur configuré.",
+            "new_connector" : "Nouveau connecteur",
+            "pgsql_ssl_mode" : "Mode SSL",
+            "ssl_ca" : "Autorité de certification (ssl ca)",
+            "ssl_key" : "Clé du serveur (ssl key)",
+            "test" : "Tester",
+            "testing" : "Test en cours ...",
+            "test_failed" : "Échec du test",
+            "test_successful" : "Test réussi",
+            "ssl_cert" : "Certificat du serveur (ssl cert)",
+            "ssl_cypher" : "Chiffrement SSL",
+            "super_admin_limitation" : "L'utilisateur super-admin ne peux pas créer de rapport. Vous devez utiliser un compte avec un rôle Développeur pour créer les rapports.",
+            "use_ssl" : "Utiliser le chiffrement SSL",
+            "you_are_super_admin" : "Vous êtes loggé en tant que super-admin",
+            "you_should_setup_a_connector" : "Vous devriez configurer un connecteur afin d'accéder à vos données.",
+            "you_should_setup_a_dev_account" : "Vous devez configurer un compte développeur. (avec les roles Développeur et Admin)",
+            "will_delete_everything" : "Supprimera _tous_ les rapports, paramètres en entrée et les brouillons de requêtes SQL utilisant ce connecteur.",
+            "will_update_report_and_input_parameters" : "Mettra à jour tous les rapports, paramètres en entrée et les brouillons de requêtes SQL avec le connecteur sélectionné ci-dessous."
+        }
+    },
+    "group" : {
+    },
+    "interface_preferences" : {
+        "title" : "Préférences de l'interface",
+        "theme" : {
+            "dark" : "Sombre",
+            "label" : "Thème",
+            "light" : "Clair"
+        },
+        "lang" : {
+            "fr" : "Français",
+            "en" : "Anglais",
+            "label" : "Langue"
+        }
+    },
+    "menu" : {
+        "administration" : "Administration",
+        "categories_administration" : "Administration des catégories",
+        "connector_administration" : "Administration des connecteurs",
+        "directories_administration" : "Administration des répertoires",
+        "organizations_adminstration" : "Administration des organisations",
+        "preferences" : "Préférences",
+        "profile" : "Profil",
+        "input_parameters" : "Paramètres en entrée",
+        "users_administration" : "Administration des utilisateurs"
+    },
+    "organization" : {
+        "add_organization" : "Ajouter une organisation",
+        "delete_organization_alert_one" : "{{count}} rapport sera supprimé avec cette organisation.",
+        "delete_organization_alert_other" : "{{count}} rapports seront supprimés avec cette organisation."
+    },
+    "input_parameters" : {
+        "can_use_multiple_value" : "Vous pouvez mettre plusieurs valeurs, séparées par des virgules, quand le paramètre est de type multi-select.",
+        "preview" : "Aperçu",
+        "will_be_available_regardless_of_the_report_connector " : "Si \"tous les connecteurs\" est sélectionné, le paramètre sera disponible quelque soit le connecteur du rapport",
+        "show_default_query" : "Montrer la requête par défaut",
+        "filter_by_parameter_input_type" : "Filtrer par type de paramètre",
+        "filter_by_name" : "Filtrer par nom"
+    },
+    "service_message" : {
+        "add_message" : "Ajouter un message",
+        "message" : "Message",
+        "service_message" : "Message de service",
+        "service_message_explanation" : "Informer vos utilisateurs à l'aide des messages de service, visible par tout le monde dans l'onglet \"Accueil\"",
+        "summary" : "Résumé"
+    },
+    "system_info" : {
+        "system_info" : "Information système"
+    },
+    "update" : {
+        "api" : "API",
+        "frontend" : "Frontend",
+        "update_available" : "Mise à jour disponible",
+        "up_to_date" : "À jour"
+    },
+    "user" : {
+        "assign_to_another_dev" : "assigner à un autre développer",
+        "change_password" : "Changer le mot de passe",
+        "change_password_validating" : "Changement en cours...",
+        "change_password__validated" : "Changé",
+        "change_password_not_validated" : "Changement impossible !",
+        "configure_users" : "Configurer les utilisateurs",
+        "delete_user_alert_one" : "{{count}} rapport sera supprimé avec cet utilisateur.",
+        "delete_user_alert_other" : "{{count}} rapports seront supprimés avec cet utilisateur.",
+        "firstname" : "Prénom",
+        "force_user_to_reset_his_password_at_next_login" : "Forcer l'utilisateur à changer son mot de passe à la prochain connexion",
+        "lastname" : "Nom",
+        "no_dev_user" : "Pas d'utilisateur développeur",
+        "search_user" : "Chercher un utilisateur...",
+        "reset_password_title" : "Réinitialisation du mot de passe",
+        "reset_password_success" : "Votre mot de passe a été mis à jour.",
+        "you_should_setup_dev_user" : "Vous devriez configurer un utilisateur de type développeur. (avec les roles : \"développeur\" et \"admin\".",
+        "will_delete_everything" : "Supprimera _tous_ les rapports et brouillons de requête SQL créés par cet utilisateur.",
+        "will_update_report_and_input_parameters" : "Mettra à jour tous les rapports et brouillons de requête SQL avec l'utilisateur sélectionné ci-dessous."
+    },
+    "user_preferences" : {
+        "unable_to_save_user_preferences" : "Impossible de sauvegarder les préférences utilisateur.",
+        "user_preferences_saved" : "Préférences utilisateur sauvegardées."
+    },
+    "version" : {
+        "new_version_available" : "Une nouvelle version est disponible.",
+        "please_check_release_not" : "RootDB v{{version}} est maintenant disponible. Vous pouvez consulter les notes de version.",
+        "release_notes" : "Notes de version",
+        "up_to_date" : "À jour"
+    }
+}

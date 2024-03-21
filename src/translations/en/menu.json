@@ -1,0 +1,12 @@
+{
+    "credits" : "Credits",
+    "delete" : "Delete",
+    "edit" : "Edit",
+    "next" : "Next",
+    "options" : "Options",
+    "previous" : "Previous",
+    "quick_tour" : "Introducing RootDB",
+    "tab" : {
+        "close_all_tabs" : "Close all tabs"
+    }
+}

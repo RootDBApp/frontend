@@ -1,0 +1,21 @@
+{
+    "dropdown_cache_job_frequency" : {
+        "choose_frequency" : "Choose a frequency...",
+        "everyFifteenMinutes" : "every 15 minutes",
+        "everyThirtyMinutes" : "every 30 minutes",
+        "hourlyAt" : "hourly",
+        "dailyAt" : "daily",
+        "weeklyOn" : "weekly",
+        "monthlyOn" : "monthly"
+    },
+    "dropdown_week_day" : {
+        "choose_weekday" : "Choose a weekday...",
+        "1" : "Monday",
+        "2" : "Tuesday",
+        "3" : "Wednesday",
+        "4" : "Thursday",
+        "5" : "Friday",
+        "6" : "Saturday",
+        "7" : "Sunda "
+    }
+}

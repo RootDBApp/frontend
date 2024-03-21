@@ -1,0 +1,172 @@
+.ace_editor.ace_autocomplete {
+  width: 600px !important;
+}
+
+.sql-console-splitter-container {
+  overflow: hidden;
+  display: flex;
+  flex-flow: row;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+
+  #sql-console-tree-db-container {
+    overflow: hidden;
+    display: flex;
+    flex-flow: row;
+    width: 450px;
+    min-width: 450px;
+    height: 100%;
+    max-height: 100%;
+    margin-right: 0.5rem;
+    background-color: var(--surface-a);
+    border: 1px solid var(--surface-d);
+    border-bottom-right-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+
+    .splitter-sql-console-tree-db {
+      margin: 1rem;
+      padding: 0;
+      display: flex;
+      flex-flow: column;
+      overflow: auto;
+      flex-grow: 1;
+
+      .p-tree {
+        flex-grow: 1;
+        overflow: auto;
+        background: none;
+        border: none;
+      }
+    }
+
+    &.hide-tree  {
+      width: auto !important;
+      min-width: auto !important;
+
+      .splitter-sql-console-tree-db {
+        display: none;
+      }
+    }
+
+    &-toggle {
+      width: 16px !important;
+      border: none;
+      &:not(:hover) {
+        background: transparent;
+      }
+    }
+  }
+
+  .sql-console-console-results {
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    max-width: 100%;
+    margin-right: 0.5rem;
+  }
+
+  .sql-console-results-panel {
+    flex-grow: 1;
+    display: flex;
+    overflow: hidden;
+    color: #F8F8F2;
+
+    .p-tabview {
+      flex-grow: 1;
+      display: flex;
+      flex-flow: column;
+      max-width: 100%;
+      max-height: 100%;
+    }
+
+    .p-tabview-panels {
+      overflow: auto;
+      flex-grow: 1;
+      background-color: #272822;
+      color: #F8F8F2;
+      border-radius: 10px !important;
+      border-top-left-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+
+    .p-tabview-panel .sql-console-results {
+      background-color: #272822;
+      color: #F8F8F2;
+    }
+
+    .p-paginator {
+      background: none;
+      color: inherit;
+
+      .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
+        color: inherit;
+
+        &:hover {
+          color: inherit;
+          background: #202020;
+        }
+      }
+
+      .p-paginator-pages .p-paginator-page.p-highlight {
+        color: inherit;
+        background: #202020;
+        font-weight: bolder;
+      }
+
+      .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+        background: #202020;
+        color: inherit;
+      }
+
+      .p-inputnumber {
+        background: none;
+        color: inherit;
+
+        .p-inputnumber-button-up, .p-inputnumber-button-down {
+          background: none;
+          border-color: #ced4da;
+        }
+
+        .p-inputtext {
+          color: inherit;
+          background: none;
+          border-color: #ced4da;
+        }
+      }
+    }
+
+    table {
+      border: none !important;
+      color: inherit !important;
+
+      tr, th, td {
+        background: #272822 !important;
+        color: inherit !important;
+      }
+
+      th, td {
+        border: none !important;
+        padding: 0.5rem !important;
+      }
+
+      th {
+        border-bottom: 1px solid #F8F8F2 !important;
+      }
+
+      tr:hover {
+        background: #202020 !important;
+      }
+    }
+  }
+
+
+  .tree-db {
+    border: none;
+    margin-top: 0.25rem;
+    padding: 0 !important;
+    overflow: auto;
+    flex-grow: 1;
+  }
+}

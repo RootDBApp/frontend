@@ -1,0 +1,142 @@
+.menu, .p-menubar .p-submenu-list {
+  min-width: 12.5rem !important;
+  width: max-content !important;
+}
+
+.rdb-menu-bar .p-menubar .rdb-menu-icon-link {
+  padding: 0 !important;
+  margin-right: 1rem;
+}
+
+.rdb-menu-bar .mobile-menubar {
+  padding: 0.5rem;
+  background: #f8f9fa;
+  color: #495057;
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
+}
+
+.rdb-menu-icon-link-with-overlay {
+
+  a {
+    padding: 0 !important;
+  }
+}
+
+.rdb-report-create-button {
+  cursor: pointer;
+}
+
+.rdb-menu-search-inplace {
+  padding: 0 !important;
+  margin-left: -0.5rem;
+  margin-right: 0;
+}
+
+@media screen and (max-width: 960px) {
+  .rdb-menu-search-inplace {
+    padding: 0.2rem 1rem 0.5rem 1rem !important;
+  }
+}
+
+.rdb-tab-data-view-edit {
+  margin-top: -16px !important;
+  max-height: 1rem;
+
+  .active-tab {
+    font-weight: 600;
+    color: var(--primary-color);
+  }
+
+  .inactive-tab {
+    font-weight: 600;
+    color: var(--text-color-secondary);
+  }
+
+  .p-menubar {
+    padding-left: 0;
+    background-color: transparent;
+    border-width: 0;
+
+    .p-dropdown {
+      border-width: 0;
+    }
+  }
+}
+
+
+.p-menubar {
+  z-index: 2000;
+
+
+  .p-submenu-list {
+    z-index: 2000;
+  }
+
+  .p-menuitem {
+
+    .p-menuitem-link {
+      .p-menuitem-text {
+        display: ruby; // @todo  - not working on chrome based engine (to have item label without return line)
+      }
+    }
+
+    &.mobile-only-label {
+      .p-menuitem-text {
+        display: none;
+      }
+
+      @media screen and (max-width: 960px) {
+
+        .p-menuitem-text {
+          display: ruby; // @todo  - not working on chrome based engine (to have item label without return line)
+        }
+
+        .rdb-menu-icon-link {
+          padding: 0.75rem 1rem !important;
+        }
+
+        .rdb-menu-icon-link-with-overlay {
+
+          a {
+            padding: 0.75rem 1rem !important;
+          }
+        }
+
+        .rdb-report-create-button {
+          .p-menuitem-icon {
+            margin-right: 0.43375rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+#pdt-tabs .p-menubar {
+  z-index: 1500;
+}
+
+li.p-menuitem.active * {
+  color: $primary-color-text !important;
+}
+
+.hover-menu-item:hover {
+  background-color: var(--surface-c);
+}
+
+
+.p-slidemenu {
+  &.no-border {
+    border: none;
+
+    .p-menuitem-link, .p-slidemenu-backward {
+      padding-right: 0;
+      padding-left: 0;
+    }
+  }
+
+  .p-menuitem .p-menuitem-icon.icon-play-parameters {
+    background-color: var(--text-color);
+  }
+}

@@ -1,0 +1,63 @@
+
+.autocomplete-spinner > i {
+  font-size: 1rem;
+}
+
+.pi-spin {
+  color: grey;
+}
+
+.p-spinner {
+  color: grey;
+}
+
+.p-colorpicker-preview {
+  width: 100% !important;
+  height: inherit !important;
+}
+
+#report-parameters {
+  label {
+    font-size: 0.8rem;
+  }
+
+  .field-radiobutton > label {
+    font-size: inherit;
+  }
+}
+
+///**
+// * To have the first columns of InputGroup.Append components inside an InputGroup component with the same width.
+// * To use with InputGroup component. ( className="flw-10/15/20...100" )
+// */
+//@for $i from 5 through 100 {
+//  @if ($i%5 == 0) {
+//    form > div > .flw-#{$i} > div:first-child {
+//      // https://youtrack.jetbrains.com/issue/WEB-20693
+//      min-width: #{$i}% !important;
+//    }
+//  }
+//}
+//
+//div[class*="flw"] > div > span {
+//  width: 100% !important;
+//}
+
+.textarea-resize-handler {
+  height: 10px;
+  cursor: row-resize;
+  border: 1px solid $text-color_secondary;
+
+
+  border-bottom-left-radius: 10px !important;
+  border-bottom-right-radius: 10px !important;
+}
+
+.p-chips-multiple-container {
+  flex-grow: 1;
+}
+
+.icon-draggable {
+  cursor: grab;
+  padding-bottom: 0.4rem !important;
+}

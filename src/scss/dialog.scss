@@ -1,0 +1,36 @@
+.p-dialog {
+  width: 90vw;
+  @media screen and (min-width: $md) {
+    width: 70vw;
+  }
+  @media screen and (min-width: $lg) {
+    width: 50vw;
+  }
+
+  &.settings-dialog.p-dialog-maximized {
+    margin: 0.75rem !important;
+    height: calc(100vh - (0.75rem * 2)) !important;
+  }
+
+  &.custom-editor-fullscreen {
+    .p-dialog-content {
+      padding: 0.25rem;
+      border-bottom-right-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
+}
+
+.p-overlaypanel {
+  max-width: 30rem;
+}
+
+//.p-dialog-maximized {
+  //height: calc(100vh - .75rem*2) !important;
+//}
+
+.p-dialog#global-dialog {
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  max-height: calc(100vh - 1rem);
+}

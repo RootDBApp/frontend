@@ -1,0 +1,64 @@
+.p-overlaypanel {
+  border-radius: 10px !important;
+}
+
+.p-dialog {
+  border-radius: 10px !important;
+
+  .p-dialog-header {
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+  }
+
+  .p-dialog-content {
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+}
+
+.p-confirm-dialog {
+  .p-dialog-content {
+    border-bottom-right-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+
+  .p-dialog-footer {
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+  }
+}
+
+.data-view-container {
+  .p-card {
+    border-radius: 15px;
+  }
+}
+
+#home .panel-category {
+  .panel-category-title {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+
+  .p-listbox {
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+  }
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+  &:first-of-type {
+    border-top-left-radius: 10px;
+  }
+  &:last-of-type {
+    border-top-right-radius: 10px;
+  }
+}
+.p-datatable .p-datatable-tfoot > tr > td {
+  &:first-of-type {
+    border-bottom-left-radius: 10px;
+  }
+  &:last-of-type {
+    border-bottom-right-radius: 10px;
+  }
+}

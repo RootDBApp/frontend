@@ -1,0 +1,1 @@
+export type TToastSeverity = 'success' | 'info' | 'warn' | 'error' | undefined;

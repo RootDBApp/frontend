@@ -1,0 +1,2 @@
+
+export const FAVORITES_DIRECTORY_ID = 999999;

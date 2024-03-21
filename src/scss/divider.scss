@@ -1,0 +1,12 @@
+.p-divider {
+
+  .p-divider-content {
+    font-weight: bolder;
+  }
+}
+
+.p-divider-horizontal.p-divider-solid::before {
+
+  border-top: 1px $text-color_secondary !important;
+  border-top-style: solid !important;
+}

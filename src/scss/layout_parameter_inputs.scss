@@ -1,0 +1,16 @@
+#parameter-inputs {
+  flex-grow: 1;
+  margin: 0 0.5rem 0.5rem 0.5rem;
+}
+
+#parameter-inputs-filters {
+  flex-grow: 1;
+  padding: 1rem;
+  display: flex;
+  flex-flow: row;
+  gap: 0.5rem;
+
+  #name-filter {
+    flex-grow: 1;
+  }
+}

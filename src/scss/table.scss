@@ -1,0 +1,91 @@
+.no-header .p-datatable-thead {
+  display: none;
+}
+
+.p-datatable {
+  //overflow: auto;
+  height: 100%;
+
+  &.sticky-header thead {
+    position: sticky;
+    top: 0;
+  }
+
+  &.sticky-footer tfoot {
+    position: sticky;
+    bottom: 0;
+  }
+
+  table {
+    width: 100%;
+    border-spacing: 2px 0;
+
+    thead tr, tfoot tr {
+      .th-paginator {
+        background-color: transparent;
+        padding: 0!important;
+      }
+
+      td {
+        .timing-header {
+          position: absolute;
+          top: 50%;
+          left: 1rem;
+          transform: translateY(-50%);
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          //white-space:nowrap;
+          //padding: 0.75rem 1rem !important;
+
+
+          button.report-link, a.report-link, .collapsible-content button {
+            position: unset; // avoid the button to be displayed above the header
+          }
+
+          .collapsible-content {
+            width: 150px;
+            white-space: nowrap;
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+
+            button {
+              width: auto !important;
+              margin-right: calc($spacer / 2);
+              flex-shrink: 0;
+
+              &:hover {
+                background: transparent !important;
+              }
+            }
+
+            .content {
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+
+        &:hover td {
+          background-color: var(--surface-b);
+        }
+      }
+    }
+  }
+
+  &.fit-content table {
+    width: auto !important;
+    min-width: unset !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.p-overlaypanel.overlay-table-collapsible-content {
+  max-width: 80%;
+}

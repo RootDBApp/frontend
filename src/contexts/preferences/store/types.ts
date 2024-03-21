@@ -1,0 +1,8 @@
+export const DEFAULT_ORGANIZATION_CHANGED = 'DEFAULT_ORGANIZATION_CHANGED';
+export type TDefaultOrganizationChanged = typeof DEFAULT_ORGANIZATION_CHANGED;
+
+export const EDITOR_PPREFERENCES_CHANGED = 'EDITOR_PPREFERENCES_CHANGED';
+export type TEditorPreferencesChanged = typeof EDITOR_PPREFERENCES_CHANGED;
+
+export const FULL_SCREEN_ACTIVATED = 'FULL_SCREEN_ACTIVATED';
+export type TFullScreenActivated = typeof FULL_SCREEN_ACTIVATED;

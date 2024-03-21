@@ -1,0 +1,23 @@
+.height-auto .p-button {
+  height: fit-content;
+}
+
+.p-buttonset.splitted-button {
+  .p-button:first-of-type {
+    padding-right: 0;
+  }
+
+  .p-button:last-of-type {
+    padding-left: 0;
+  }
+}
+
+.p-button .p-badge.button-right-additional-icon {
+  background: transparent !important;
+  margin-left: 0;
+}
+
+.p-button.p-button-icon-only.p-button-xs {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}

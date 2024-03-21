@@ -1,0 +1,10 @@
+window.appConfig = {
+//     'REACT_APP_API_URL': '',
+//     'REACT_APP_ECHO_CLIENT_KEY': '',
+//     'REACT_APP_ECHO_CLIENT_CLUSTER': '',
+//     'REACT_APP_ECHO_CLIENT_AUTHENDPOINT': '',
+//     'REACT_APP_ECHO_CLIENT_WS_HOST': '',
+//     'REACT_APP_ECHO_CLIENT_WS_PORT': '',
+//     'REACT_APP_ECHO_CLIENT_WSS_HOST': '',
+//     'REACT_APP_ECHO_CLIENT_WSS_PORT': '',
+};

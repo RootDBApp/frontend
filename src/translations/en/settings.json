@@ -1,0 +1,156 @@
+{
+    "current_value" : "Current value",
+    "category" : {
+        "delete_category_alert_one" : "{{count}} report will be deleted with this category.",
+        "delete_category_alert_other" : "{{count}} reports will be deleted with this category.",
+        "move_report_to_this_category_one" : "Move the report to this category",
+        "move_report_to_this_category_other" : "Move {{count}} reports to this category",
+        "no_reports_in_this_category" : "No reports in this category."
+    },
+    "directory" : {
+        "delete_directory_alert_one" : "{{count}} report will be deleted with this directory.",
+        "delete_directory_alert_other" : "{{count}} reports will be deleted with this directory",
+        "move_report_to_this_directory_one" : "Move the report to this directory",
+        "move_report_to_this_directory_other" : "Move {{count}} reports to this directory",
+        "no_reports_in_this_directory" : "No reports in this directory."
+    },
+    "editor_preferences" : {
+        "font_size" : "Font size",
+        "highlight_active_line" : "Highlight active line",
+        "show_line_number" : "Show line numbers",
+        "show_print_margin" : "Show print margin",
+        "tab_size" : "Tab size",
+        "theme" : "Theme",
+        "title" : "Editor preferences"
+    },
+    "global_administration" : {
+        "connector" : {
+            "action_to_perform" : "Action to perform",
+            "affected_reports" : "Affected reports",
+            "affected_parameter_inputs" : "Affected input parameters",
+            "all_connectors" : "all connectors",
+            "assign_to_another_connector" : "assign to another connector",
+            "connector" : "Connector",
+            "connector_configuration" : "Connector configuration",
+            "users_management" : "Users management",
+            "connectors" : "Connectors",
+            "cipher_in_use" : "Cipher in use",
+            "database_connection" : "Database's connexion",
+            "database_name" : "Database's name",
+            "database_name_tooltip" : "For a PostgreSQL connection, this field corresponds to the schema name to used by default.",
+            "delete_connector_alert_one" : "{{count}} report will be deleted with this report",
+            "delete_connector_alert_other" : "{{count}} reports will be deleted with this report",
+            "delete_input_parameter_alert_one" : "{{count}} input parameter will be deleted with this report",
+            "delete_input_parameter_alert_other" : "{{count}} input parameters will be deleted with this report",
+            "encryption" : "Encryption",
+            "grants" : "Grants",
+            "host" : "Host",
+            "ip_address_to_authorize" : "IP address to authorize",
+            "mysql_ssl_verify_server_cert" : "Verify server cert",
+            "new_connector" : "New connector",
+            "no_connector_configured" : "No connector configured",
+            "no_dev" : "No developer account configured",
+            "pgsql_ssl_mode" : "SSL mode",
+            "ssl_ca" : "Certificate authority (ssl ca)",
+            "ssl_cert" : "Server certificate (ssl cert)",
+            "test" : "Test",
+            "testing" : "Testing ...",
+            "test_failed" : "Test failed",
+            "test_successful" : "Test successful",
+            "ssl_key" : "Server key (ssl key)",
+            "ssl_cypher" : "SSL cypher",
+            "super_admin_limitation" : "Super-admin user cannot create report. You have to use an account with a Developer role in order to create any report.",
+            "use_ssl" : "Use SSL",
+            "you_are_super_admin" : "You are logged as super-admin user",
+            "you_should_setup_a_connector" : "You should setup a connector in order to access your data.",
+            "you_should_setup_a_dev_account" : "You have to setup a developer user. (with Developer and Admin roles).",
+            "will_delete_everything" : "Will delete _all_ reports, input parameters and SQL drafts using this connector.",
+            "will_update_report_and_input_parameters" : "Will update all reports, input parameters and SQL drafts with the selected connector below."
+        }
+    },
+    "group" : {
+    },
+    "interface_preferences" : {
+        "title" : "Interface preferences",
+        "theme" : {
+            "dark" : "Dark",
+            "label" : "Theme",
+            "light" : "Light"
+        },
+        "lang" : {
+            "fr" : "French",
+            "en" : "English",
+            "label" : "Language"
+        }
+    },
+    "menu" : {
+        "administration" : "Administration",
+        "categories_administration" : "Categories administration",
+        "connector_administration" : "Connectors administration",
+        "directories_administration" : "Directories administration",
+        "organizations_adminstration" : "Organizations administration",
+        "preferences" : "Preferences",
+        "profile" : "Profile",
+        "input_parameters" : "Input parameters",
+        "users_administration" : "Users administration"
+    },
+    "organization" : {
+        "add_organization" : "Add an organization",
+        "delete_organization_alert_one" : "{{count}} report will be deleted with this organization.",
+        "delete_organization_alert_other" : "{{count}} reports will be deleted with this organization."
+    },
+    "update" : {
+        "api" : "API",
+        "frontend" : "Frontend",
+        "update_available" : "Update available",
+        "up_to_date" : "Up-to-date"
+    },
+    "input_parameters" : {
+        "can_use_multiple_value" : "You can put multiple values, coma separated, when parameter is a multi-select type.",
+        "preview" : "preview",
+        "you_should_setup_a_connector" : "You should setup a connector.",
+        "show_default_query" : "Show default query",
+        "filter_by_parameter_input_type" : "Filter by parameter input type",
+        "filter_by_name" : "Filter by name"
+    },
+    "service_message" : {
+        "add_message" : "Add a message",
+        "message" : "Message",
+        "service_message" : "Service message",
+        "service_message_explanation" : "Inform your users with service messages, visible by everyone ih the \"Home\" tab.",
+        "summary" : "Summary"
+    },
+    "system_info" : {
+        "system_info" : "System info"
+    },
+    "user" : {
+        "assign_to_another_dev" : "assign to another developer",
+        "change_password" : "Update password",
+        "change_password_validating" : "Update in progress...",
+        "change_password_validated" : "Updated",
+        "change_password_not_validated" : "Unable to update !!",
+        "configure_users" : "Configure users",
+        "delete_user_alert_one" : "{{count}} report will be deleted with this user.",
+        "delete_user_alert_other" : "{{count}} reports will be deleted with this user .",
+        "firstname" : "First name",
+        "force_user_to_reset_his_password_at_next_login" : "Force user to reset his password at next login",
+        "lastname" : "Last name",
+        "no_dev_user" : "No dev user",
+        "search_user" : "Search user...",
+        "reset_password_title" : "Reset password",
+        "reset_password_success" : "Your password has been updated.",
+        "you_should_setup_dev_user" : "You should setup a developer user before creating any report. (with roles \"developer\" and \"admin\".)",
+        "will_delete_everything" : "Will delete _all_ reports and SQL drafts created by this user.",
+        "will_update_report_and_input_parameters" : "Will update all reports and SQL drafts with the selected user below."
+    },
+    "user_preferences" : {
+        "unable_to_save_user_preferences" : "Unable to save user preferences.",
+        "user_preferences_saved" : "User preferences saved."
+    },
+    "version" : {
+        "new_version_available" : "A new version is available.",
+        "please_check_release_not" : "RootDB v{{version}} is now available. You can check release notes",
+        "release_notes" : "Release notes",
+        "up_to_date" : "Up-to-date"
+    }
+}

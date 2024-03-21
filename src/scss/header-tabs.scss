@@ -1,0 +1,20 @@
+#tabs-header {
+
+
+}
+
+.tab-select-data-view {
+  border-bottom: 2px solid var(--text-color-secondary) ;
+  border-radius: 3px;
+}
+
+#tabs-content {
+  display: flex;
+  padding-top: 0;
+  overflow: auto;
+  .tab-pane {
+    &.show, &.active {
+      flex-grow: 1;
+    }
+  }
+}

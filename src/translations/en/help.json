@@ -1,0 +1,406 @@
+{
+    "cards" : {
+        "configure_connector" : {
+            "title" : "Connector",
+            "subtitle" : "How-to configure a connector",
+            "summary" : "This is the first thing to do : configure an access to your data.",
+            "to_know" : {
+                "title" : "Good to know",
+                "1" : "Right now, RootDB support <strong>MySQL</strong>, <strong>MariaDB</strong> and <strong>PostgreSQL</strong> databases.<br />Support for another database types, like Microsoft SQL server, are on the way.",
+                "2" : "RootDB support encrypted connection to remote databases. (if your database is not hosted on the same server.)"
+            },
+            "setup_access" : {
+                "title" : "Access setup form",
+                "1" : "Click on the <strong>User menu</strong> in the header bar, go to <strong>Administration</strong> sub-menu.",
+                "2" : "And click on <strong>Connectors...</strong>"
+            },
+            "connector_configuration" : {
+                "title" : "Connector configuration",
+                "1" : "Before setup a connector",
+                "2" : "You have to setup a database user so RootDB API can access it. <br />Below, an example of grants to setup on your database :<br /><br />",
+                "3" : "The IP address to authorize is available in the connector form. Also make sure that your database is accessible from the outside.",
+                "3_1" : "As a reference you can read the <1>documentation for MariaDB.<2></2></1>",
+                "4" : "Configure and test",
+                "5" : "Once grants are setup on the database you want to access, you have to fill-up host, ports, credentials & co.",
+                "6" : "You can test the database access and once validated, grants for the user will be displayed so you can check if all is OK."
+            }
+        },
+        "first_report" : {
+            "title" : "Your first report",
+            "subtitle" : "How-to create a report",
+            "summary" : "View all steps to create a report, with development interface explanations.",
+            "to_know" : {
+                "title" : "Good to know",
+                "1" : "Your report is not visible by default for users with only a \"Viewer\" role. So do not forget to update report configuration to make it visible when you're done."
+            },
+            "where_to_start" : {
+                "title" : "Where do I click first ?",
+                "1" : "If you click on the <strong>+</strong> button in the header, you will have to select in which directory you want to store the new report.",
+                "2" : "And if you click directly on a button <strong>Create a new report</strong>, the directory of the new report will be automatically selected."
+            },
+            "report_configuration" : {
+                "title" : "Report configuration",
+                "1" : "The name of the report, by default. You cannot use report's input parameters values in this field. This field is used in the report tab.",
+                "2" : "The \"title\" field allow you to use report's input parameters values. If this field is used, it's this one which will be used when a report is displayed instead of the \"name\" field. (see \"Report parameters\" help for more information)",
+                "3" : "You can link this report to a category..",
+                "4" : "... and store it inside a directory to easily filter reports in the Home tab. (left sidebar)",
+                "5" : "Finally, you have to select with which connector (database) you want to use for this report."
+            },
+            "report_data_view_configuration" : {
+                "title" : "View configuration",
+                "0" : "A report can contains one or more different types of views, so you will need at least one view to display your data.",
+                "1" : "The name of the view as it will always appears in views dropdown selector - for developers.",
+                "2" : "If you set a \"title\" for this view it's this \"title\" which will be used when displaying the report. Also, this field accept report parameters values. (see \"Report parameters\" help for more information)",
+                "3" : "Here you can select the type of view you want to create. Right now, it's a table or a graph.",
+                "4" : "This option can be used when you need to fetch lot's of rows, with lot's of data by row. You can get you results chunk by chunk with this option activated, specifying the number of rows contained in a chunk.",
+                "5" : "You have full access to two of the most popular chart libraries. <strong>The easiest to use is Chart.js</strong>",
+                "6" : "Then select the type of graph you want to use to have the javascript code bootstrapped for you. If you don't know but are already familiar with one library, you can choose <strong>custom</strong> where you will have to make yourself the javascript code."
+            },
+            "report_parameters" : {
+                "title" : "Report parameters",
+                "0" : "Report parameters are explained in the dedicated help topic \"Report parameters.\"",
+                "1" : "So, for now, simply close this modal and edit the view."
+            },
+            "development_interface" : {
+                "title" : "Development interface",
+                "0" : "Here we go, the main development interface where you'll spend the majority of you time a developer. Happy ? :)<br/>The left screenshot show the development interface when you develop a graph.",
+                "1" : "This icon, in the report tab, will close the view edit mode and display all report's views.",
+                "2" : "Use this views selector to... switch between report views.",
+                "3" : "The report menu where you'll find some useful options.",
+                "4" : "Left play button : to run the report (all views) with current parameters. Right play button is displayed only if there are parameters setup for this report and will allow you to change report parameters before running it.",
+                "5" : "Use this <strong>+</strong> button to add a new view to the report.",
+                "6" : "Data view menu being edited.",
+                "7" : "Main SQL query editor. Only one query have to be used here. It's this query that will fetch all data to use in the view. Main functionalities are : ",
+                "7_1" : "Shortcuts to run the query, activate the full screen mode.",
+                "7_2" : "Auto-completion for database tables, views and report parameters.",
+                "7_3" : "SQL syntaxe highlight.",
+                "8" : "This part of the interface display a javascript editor when you need to edit a graph or a handy configuration module when you edit a table.",
+                "9" : "Each time you run the query or update the javascript code or update an option from the table configuration module, the graphic or table is refreshed.",
+                "10" : "Use this switch button to... switch between the graph and raw data, to see what you query return. It's only available when you edit a graph view.",
+                "11" : "If you don't want to use the shortcut to save and run the current query, then use this button.",
+                "12" : "Every events related to the current report will be available here."
+            },
+            "auto_completion" : {
+                "title" : "Example of auto-completion"
+            },
+            "raw_data" : {
+                "title" : "Example of how raw results are displayed"
+            }
+        },
+        "report_parameters" : {
+            "title" : "Report parameters",
+            "subtitle" : "All what you need to know",
+            "summary" : "How-to setup parameters on a report, how-to create custom parameters.",
+            "to_know" : {
+                "title" : "Good to know",
+                "1" : "Reports can have input parameters. They allow, most of the time, to filter SQL queries by restricting them to date ranges, particular IDs...",
+                "2" : "When a new organization is configured, default input parameters are created. For example a date picker, yes/no checkboxes, generic text or number fields.",
+                "3" : "You can of course create your own input parameters and this helper is there to guide you."
+            },
+            "input_parameters" : {
+                "title" : "Input parameters",
+                "1" : "To see the already existing input parameters, modify them or create new ones, click on the input parameters icon in the menu bar.",
+                "2" : "The first thing to do is to name your new parameter. This is the name that will appear in the parameter selection list, when you will, later, configure the parameters available for a report.",
+                "3" : "The parameter can have one or more default values. For example, if it is a simple text field, you can assign it a default value. If it's a multi-select type, you can assign one or more values to pre-select one or more default entries. (coma separated)",
+                "4" : "Different types of parameters are available. This is what the parameter will look like: checkbox, simple text field, selection list... <br/>When you select a type of parameter , an example SQL query shows you how to generate values for your parameter.<br/>For example, if it's a checkbox or a selection list, you need to display the possible values the user will be able to select.",
+                "5" : "You must also specify which data type the parameter value will be.",
+                "6" : "Your parameter must be linked - or not - to a connector.<br/>That is to say: <br/>If your parameter does not require a SQL query <strong>or</strong> the SQL query can run on any databases then you can choose the special \"all connectors\" connector.<br/><br/>But if your query is database dependent (because you need to fetch data in specific tables) - which will usually be the case, then you need to select the right connector, which will use the right database for your SQL query.",
+                "7" : "In this editor you can write <strong>one</strong> query allowing you to retrieve, generally, the couple <strong>code -> value</strong> which will be used to fill a selection list, checkbox options etc...",
+                "8" : "If you need to make a SQL query to retrieve the default value of a parameter, write it in this editor.",
+                "9" : "Finally, to check your parameter, you can click on the \"preview\" button to see what it will look like. If there are errors (SQL among others), check in the \"Log\" tab from the menu bar."
+            },
+            "access_setup_report_parameters" : {
+                "title" : "Access the configuration of report parameters",
+                "1" : "When you are in a report tab, display the report menu...",
+                "2" : "... and select the option \"Configure input parameters\""
+            },
+            "add_report_parameters" : {
+                "title" : "Adding a parameter to the report",
+                "1" : "The first thing to do is to name your parameter. This is the name that will appear to users of your report when they display the popup allowing them to configure the various parameters of the report before execution.",
+                "2" : "In your SQL queries, you will be able to access the value of a parameter using the name of the variable that you have defined in this field: <strong>@variableName</strong>.",
+                "3" : "Select one of the input parameters that you created earlier.",
+                "4" : "If the parameter you have selected has a default value but is not suitable for this report, you can override this value here.",
+                "5" : "This option aligns the parameters horizontally because, by default, the parameters are displayed one below the other.",
+                "6" : "If this report is integrated into an external website, you have the possibility of hiding a parameter. Because you can very well integrate the report with fixed parameters and, consequently, wish that user can modify only certain parameters and not others."
+            },
+            "usage_in_sql" : {
+                "title" : "Using parameters in SQL",
+                "1" : "Here are some SQL examples showing you how you can use the report input parameter values in your queries.",
+                "2" : "Simplest example, retrieve the value of a parameter returning only one value:",
+                "3" : "Example when the parameter returns several values (multi-selection):"
+            },
+            "auto_completion" : {
+                "title" : "Auto-completion of variables corresponding to report parameters"
+            },
+            "auto_completion_title" : {
+                "title" : "Display the values of a parameter",
+                "12" : "Whether in the title or in the description of a view or a report, you have the possibility of displaying the values of a parameter.<br/> Use the character <strong>[</strong> to select the parameter to display."
+            },
+            "report_parameters_value_display" : {
+                "title" : "Example of displaying the values of a parameter in the description of a report"
+            }
+        },
+        "keyboard_shortcuts" : {
+            "title" : "Keyboard shortcuts",
+            "subtitle" : "To save time",
+            "summary" : "List of all available shortcuts.",
+            "header" : {
+                "shortcut" : "Keyboard shortcut",
+                "context" : "Context",
+                "action" : "Action"
+            },
+            "1" : {
+                "context" : "Available everywhere",
+                "action" : "Go to left tab."
+            },
+            "2" : {
+                "context" : "Available everywhere",
+                "action" : "Go to right tab."
+            },
+            "3" : {
+                "context" : "Report",
+                "action" : "Run report with current parameters."
+            },
+            "4" : {
+                "context" : "Report (developer)",
+                "action" : "Show/hide initialization requests."
+            },
+            "5" : {
+                "context" : "Report (developer)",
+                "action" : "Show/hide cleanup requests."
+            },
+            "6" : {
+                "context" : "Report (developer)<br/>> Editing a view",
+                "action" : "Show/hide the main view's query"
+            },
+            "7" : {
+                "context" : "Report (developer)<br/>> Editing a view<br/>> <strong>Main query editor</strong>",
+                "action" : "Save the query and execute it."
+            },
+            "8" : {
+                "context" : "Editor",
+                "action" : "Toggle full screen mode."
+            },
+            "9" : {
+                "context" : "Report (developer)<br/>> Editing a view<br/>> <strong>Javascript code editor</strong>",
+                "action" : "Save the javascript code."
+            },
+            "10" : {
+                "context" : "SQL Console (developer)",
+                "action" : "Comment line(s)."
+            },
+            "11" : {
+                "context" : "SQL Console (developer)",
+                "action" : "Execute all queries."
+            },
+            "12" : {
+                "context" : "SQL Console (developer)",
+                "action" : "Execute selected queries."
+            },
+            "13" : {
+                "context" : "Available everywhere",
+                "action" : "Close current tab."
+            },
+            "14" : {
+                "context" : "Available everywhere",
+                "action" : "Close all tabs."
+            },
+            "15" : {
+                "context" : "Available everywhere",
+                "action" : "Open the debug tab. (and select automatically current report logs)"
+            }
+        },
+        "interface_overview" : {
+            "title" : "Interface overview",
+            "subtitle" : "Key concepts",
+            "summary" : "",
+            "to_know" : {
+                "title" : "Good to know",
+                "1" : "The application is tabs based, so you can open multiple reports at the same time."
+            },
+            "home_tab" : {
+                "title" : "Home tab",
+                "1" : "User menu where you will be able to setup some preferences, update your user profil, access to administration modules, if your user has the rights, see current RootDB version and link to release not if an update is available, and logout.",
+                "2" : "The left sidebar allows you to quickly filter reports by directory as well as search for a specific directory.",
+                "3" : "You can search for a report by its name by clicking on the magnifying glass in the header menu bar.",
+                "4" : "By clicking on the icons representing folders you can fold / unfold the entire tree structure of a directory.",
+                "5" : "Allows you to add a report to your list of favorite reports, which you can find by selecting <strong>Favorites</strong> in the left sidebar.",
+                "6" : "If a report has parameters, click this icon to view & configure the parameters and run the report.",
+                "7" : "This icon is used to run the report default parameters. (if it has any)"
+            },
+            "report_tab" : {
+                "title" : "Report tab",
+                "1" : "When you display a report, you find the same options as in the Home tab, but this time in the header menu bar.",
+                "2" : "So you can change the report parameters easily."
+            },
+            "home_tab_as_dev" : {
+                "title" : "Home tab as a developer",
+                "1" : "You can display the report configuration module directly from this tab, without having to open it.",
+                "2" : "It is possible to directly edit a particular view by selecting it from the drop-down list that will be displayed by clicking on the icon representing a pencil.",
+                "3" : "Click on the screen icon in the menu bar to display the SQL console in a new tab.",
+                "4" : "This is the location where you can create input parameters for your reports. Please checkthe \"Report parameters\" help for more information.",
+                "5" : "To create a report. Please check the \"Your first report\" help for more information.",
+                "6" : "The debug bar will allow you to see everything that happens at the application level. Errors or events relating to reports will be displayed here. (SQL error, API side, javascript error etc... )"
+            },
+            "report_tab_as_dev" : {
+                "title" : "Report tab as a developer",
+                "1" : "You can run only one view at a time by clicking here.",
+                "2" : "The pencil icon will allow you to switch to view editing mode.",
+                "3" : "Will display the view configuration module.",
+                "4" : "And you can delete a view directly here."
+            }
+        },
+        "report_links" : {
+            "title" : "Links between reports",
+            "subtitle" : "Create links to navigate between your reports.",
+            "summary" : "Based on a concrete example, find out how to generate several types of links between your reports.",
+            "to_know" : {
+                "title" : "Good to know",
+                "1" : "This example shows you how to create links between your reports from your tables.",
+                "2" : "For an example with a chart, like Chart.js for instance, you can see real-world examples on the <1>demo website<2></2></1>."
+            },
+            "example_report" : {
+                "title" : "Target report",
+                "1" : "The \"Films\" report, visible on the demo website, contains a lot of input parameters."
+            },
+            "report_with_links" : {
+                "title" : "Report containing links",
+                "1" : "The column \"Film title\", of the \"Current rentals\" report, contains links to 2 reports:",
+                "2" : "A link to the target report \"Film\",",
+                "3" : "And two other links to this report:",
+                "4" : "a link to open this report in the same tab,",
+                "5" : "and another to open it in a new tab."
+            },
+            "access_report_link_configuration" : {
+                "title" : "Access the link configuration form",
+                "1" : "Edit the view containing the table and click on the tab containing the options related to the display of the columns.",
+                "2" : "After expanding the column's options for which you want to add a link or more, click on the \"Links to reports\" button."
+            },
+            "report_link_configuration" : {
+                "title" : "Configuring a link",
+                "1" : "You can give a label to the link you are going to create.<br/>This is useful if the column contains several links, because since these links will be displayed in a popup, they must have a label in order to differentiate them.<br/>But if the column contains only one link, then no popup is displayed.<br/>The link will be appended on the value of the column, with an link icon.",
+                "2" : "Selection of the targeted report. Note that you will only be able to select reports containing input parameters in this drop-down list.",
+                "3" : "Once the target report is selected, all of its input parameters will be listed.<br/>They will be appended to the URL when the user clicks on the link.<br/>You have the option to skip any parameters so that they are not present in the URL.",
+                "4" : {
+                    "1" : "For each parameter you must indicate how to retrieve its value:",
+                    "2" : "If you select \"Column value\", the value used for this parameter will correspond to the value of one of the columns of this report, to be selected from the drop-down list on the right.",
+                    "3" : "If you select \"Report parameter\", the value used for this parameter will correspond to one of the input parameters of this report, to be selected in the drop-down list on the right."
+                }
+            },
+            "link_same_report" : {
+                "title" : "Create a link to the same report",
+                "1" : "When the target report you have selected is the same as the one you are editing, then you have the option to make this link open in the same tab.<br/ >This will allow users to filter the report more quickly, without going through the popup containing all the input parameters."
+            }
+        }
+    },
+    "credits" : {
+        "thanks" : "Non-exhaustive list of open-source projects used by RootDB."
+    },
+    "quick_overview" : {
+        "common" : {
+            "consult_help" : "Do not hesitate to consult the dedicated help section:"
+        },
+        "dev" : {
+            "0" : {
+                "title" : "Welcome to RootDB",
+                "1" : "Thank you for using RootDB.",
+                "2" : "This owner’s tour aims at introducing you to everything you need to know to start reporting with RootDB: the terminology used, the structure of a report and the essential points of the user interface.",
+                "3" : "You can access this presentation at any time from the user menu."
+            },
+            "1" : {
+                "title" : "Connector, report & data view",
+                "1" : "A <strong>report</strong> consists of:",
+                "2" : "one or more data views to display data in the form, mainly, of tables or graphs.",
+                "3" : "SQL queries executed before/after view rendering to initialize temporary variables or tables that can be used in view SQL queries.",
+                "4" : "input parameters, in order to filter data fetched from the database. Parameters values can be used in the SQL queries.",
+                "5" : "A <strong>view</strong> is made up of 3 elements:",
+                "6" : "a SQL query, to retrieve the data.",
+                "7" : "javascript code in the case of a chart or a configuration interface in the case of a table.",
+                "8" : "the data view, strictly speaking: a graph or a table.",
+                "9" : "First of all you will have to configure at least one <strong>connector</strong> that represents a database connection. (Mysql/MariaDB/PostgreSQL for now)",
+                "10" : "Once the connector is created, you will be able to start creating reports."
+            },
+            "2" : {
+                "title" : "It's root",
+                "1" : "Regarding the way data is retrieved and the charts created, RootDB has chosen to give as much freedom to the developer, which implies that he must know:",
+                "2" : "the SQL language - because yes, well-mastered, it allows us to do a lot of things.",
+                "3" : "how to use javascript because RootDB gives full access to Chart.js or D3.js - thus allowing direct use of the official documentation from these two libraries.",
+                "4" : "Note that RootDB provides ready-to-use chart templates with sample SQL query for the most common charts. This allows you to have a javascript code base on which you can develop the graph's functionalities, if necessary."
+            },
+            "3" : {
+                "title" : "Menu bar",
+                "0" : "Nothing extraordinary here :)",
+                "1" : "User menu where you can configure some preferences, update your profile, access administration module (if your user has access rights), see the current version of RootDB and a link to the release notes, when an update is available.",
+                "2" : "Opens the <strong>Help</strong> tab, containing everything you need to know about report creation.",
+                "3" : "Displays the <strong>Home</strong> tab, which lists all available reports.",
+                "4" : "Opens a <strong>SQL console</strong>, with a display of database tables and views. You will also be able to create draft SQL queries.",
+                "5" : "Displays the <strong>log</strong> tab, allowing you to display application logs and filter them by report.",
+                "6" : "Opens the <strong>Report input parameters</strong> tab.",
+                "7" : "Search for a report by clicking here.",
+                "8" : "Opens the report creation wizard."
+            },
+            "4" : {
+                "title" : "Report launch and management options",
+                "1" : "Run the report directly, using the default input parameters. (if any)",
+                "2" : "Allows you to configure the input parameters of the report and run it.",
+                "3" : "Add or remove this report from favorites.",
+                "4" : "Open report configuration window. (title, description, visibility, location, permissions, sharing options...)",
+                "5" : "Allows you to directly select a view in order to edit its code."
+            },
+            "5" : {
+                "title" : "Report tab",
+                "1" : "Here you will find the main menu of the report in order to manage its views, configure it, manage its input parameters or edit the initialization or cleanup SQL queries.",
+                "2" : "Report visibility indicator. By default it is only visible to the developer. You can click here to make it visible, or not.",
+                "6" : "Since it is possible to have the same report open in several tabs, you can see the input parameters used in each tab by pressing the tab, in mobile mode, or by hovering your mouse over the tab."
+            },
+            "6" : {
+                "title" : "View options",
+                "1" : "To delete the view of a report. (with confirmation popup)",
+                "2" : "View configuration. (title, description...)",
+                "3" : "Edit the SQL / javascript code of the view.",
+                "4" : "Run the view.",
+                "5" : "Export data to CSV, only available for table type view."
+            }
+        },
+        "viewer_or_admin" : {
+            "0" : {
+                "title" : "Welcome to RootDB",
+                "1" : "Thank you for using RootDB.",
+                "2" : "This owner's tour aims to introduce you everything you need to know to start using RootDB: the terminology used, the structure of a report and the essential points of the user interface.",
+                "3" : "You can access this presentation at any time from the user menu."
+            },
+            "1" : {
+                "title" : "Connector & data view",
+                "1" : "A <strong>report</strong> consists of:",
+                "2" : "one or more <strong>data views<strong> to display data in the form, mainly, of tables or graphs.",
+                "4" : "input parameters, in order to filter the data to be retrieved from the database."
+            },
+            "2" : {
+                "title" : "Menu bar",
+                "0" : "Nothing extraordinary here :)",
+                "1" : "User menu where you can configure some preferences, update your profile, access administration module (if your user has the rights), see the current version of RootDB and a link to the release notes, when an update is available.",
+                "2" : "Opens the <strong>Help</strong> tab, containing everything you need to know about report creation.",
+                "3" : "Displays the <strong>Home</strong> tab, which lists all available reports.",
+                "4" : "Search for a report by clicking here."
+            },
+            "3" : {
+                "title" : "Report launch options",
+                "1" : "Run the report directly, using the default input parameters. (if any)",
+                "2" : "Allows you to configure the input parameters of the report and run it.",
+                "3" : "Add or remove this report from favorites."
+            },
+            "4" : {
+                "title" : "Report tab",
+                "1" : "Here you will find the main menu of the report in order to manage its views, configure it, manage its input parameters or edit the initialization or cleanup SQL queries.",
+                "2" : "Report visibility indicator. By default it is only visible to the developer. You can click here to make it visible, or not.",
+                "6" : "Since it is possible to have the same report open in several tabs, you can see the input parameters used in each tab by pressing the tab, in mobile mode, or by leaving the mouse cursor above the tab."
+            },
+            "5" : {
+                "title" : "View options",
+                "1" : "Export data in CSV format, only available for table type view."
+            }
+        }
+    },
+    "not_now" : "Not now",
+    "view" : "View"
+}
