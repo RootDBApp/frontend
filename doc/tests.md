@@ -14,8 +14,6 @@ yarn add cypress --dev
 # All steps to automatize
 
 ```bash
-cd /home/share/Developments/atomicweb/rootdb/frontend-react/
- 
 # Compile prod build
 docker exec -u node -it dev-rootdb-frontend-react npm run build
 

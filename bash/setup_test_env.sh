@@ -1,15 +1,8 @@
 #!/usr/bin/env bash
 
-declare rdb_dir="/home/share/Developpements/www/rootdb"
-if [[ $(hostname) == "gyanopoliswork" || $(hostname) == "atomicweb-sp.home" || $(hostname) == "localhost.localdomain" ]]; then
-  rdb_dir="/home/share/Developments/atomicweb/rootdb"
-fi
+declare rdb_dir="/home/share/Developpements/spo-ijaz/rootdb"
 
-if [[ $(hostname) == "asuslaptop" ]]; then
-  rdb_dir="/home/sebastienp/Developments/atomicweb/rootdb"
-fi
-
-cd "${rdb_dir}/frontend-react" || exit
+cd "${rdb_dir}/frontend" || exit
 
 echo "#"
 echo "# Compile prod build..."
@@ -19,7 +12,7 @@ docker exec -u node -it dev-rootdb-frontend-react npm run build
 echo "#"
 echo "# Seed DB with prod data..."
 echo "#"
-docker exec -u rootdb -it dev-rootdb-api php artisan db:wipe --force -n && mysql -u root -pglopglop -h 172.20.0.50 rootdb-api </home/share/Developments/atomicweb/rootdb/api/storage/app/seeders/production/seeder_init.sql
+docker exec -u rootdb -it dev-rootdb-api php artisan db:wipe --force -n && mysql -u root -pthee1uuWiechieneiyieZ0aif3aefe -h 172.20.0.50 rootdb-api </home/share/Developpements/spo-ijaz/api/storage/app/seeders/production/seeder_init.sql
 
 echo "#"
 echo "# Install \"serve\" if not installed..."
@@ -29,7 +22,7 @@ docker exec -u root -it dev-rootdb-frontend-react yarn global add serve
 echo "#"
 echo "# Copy test app-config.js into build directory...."
 echo "#"
-cp -f "${rdb_dir}/frontend-react/doc/app-config.js" "${rdb_dir}/frontend-react/build"
+cp -f "${rdb_dir}/frontend/doc/app-config.js" "${rdb_dir}/frontend/build"
 
 echo "#"
 echo "# Serve Prod build..."
