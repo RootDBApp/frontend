@@ -103,6 +103,8 @@
     }
 
     .p-tabview-panels {
+      padding-top: 0;
+      padding-bottom: 0;
       overflow: auto;
       flex-grow: 1;
       background-color: #272822;
