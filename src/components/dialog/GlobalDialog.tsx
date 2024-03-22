@@ -42,7 +42,10 @@ const GlobalDialog = () => {
     React.useEffect(() => {
         const matches = matchRoutes(globalDialogRoutes, location.pathname);
         if (matches && matches.length > 0) {
-            setVisible(true);
+            const [{route: {path = ''} = {}}] = matches;
+            if (path !== "*") {
+                setVisible(true);
+            }
         } else {
             // when url changes from outside the dialog
             setVisible(false);

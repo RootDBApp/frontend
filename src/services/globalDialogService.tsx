@@ -20,7 +20,7 @@
  */
 
 import { TFunction }   from "i18next";
-import { RouteObject } from "react-router-dom";
+import { Outlet, RouteObject } from "react-router-dom";
 import * as React      from "react";
 
 import TDialogTitle       from "../types/TDialogTitle";
@@ -79,4 +79,8 @@ export const globalDialogRoutes: RouteObject[] = [
         path: '/settings/*',
         element: <Settings/>,
     },
+    {
+        path: '*',
+        element: <Outlet />,
+    }
 ]
