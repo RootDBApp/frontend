@@ -212,7 +212,6 @@ const DataViewTable: React.FC<{
     }, [
         dbColumnsParameters,
         results,
-
     ]);
 
     //

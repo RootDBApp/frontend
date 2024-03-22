@@ -48,6 +48,7 @@ const SQLConsoleResult: React.FC<{
                     header: column,
                     accessorKey: column.replace('.', ''),
                     filterFn: filterFns.includesString,
+                    sortingFn: 'alphanumeric'
                 }
             });
         }

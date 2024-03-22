@@ -50,7 +50,6 @@ import TExternalLink                             from "../../../../types/TExtern
 import { Image }                                 from "primereact/image";
 
 const DataViewTableView: React.FC<{
-    dataViewName: string,
     dataViewId: number,
     expanded: boolean,
     globalForm: TDataViewTableForm['global'],
@@ -60,7 +59,6 @@ const DataViewTableView: React.FC<{
     jsonResults?: Array<Object>,
     loading?: boolean,
 }> = ({
-          dataViewName,
           dataViewId,
           expanded,
           globalForm,
@@ -117,6 +115,7 @@ const DataViewTableView: React.FC<{
             return {
                 ...columnProps,
                 filterFn,
+                sortingFn: 'alphanumeric',
                 aggregationFn: getAggregationFnV8(footerMethod),
                 aggregatedCell: ({getValue}) => replacePlaceholder(footerText || '', round(getValue<number>(), footerRounding).toFixed(footerRounding)),
                 cell: (cell: CellContext<any, any>) => {
