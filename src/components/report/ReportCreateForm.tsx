@@ -24,7 +24,7 @@ import { InputTextarea }  from "primereact/inputtextarea";
 import { Tooltip }        from "primereact/tooltip";
 import * as React         from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import * as Yup           from "yup";
 
 import ButtonWithSpinner, { SubmitButtonStatus } from "../common/form/ButtonWithSpinner";
@@ -138,7 +138,7 @@ const ReportCreateForm: React.FC<{
             }}
         >
             {formik => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
                         <div className="field col-12">
                             <label htmlFor="name">{t('common:form.name')}</label>
@@ -248,7 +248,7 @@ const ReportCreateForm: React.FC<{
                     {displayError && <div className="col-12">
                         <Message severity="error" text={errorMessage}/>
                     </div>}
-                </Form>
+                </form>
             )}
         </Formik>
     );

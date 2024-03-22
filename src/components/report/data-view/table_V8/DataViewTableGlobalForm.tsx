@@ -24,7 +24,7 @@ import { InputSwitch }    from "primereact/inputswitch";
 import { SelectButton }   from "primereact/selectbutton";
 import * as React         from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 
 import TDataViewTableForm from "../../../../types/TDataViewTableForm";
 import TCallbackResponse  from "../../../../types/TCallbackResponse";
@@ -60,7 +60,7 @@ const DataViewTableGlobalForm: React.FC<{
             enableReinitialize
         >
             {(formik) => (
-                <Form placeholder="">
+                <form>
                     <div className="formgrid grid">
                         <h4 className="col-12 flex p-justify-between">
                             <span
@@ -196,7 +196,7 @@ const DataViewTableGlobalForm: React.FC<{
                             />
                         </div>
                     </div>
-                </Form>
+                </form>
             )}
         </Formik>
     )

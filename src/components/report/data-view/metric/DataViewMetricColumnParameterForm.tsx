@@ -19,11 +19,11 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik, FormikProps } from "formik";
-import { Message }                   from "primereact/message";
-import * as React                    from "react";
-import { useTranslation }            from "react-i18next";
-import * as Yup                      from "yup";
+import { Formik, FormikProps } from "formik";
+import { Message }             from "primereact/message";
+import * as React              from "react";
+import { useTranslation }      from "react-i18next";
+import * as Yup                from "yup";
 
 import ButtonWithSpinner, { SubmitButtonStatus } from "../../../common/form/ButtonWithSpinner";
 import TDataViewMetricRow                        from "../../../../types/TDataViewMetricRow";
@@ -31,20 +31,20 @@ import TDataViewMetricRow                        from "../../../../types/TDataVi
 import TCallbackResponse   from "../../../../types/TCallbackResponse";
 import { ECallbackStatus } from "../../../../types/ECallbackStatus";
 
-import { ICallbackOnCreateOrUpdateDataViewInfoParam }   from "../../../../types/ICallBacks";
-import TSQLResultColumn                                 from "../../../../types/TSQLResultColumn";
-import TReportParameter                                 from "../../../../types/TReportParameter";
-import { EDataViewMetricFontWeight }                    from "../../../../types/EDataViewMetricFontWeight";
-import { SelectButton }                                 from "primereact/selectbutton";
-import { EDataViewMetricFontSize }                      from "../../../../types/EDataViewMetricFontSize";
-import { InputText }                                    from "primereact/inputtext";
-import { ColorPicker }                                  from "primereact/colorpicker";
-import env                                              from "../../../../envVariables";
-import { Tooltip }                                      from "primereact/tooltip";
-import { InputSwitch }                                  from "primereact/inputswitch";
-import { useDebouncedCallback }                         from "../../../../utils/hooks";
-import { InputTextarea }                                from "primereact/inputtextarea";
-import ReportParametersAndColumnsBinder                 from "../../../common/form/ReportParametersAndColumnsBinder";
+import { ICallbackOnCreateOrUpdateDataViewInfoParam } from "../../../../types/ICallBacks";
+import TSQLResultColumn                               from "../../../../types/TSQLResultColumn";
+import TReportParameter                               from "../../../../types/TReportParameter";
+import { EDataViewMetricFontWeight }                  from "../../../../types/EDataViewMetricFontWeight";
+import { SelectButton }                               from "primereact/selectbutton";
+import { EDataViewMetricFontSize }                    from "../../../../types/EDataViewMetricFontSize";
+import { InputText }                                  from "primereact/inputtext";
+import { ColorPicker }                                from "primereact/colorpicker";
+import env                                            from "../../../../envVariables";
+import { Tooltip }                                    from "primereact/tooltip";
+import { InputSwitch }                                from "primereact/inputswitch";
+import { useDebouncedCallback }                       from "../../../../utils/hooks";
+import { InputTextarea }                              from "primereact/inputtextarea";
+import ReportParametersAndColumnsBinder               from "../../../common/form/ReportParametersAndColumnsBinder";
 
 const DataViewMetricColumnParameterForm: React.FC<{
     callBackResponse?: TCallbackResponse,
@@ -166,7 +166,7 @@ const DataViewMetricColumnParameterForm: React.FC<{
             >
                 {(formik) => (
 
-                    <Form placeholder="" onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
                         <div className="formgrid grid">
                             <div className="field md:col-12">
                                 <Tooltip
@@ -321,7 +321,7 @@ const DataViewMetricColumnParameterForm: React.FC<{
                             <Message severity="error" text={errorMessage}/>
                         </div>}
 
-                    </Form>
+                    </form>
                 )}
 
             </Formik>

@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { Button }         from "primereact/button";
 import { Chips }          from "primereact/chips";
 import { Divider }        from "primereact/divider";
@@ -259,7 +259,7 @@ const ReportForm: React.FC<{
                 >
                     {(formik) => (
 
-                        <Form placeholder="" onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit}>
                             <div className="formgrid grid">
 
                                 <div className="field col-3">
@@ -569,7 +569,7 @@ const ReportForm: React.FC<{
                                 <Message severity="error" text={errorMessage}/>
                             </div>}
 
-                        </Form>
+                        </form>
                     )}
                 </Formik>
             )}

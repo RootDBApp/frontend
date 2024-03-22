@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }                  from "formik";
+import { Formik }                        from "formik";
 import { Button }                        from "primereact/button";
 import { Column }                        from "primereact/column";
 import { ConfirmDialog }                 from "primereact/confirmdialog";
@@ -362,7 +362,7 @@ const ConnectorForm: React.FC<{
             >
                 {(formik
                 ) => (
-                    <Form placeholder="" onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
 
                         <Tooltip target=".database-name-tooltip"
                                  position="bottom"
@@ -715,7 +715,7 @@ const ConnectorForm: React.FC<{
                             }
 
                         </div>
-                    </Form>
+                    </form>
                 )}
             </Formik>
         </>

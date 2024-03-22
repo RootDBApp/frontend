@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { InputText }      from "primereact/inputtext";
 import { Tooltip }        from "primereact/tooltip";
 import * as React         from "react";
@@ -116,7 +116,7 @@ const ExternalLinkForm: React.FC<{
             onSubmit={(values: TExternalLink) => isNewLink ? handleOnCreate(values) : handleOnUpdate(values)}
         >
             {(formik) => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
                         <div className="field md:col-12">
                             <Tooltip
@@ -237,7 +237,7 @@ const ExternalLinkForm: React.FC<{
                             }
                         </div>
                     </div>
-                </Form>
+                </form>
             )}
         </Formik>
     )

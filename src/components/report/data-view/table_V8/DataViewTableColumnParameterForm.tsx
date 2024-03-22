@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { Button }         from "primereact/button";
 import { Dialog }         from "primereact/dialog";
 import { Dropdown }       from "primereact/dropdown";
@@ -220,7 +220,7 @@ const DataViewTableColumnParameterForm: React.FC<{
                             />
                         </Dialog>
 
-                        <Form placeholder="" onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit}>
                             <div className="formgrid grid">
 
                                 {/*<h3 className="col-12">{t('report:dataview.table_form.column_config_title')}</h3>*/}
@@ -606,7 +606,7 @@ const DataViewTableColumnParameterForm: React.FC<{
                                 <Message severity="error" text={errorMessage}/>
                             </div>}
 
-                        </Form>
+                        </form>
                     </>
                 )}
 

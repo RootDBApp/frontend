@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { InputText }      from "primereact/inputtext";
 import { Message }        from "primereact/message";
 import * as React         from "react";
@@ -139,7 +139,7 @@ const GroupForm: React.FC<{
             initialValues={{...group}}
         >
             {(formik) => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
                         <div className="field col-12 md:col-6">
                             <label htmlFor={'name' + group.id}>
@@ -212,7 +212,7 @@ const GroupForm: React.FC<{
                     {displayError && <div className="col-12">
                         <Message severity="error" text={errorMessage}/>
                     </div>}
-                </Form>
+                </form>
             )}
         </Formik>
 

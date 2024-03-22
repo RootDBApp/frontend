@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }               from "formik";
+import { Formik }                     from "formik";
 import { ConfirmPopup, confirmPopup } from "primereact/confirmpopup";
 import { InputText }                  from "primereact/inputtext";
 import { InputTextarea }              from "primereact/inputtextarea";
@@ -199,7 +199,7 @@ const DirectoryForm: React.FC<{
                 initialValues={{...directory}}
             >
                 {(formik) => (
-                    <Form placeholder="" onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
                         <div className="formgrid grid">
                             <div className="field col-12 md:col-6">
                                 <label htmlFor={'name' + directory.id}>
@@ -305,7 +305,7 @@ const DirectoryForm: React.FC<{
                         {displayError && <div className="col-12">
                             <Message severity="error" text={errorMessage}/>
                         </div>}
-                    </Form>
+                    </form>
                 )}
             </Formik>
             {nbReports > 0 ?

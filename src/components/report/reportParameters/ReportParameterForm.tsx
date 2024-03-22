@@ -19,15 +19,15 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik, FormikProps } from "formik";
-import { Calendar }                  from "primereact/calendar";
-import { InputText }                 from "primereact/inputtext";
-import { InputSwitch }               from "primereact/inputswitch";
-import { Message }                   from "primereact/message";
-import { Tooltip }                   from "primereact/tooltip";
-import * as React                    from "react";
-import { useTranslation }            from "react-i18next";
-import * as Yup                      from "yup";
+import { Formik, FormikProps } from "formik";
+import { Calendar }            from "primereact/calendar";
+import { InputText }           from "primereact/inputtext";
+import { InputSwitch }         from "primereact/inputswitch";
+import { Message }             from "primereact/message";
+import { Tooltip }             from "primereact/tooltip";
+import * as React              from "react";
+import { useTranslation }      from "react-i18next";
+import * as Yup                from "yup";
 
 import { EParameterInputType }                   from "../../../types/EParameterInputType";
 import TReportParameter                          from "../../../types/TReportParameter";
@@ -226,7 +226,7 @@ const ReportParameterForm: React.FC<{
         >
             {(formik) => (
 
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
                         <div className="field md:col-6">
                             <label htmlFor={'name_' + parameter.id}>{t('common:form.name')}</label>
@@ -376,7 +376,7 @@ const ReportParameterForm: React.FC<{
                         <Message severity="error" text={errorMessage}/>
                     </div>}
 
-                </Form>
+                </form>
             )}
 
         </Formik>

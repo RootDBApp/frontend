@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { Dropdown }       from "primereact/dropdown";
 import { InputSwitch }    from "primereact/inputswitch";
 import { InputText }      from "primereact/inputtext";
@@ -183,7 +183,7 @@ const ReportDataViewForm: React.FC<{
             onSubmit={handleOnSubmit}
         >
             {formik => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
 
                         <div className="field col-3">
@@ -481,7 +481,7 @@ const ReportDataViewForm: React.FC<{
                     {displayError && <div className="col-12">
                         <Message severity="error" text={errorMessage}/>
                     </div>}
-                </Form>
+                </form>
             )}
         </Formik>
     )

@@ -19,16 +19,16 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Calendar }                  from "primereact/calendar";
-import { DataTable }                 from "primereact/datatable";
-import { InputNumber }               from "primereact/inputnumber";
-import { InputSwitch }               from "primereact/inputswitch";
-import { TabPanel, TabView }         from "primereact/tabview";
-import { Message }                   from "primereact/message";
-import { Form, Formik, FormikProps } from "formik";
-import * as React                    from "react";
-import { useTranslation }            from "react-i18next";
-import * as Yup                      from "yup";
+import { Calendar }            from "primereact/calendar";
+import { DataTable }           from "primereact/datatable";
+import { InputNumber }         from "primereact/inputnumber";
+import { InputSwitch }         from "primereact/inputswitch";
+import { TabPanel, TabView }   from "primereact/tabview";
+import { Message }             from "primereact/message";
+import { Formik, FormikProps } from "formik";
+import * as React              from "react";
+import { useTranslation }      from "react-i18next";
+import * as Yup                from "yup";
 
 import { TCacheJob }                             from "../../types/TCacheJob";
 import DropdownCacheJobFrequency                 from "../common/form/DropdownCacheJobFrequency";
@@ -218,16 +218,16 @@ const ReportCacheJobForm: React.FC<{
         switch (parameter.parameter_input?.parameter_input_type?.name) {
 
             case 'date':
-                return { ...cacheJobParameterSetConfig, date_start_from_values: {'values': String(inputNameValue.value).split(',')} };
+                return {...cacheJobParameterSetConfig, date_start_from_values: {'values': String(inputNameValue.value).split(',')}};
 
             case 'multi-select':
-                return { ...cacheJobParameterSetConfig, multi_select_values: {'values': String(inputNameValue.value).split(',')} };
+                return {...cacheJobParameterSetConfig, multi_select_values: {'values': String(inputNameValue.value).split(',')}};
 
             case 'select':
-                return { ...cacheJobParameterSetConfig, select_values: {'values': String(inputNameValue.value).split(',')} };
+                return {...cacheJobParameterSetConfig, select_values: {'values': String(inputNameValue.value).split(',')}};
 
             default:
-                return { ...cacheJobParameterSetConfig, value: String(inputNameValue.value) };
+                return {...cacheJobParameterSetConfig, value: String(inputNameValue.value)};
         }
 
     }
@@ -271,7 +271,7 @@ const ReportCacheJobForm: React.FC<{
             }}
         >
             {(formik) => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
 
                         <div className="field col-12 md:col-2">
@@ -539,7 +539,7 @@ const ReportCacheJobForm: React.FC<{
                         </div>
                     }
 
-                </Form>
+                </form>
             )
             }
         </Formik>

@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { InputText }      from "primereact/inputtext";
 import { InputTextarea }  from "primereact/inputtextarea";
 import { Message }        from "primereact/message";
@@ -160,7 +160,7 @@ const ServiceMessageForm: React.FC<{
                 }}
             >
                 {(formik) => (
-                    <Form placeholder="" onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
 
                         <div className="field col-12">
                             <label htmlFor={'title' + serviceMessage.id} className="block">
@@ -265,7 +265,7 @@ const ServiceMessageForm: React.FC<{
                         {displayError && <div className="col-12">
                             <Message severity="error" text={errorMessage}/>
                         </div>}
-                    </Form>
+                    </form>
                 )}
             </Formik>
         </>

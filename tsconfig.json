@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "experimentalDecorators": true,
-        "target": "es6",
-        "module": "esnext",
+        "target": "ES2023",
+        "module": "ESNext",
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,

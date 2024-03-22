@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { Button }         from "primereact/button";
 import { InputText }      from "primereact/inputtext";
 import { Message }        from "primereact/message";
@@ -239,7 +239,7 @@ const ParameterInputForm: React.FC<{
                     }}
                 >
                     {(formik) => (
-                        <Form placeholder="" onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit}>
                             <div className="formgrid grid">
                                 <div className="field col-12 md:col-6">
                                     <label htmlFor={'name' + parameterInput.id}>
@@ -485,7 +485,7 @@ const ParameterInputForm: React.FC<{
                                 <Message severity="error" text={errorMessage}/>
                             </div>}
 
-                        </Form>
+                        </form>
                     )}
 
                 </Formik>

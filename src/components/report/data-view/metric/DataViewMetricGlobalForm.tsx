@@ -21,7 +21,7 @@
 
 import * as React         from "react";
 import { useTranslation } from "react-i18next";
-import { Form, Formik }   from "formik";
+import { Formik }   from "formik";
 
 import TDataViewMetricForm from "../../../../types/TDataViewMetricForm";
 import { Dropdown }        from "primereact/dropdown";
@@ -58,7 +58,7 @@ const DataViewMetricGlobalForm: React.FC<{
             enableReinitialize
         >
             {(formik) => (
-                <Form placeholder="">
+                <form>
                     <div className="formgrid grid mx-0 justify-content-between flex-grow-1">
                         <div className="field">
                             <label
@@ -86,7 +86,7 @@ const DataViewMetricGlobalForm: React.FC<{
                             />
                         </div>
                     </div>
-                </Form>
+                </form>
             )}
         </Formik>
     )

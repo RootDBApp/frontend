@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }        from "formik";
+import { Formik }              from "formik";
 import { Button }              from "primereact/button";
 import { Column }              from "primereact/column";
 import { ConfirmDialog }       from "primereact/confirmdialog";
@@ -372,7 +372,7 @@ const UserForm: React.FC<{
                 }}
             >
                 {(formik) => (
-                    <Form placeholder="" onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
 
                         <div className="formgrid grid">
                             <div className="field col-12 md:col-4">
@@ -590,7 +590,7 @@ const UserForm: React.FC<{
                         {displayError && <div className="col-12">
                             <Message severity="error" text={errorMessage}/>
                         </div>}
-                    </Form>
+                    </form>
                 )}
             </Formik>
         </>

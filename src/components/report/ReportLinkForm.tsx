@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Form, Formik }   from "formik";
+import { Formik }         from "formik";
 import { Divider }        from "primereact/divider";
 import { InputSwitch }    from "primereact/inputswitch";
 import { InputText }      from "primereact/inputtext";
@@ -100,7 +100,7 @@ const ReportLinkForm: React.FC<{
             onSubmit={(values: TReportLink) => isNewReportLink ? handleOnCreate(values) : handleOnUpdate(values)}
         >
             {(formik) => (
-                <Form placeholder="" onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
                         <div className="field md:col-12">
                             <Tooltip
@@ -257,7 +257,7 @@ const ReportLinkForm: React.FC<{
                         </div>
 
                     </div>
-                </Form>
+                </form>
             )}
         </Formik>
     )
