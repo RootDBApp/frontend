@@ -68,7 +68,6 @@ const SQLConsole: React.FC<{
     const [confConnectorLoading, setConfConnectorLoading] = React.useState<boolean>(false);
     const [tabActiveIndex, setTabActiveIndex] = React.useState<number>(0);
     const [draft, setDraft] = React.useState<TDraft>({id: 0, draft_queries: []});
-    const [sqlQuery, setSqlQuery] = React.useState<string>('');
     const [stateSQLConsoleCallbackResponseQueryRun, setStateSQLConsoleCallbackResponseQueryRun] = React.useState<TCallbackResponse>({status: ECallbackStatus.IDLE});
     const [stateSQLConsoleCallbackResponseQuerySave, setStateSQLConsoleCallbackResponseQuerySave] = React.useState<TCallbackResponse>({status: ECallbackStatus.IDLE});
     const [sqlConsoleQueries, setSqlConsoleQueries] = React.useState<Array<TSQLConsoleQuery>>([]);
@@ -469,22 +468,6 @@ const SQLConsole: React.FC<{
         }
     }, [confConnectorId]);
 
-    // Set the current queries in CustomEditor component.
-    //
-    React.useEffect(() => {
-
-        if (draft.id > 0) {
-
-            if (draft.draft_queries[tabActiveIndex]) {
-
-                setSqlQuery(String(draft.draft_queries[tabActiveIndex].queries || ''));
-            } else if (draft.draft_queries[0]) {
-
-                setSqlQuery(String(draft.draft_queries[0].queries || ''));
-            }
-        }
-    }, [draft, tabActiveIndex]);
-
     // Handle shortcuts
     //
     React.useEffect(() => {
@@ -577,73 +560,69 @@ const SQLConsole: React.FC<{
                 </div>
             </div>
 
-            <div className="flex sql-console-console-results" style={{overflow: 'hidden'}}>
-                <div>
-                    <React.Suspense fallback={<CenteredLoading/>}>
-                        {confConnectorId > 0 && <CustomEditor
-                            id={`custom-editor-id-${confConnectorId}`}
-                            confConnectorId={confConnectorId}
-                            classNameAce=""
-                            value={sqlQuery}
-                            onCompletionCallback={() => setRefreshCompletion(false)}
-                            onExecuteCallback={(queries: string) => onExecute(queries)}
-                            onSaveCallback={(queries: string) => onSave(queries)}
-                            runCallbackResponse={stateSQLConsoleCallbackResponseQueryRun}
-                            saveCallbackResponse={stateSQLConsoleCallbackResponseQuerySave}
-                            onLoad={true}
-                            refreshCompletion={refreshCompletion}
-                            resize="vertical"
-                            mode={EAceEditorMode.MYSQL}
-                            activeButtons={[EAceEditorButton.RUN, EAceEditorButton.SAVE]}
-                        />}
-                    </React.Suspense>
-                </div>
-                <div className="sql-console-results-panel">
-                    {confConnectorId > 0 && draft.id > 0 &&
-                        <TabView
-                            key="add-tab"
-                            renderActiveOnly={false}
-                            activeIndex={tabActiveIndex}
-                            onTabChange={(event: TabMenuTabChangeEvent) => {
+            <div id="sql-console-console-container">
+                {confConnectorId > 0 && draft.id > 0 &&
+                    <TabView
+                        key="add-tab"
+                        renderActiveOnly={true}
+                        activeIndex={tabActiveIndex}
+                        onTabChange={(event: TabMenuTabChangeEvent) => {
 
-                                // Handle new tab
-                                //
-                                // @ts-ignore - add a new draft queries
-                                if (event.originalEvent.target.outerHTML.match('pi-plus')) {
+                            // Handle new tab
+                            //
+                            // @ts-ignore - add a new draft queries
+                            if (event.originalEvent.target.outerHTML.match('pi-plus')) {
 
-                                    addSqlConsoleQueriesTab();
-                                } else {
+                                addSqlConsoleQueriesTab();
+                            } else {
 
-                                    setTabActiveIndex(event.index);
-                                }
-                            }}
-                        >
-                            {draft.draft_queries.map((draftQueriesLooped: TDraftQueries) => (
+                                setTabActiveIndex(event.index);
+                            }
+                        }}
+                    >
+                        {draft.draft_queries.map((draftQueriesLooped: TDraftQueries) => (
 
-                                <TabPanel
-                                    key={`queries-tab-${draftQueriesLooped.id}`}
-                                    header={(
-                                        <>
-                                            {getSqlConsoleQueriesTabHeader(draftQueriesLooped)}
-                                            <span key={`queries-tab-${draftQueriesLooped.id}-span`}
-                                                  className="p-tabview-title">
+                            <TabPanel
+                                key={`queries-tab-${draftQueriesLooped.id}`}
+                                header={(
+                                    <>
+                                        {getSqlConsoleQueriesTabHeader(draftQueriesLooped)}
+                                        <span key={`queries-tab-${draftQueriesLooped.id}-span`}
+                                              className="p-tabview-title">
                                                     {`#${draftQueriesLooped.id}`}
                                                 </span>
-                                        </>
-                                    )}
-                                    headerTemplate={tabHeaderTemplate}
-                                    contentClassName="sql-console-results"
-                                >
+                                    </>
+                                )}
+                                headerTemplate={tabHeaderTemplate}
+                            >
+                                <React.Suspense fallback={<CenteredLoading/>}>
+                                    {confConnectorId > 0 && <CustomEditor
+                                        id={`custom-editor-id-${confConnectorId}`}
+                                        confConnectorId={confConnectorId}
+                                        classNameAce=""
+                                        value={String(draftQueriesLooped.queries || '')}
+                                        onCompletionCallback={() => setRefreshCompletion(false)}
+                                        onExecuteCallback={(queries: string) => onExecute(queries)}
+                                        onSaveCallback={(queries: string) => onSave(queries)}
+                                        runCallbackResponse={stateSQLConsoleCallbackResponseQueryRun}
+                                        saveCallbackResponse={stateSQLConsoleCallbackResponseQuerySave}
+                                        onLoad={true}
+                                        refreshCompletion={refreshCompletion}
+                                        resize="vertical"
+                                        mode={EAceEditorMode.MYSQL}
+                                        activeButtons={[EAceEditorButton.RUN, EAceEditorButton.SAVE]}
+                                    />}
+                                </React.Suspense>
+                                <div className="sql-console-results">
                                     {getSqlConsoleQueriesTabContents(draftQueriesLooped)}
-                                </TabPanel>
-                            ))}
+                                </div>
+                            </TabPanel>
+                        ))}
 
-                            <TabPanel header="" leftIcon="pi pi-plus"/>
-                        </TabView>
-                    }
-                </div>
+                        <TabPanel header="" leftIcon="pi pi-plus"/>
+                    </TabView>
+                }
             </div>
-
         </div>
     );
 }

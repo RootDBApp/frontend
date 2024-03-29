@@ -62,7 +62,7 @@
       }
     }
 
-    &.hide-tree  {
+    &.hide-tree {
       width: auto !important;
       min-width: auto !important;
 
@@ -74,115 +74,155 @@
     &-toggle {
       width: 16px !important;
       border: none;
+
       &:not(:hover) {
         background: transparent;
       }
     }
   }
 
-  .sql-console-console-results {
+  #sql-console-console-container {
     flex: 1;
     display: flex;
     flex-flow: column;
     max-width: 100%;
     margin-right: 0.5rem;
+    overflow: hidden;
   }
 
-  .sql-console-results-panel {
+  .p-tabview {
+    overflow: hidden;
     flex-grow: 1;
     display: flex;
-    overflow: hidden;
-    color: #F8F8F2;
+    flex-flow: column;
+    max-width: 100%;
+    max-height: 100%;
 
-    .p-tabview {
-      flex-grow: 1;
-      display: flex;
-      flex-flow: column;
-      max-width: 100%;
-      max-height: 100%;
-    }
-
-    .p-tabview-panels {
-      padding-top: 0;
-      padding-bottom: 0;
-      overflow: auto;
-      flex-grow: 1;
-      background-color: #272822;
-      color: #F8F8F2;
+    .p-tabview-nav {
       border-radius: 10px !important;
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-    }
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+      border-width: 1px;
 
-    .p-tabview-panel .sql-console-results {
-      background-color: #272822;
-      color: #F8F8F2;
-    }
-
-    .p-paginator {
-      background: none;
-      color: inherit;
-
-      .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
-        color: inherit;
-
-        &:hover {
-          color: inherit;
-          background: #202020;
+      li {
+        &:first-child .p-tabview-nav-link {
+          border-radius: 10px !important;
+          border-bottom-left-radius: 0 !important;
+          border-bottom-right-radius: 0 !important;
+          border-top-right-radius: 0 !important;
         }
-      }
-
-      .p-paginator-pages .p-paginator-page.p-highlight {
-        color: inherit;
-        background: #202020;
-        font-weight: bolder;
-      }
-
-      .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
-        background: #202020;
-        color: inherit;
-      }
-
-      .p-inputnumber {
-        background: none;
-        color: inherit;
-
-        .p-inputnumber-button-up, .p-inputnumber-button-down {
-          background: none;
-          border-color: #ced4da;
+        &:last-child .p-tabview-nav-link {
+          border-radius: 10px !important;
+          border-bottom-left-radius: 0 !important;
+          border-bottom-right-radius: 0 !important;
+          border-top-left-radius: 0 !important;
         }
-
-        .p-inputtext {
-          color: inherit;
-          background: none;
-          border-color: #ced4da;
-        }
-      }
-    }
-
-    table {
-      border: none !important;
-      color: inherit !important;
-
-      tr, th, td {
-        background: #272822 !important;
-        color: inherit !important;
-      }
-
-      th, td {
-        border: none !important;
-        padding: 0.5rem !important;
-      }
-
-      th {
-        border-bottom: 1px solid #F8F8F2 !important;
-      }
-
-      tr:hover {
-        background: #202020 !important;
       }
     }
   }
+
+  .p-tabview-panels {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+    padding: 0;
+    flex-grow: 1;
+    //background-color: #272822;
+    //color: #F8F8F2;
+    border-radius: 10px !important;
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+  }
+
+  .p-tabview-panel {
+    display: flex;
+    flex-flow: column;
+    overflow: hidden;
+
+    .before-expand-vertically-horizontally {
+      width: unset;
+      height: unset;
+    }
+
+    .custom-editor, .textarea-resize-handler {
+      border-radius: 0 !important
+    }
+
+    .sql-console-results {
+      padding-right: 1rem;
+      padding-left: 1rem;
+      display: flex;
+      flex-flow: column;
+      flex-grow: 1;
+      //background-color: #272822;
+      //color: #F8F8F2;
+      overflow: auto;
+    }
+  }
+
+  //.p-paginator {
+  //  background: none;
+  //  color: inherit;
+  //
+  //  .p-paginator-first, .p-paginator-prev, .p-paginator-next, .p-paginator-last {
+  //    color: inherit;
+  //
+  //    &:hover {
+  //      color: inherit;
+  //      background: #202020;
+  //    }
+  //  }
+  //
+  //  .p-paginator-pages .p-paginator-page.p-highlight {
+  //    color: inherit;
+  //    background: #202020;
+  //    font-weight: bolder;
+  //  }
+  //
+  //  .p-paginator-pages .p-paginator-page:not(.p-highlight):hover {
+  //    background: #202020;
+  //    color: inherit;
+  //  }
+  //
+  //  .p-inputnumber {
+  //    background: none;
+  //    color: inherit;
+  //
+  //    .p-inputnumber-button-up, .p-inputnumber-button-down {
+  //      background: none;
+  //      border-color: #ced4da;
+  //    }
+  //
+  //    .p-inputtext {
+  //      color: inherit;
+  //      background: none;
+  //      border-color: #ced4da;
+  //    }
+  //  }
+  //}
+
+  //table {
+  //  border: none !important;
+  //  color: inherit !important;
+  //
+  //  //tr, th, td {
+  //    //background: #272822 !important;
+  //    //color: inherit !important;
+  //  //}
+  //
+  //  th, td {
+  //    border: none !important;
+  //    padding: 0.5rem !important;
+  //  }
+  //
+  //  //th {
+  //  //  border-bottom: 1px solid #F8F8F2 !important;
+  //  //}
+  //  //
+  //  //tr:hover {
+  //  //  background: #202020 !important;
+  //  //}
+  //}
 
 
   .tree-db {
