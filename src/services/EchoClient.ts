@@ -20,24 +20,23 @@
  */
 
 import Echo      from "laravel-echo";
-import apiClient from "./api";
+import Pusher    from 'pusher-js';
 import channel   from "pusher-js/types/src/core/channels/channel";
+import apiClient from "./api";
 import env       from "../envVariables";
 
 // @ts-ignore
-window.Pusher = require('pusher-js');
+window.Pusher = Pusher;
 
+console.log(env);
 const EchoClient = new Echo({
-    key: env.REACT_APP_ECHO_CLIENT_KEY,
-    cluster: env.REACT_APP_ECHO_CLIENT_CLUSTER,
-    broadcaster: 'pusher',
-    wsHost: env.REACT_APP_ECHO_CLIENT_WS_HOST,
-    wsPort: env.REACT_APP_ECHO_CLIENT_WS_PORT,
-    wssHost: env.REACT_APP_ECHO_CLIENT_WSS_HOST,
-    wssPort: env.REACT_APP_ECHO_CLIENT_WSS_PORT,
-    disableStats: true,
+    broadcaster: 'reverb',
+    key: env.REACT_APP_VITE_REVERB_APP_KEY,
+    wsHost: env.REACT_APP_VITE_REVERB_HOST,
+    wsPort: env.REACT_APP_VITE_REVERB_PORT,
+    wssPort: env.REACT_APP_VITE_REVERB_PORT,
     enabledTransports: ['ws', 'wss'],
-    forceTLS: false,
+    forceTLS: (env.REACT_APP_VITE_REVERB_SCHEME ?? 'https') === 'https',
     authorizer: (authorizedChannel: channel) => {
         return {
             authorize: (socketId: number, callback: (a: boolean, b: string) => void) => {

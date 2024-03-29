@@ -89,62 +89,26 @@ const SystemInfo: React.FC = () => {
                             "api_value": ''
                         },
                         {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_AUTHENDPOINT',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_AUTHENDPOINT),
-                            "api_variable": '',
-                            "api_value": ''
-                        },
-                        // {
-                        //     "front_variable": 'REACT_APP_ECHO_CLIENT_BROADCASTER',
-                        //     "front_value": String(env.REACT_APP_ECHO_CLIENT_BROADCASTER),
-                        //     "api_variable": '',
-                        //     "api_value": ''
-                        // },
-                        {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_CLUSTER',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_CLUSTER),
-                            "api_variable": 'broadcasting_connections_pusher_options_cluster',
-                            "api_value": String(response.broadcasting_connections_pusher_options_cluster)
-                        },
-                        {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_FORCE_TLS',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_FORCE_TLS),
-                            "api_variable": 'broadcasting_connections_pusher_options_useTLS',
-                            "api_value": String(response.broadcasting_connections_pusher_options_useTLS)
-                        },
-                        {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_KEY',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_KEY),
-                            "api_variable": 'broadcasting_connections_pusher_key',
-                            "api_value": String(response.broadcasting_connections_pusher_key)
-                        },
-                        {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_WSS_HOST',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_WSS_HOST),
+                            "front_variable": 'REACT_APP_VITE_REVERB_APP_KEY',
+                            "front_value": String(env.REACT_APP_VITE_REVERB_APP_KEY),
                             "api_variable": '',
                             "api_value": ''
                         },
                         {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_WS_HOST',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_WS_HOST),
+                            "front_variable": 'REACT_APP_VITE_REVERB_HOST',
+                            "front_value": String(env.REACT_APP_VITE_REVERB_HOST),
                             "api_variable": '',
                             "api_value": ''
                         },
                         {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_WSS_PORT',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_WSS_PORT),
+                            "front_variable": 'REACT_APP_VITE_REVERB_PORT',
+                            "front_value": String(env.REACT_APP_VITE_REVERB_PORT),
                             "api_variable": '',
                             "api_value": ''
                         },
                         {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_WS_HOST',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_WS_HOST),
-                            "api_variable": '',
-                            "api_value": ''
-                        },
-                        {
-                            "front_variable": 'REACT_APP_ECHO_CLIENT_WS_PORT',
-                            "front_value": String(env.REACT_APP_ECHO_CLIENT_WS_PORT),
+                            "front_variable": 'REACT_APP_VITE_REVERB_SCHEME',
+                            "front_value": String(env.REACT_APP_VITE_REVERB_SCHEME),
                             "api_variable": '',
                             "api_value": ''
                         },
@@ -154,24 +118,24 @@ const SystemInfo: React.FC = () => {
                             "api_variable": '',
                             "api_value": ''
                         },
-                        {
-                            "front_variable": 'WDS_SOCKET_HOST',
-                            "front_value": String(env.WDS_SOCKET_HOST),
-                            "api_variable": '',
-                            "api_value": ''
-                        },
-                        {
-                            "front_variable": 'WDS_SOCKET_PATH',
-                            "front_value": String(env.WDS_SOCKET_PATH),
-                            "api_variable": '',
-                            "api_value": ''
-                        },
-                        {
-                            "front_variable": 'WDS_SOCKET_PORT',
-                            "front_value": String(env.WDS_SOCKET_PORT),
-                            "api_variable": '',
-                            "api_value": ''
-                        },
+                        // {
+                        //     "front_variable": 'WDS_SOCKET_HOST',
+                        //     "front_value": String(env.WDS_SOCKET_HOST),
+                        //     "api_variable": '',
+                        //     "api_value": ''
+                        // },
+                        // {
+                        //     "front_variable": 'WDS_SOCKET_PATH',
+                        //     "front_value": String(env.WDS_SOCKET_PATH),
+                        //     "api_variable": '',
+                        //     "api_value": ''
+                        // },
+                        // {
+                        //     "front_variable": 'WDS_SOCKET_PORT',
+                        //     "front_value": String(env.WDS_SOCKET_PORT),
+                        //     "api_variable": '',
+                        //     "api_value": ''
+                        // },
                         {
                             "front_variable": '',
                             "front_value": '',
