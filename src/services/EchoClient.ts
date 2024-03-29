@@ -28,7 +28,6 @@ import env       from "../envVariables";
 // @ts-ignore
 window.Pusher = Pusher;
 
-console.log(env);
 const EchoClient = new Echo({
     broadcaster: 'reverb',
     key: env.REACT_APP_VITE_REVERB_APP_KEY,
