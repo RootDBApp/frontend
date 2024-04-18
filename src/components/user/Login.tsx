@@ -192,7 +192,7 @@ const Login = () => {
                                          target="_blank"
                                          rel="noreferrer"
                                          className="underline text-color-secondary"
-                                      >RootDB</a>&nbsp;-&nbsp;v{process.env.REACT_APP_ROOTDB_VERSION}
+                                      >RootDB</a>&nbsp;-&nbsp;v{process.env.REACT_APP_ROOTDB_VERSION}&nbsp;-&nbsp;µAtomicWeb
                                   </span>
                                   </div>
                               </div>

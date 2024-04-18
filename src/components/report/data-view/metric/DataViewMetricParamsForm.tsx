@@ -67,21 +67,21 @@ const DataViewMetricParamsForm: React.FC<{
 
     const handleOnCreateRow = () => {
 
-        console.log('handleOnCreateRow')
+        console.debug('handleOnCreateRow')
         const newForm = [...rows, {id: generateUniqueIdInsideView(20, rows?.map(r => r.id))}];
         onChangeCallback({rows: newForm, global: global});
     }
 
     const handleOnDeleteRow = (row: TDataViewMetricRow) => {
 
-        console.log('handleOnDeleteRow')
+        console.debug('handleOnDeleteRow')
         const newForm = rows?.filter(r => r.id !== row.id);
         onChangeCallback({rows: newForm, global: global});
     }
 
     const handleOnChangeRow = (row: TDataViewMetricRow) => {
 
-        console.log('handleOnChangeRow')
+        console.debug('handleOnChangeRow')
         const columnIndex = rows?.findIndex(r => r.id === row.id);
         const newForm = [...rows];
         newForm[columnIndex] = row;
@@ -90,12 +90,12 @@ const DataViewMetricParamsForm: React.FC<{
 
     const handleOnChangeGlobalForm = (globalForm: TDataViewMetricForm['global']) => {
 
-        console.log('handleOnChangeGlobalForm')
+        console.debug('handleOnChangeGlobalForm')
         onChangeCallback({rows: rows, global: globalForm});
     }
 
     const reOrderColumns = (index: number, destination: number) => {
-        console.log('reorderColumns')
+        console.debug('reorderColumns')
         const newColumns = [...rows];
         const [removed] = newColumns.splice(index, 1);
         newColumns.splice(destination, 0, removed);
@@ -109,7 +109,7 @@ const DataViewMetricParamsForm: React.FC<{
     }
 
     const onDragEnd = (result: DropResult): void => {
-        console.log('onDragEnd')
+        console.debug('onDragEnd')
 
         // If dropped outside the list.
         if (!result.destination) {

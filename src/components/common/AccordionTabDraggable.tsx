@@ -26,8 +26,8 @@ import { ReactNode }                       from "react";
 const AccordionTabDraggable: React.FC<AccordionTabProps> = (props): React.ReactElement => {
 
     React.useEffect(() => {
-        console.log('=================================================================');
-        console.log('=== AccordionTabProps', props);
+        console.debug('=================================================================');
+        console.debug('=== AccordionTabProps', props);
     },[props]);
 
     return <AccordionTab {...props}/>;
