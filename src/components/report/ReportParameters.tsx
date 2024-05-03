@@ -137,7 +137,7 @@ const ReportParameters: React.FC<{
             let componentByRow: number = 1;
             let componentByRowMax: number = 1;
 
-            for (const [, parameter] of reportParameters.entries()) {
+            reportParameters.forEach((parameter: TReportParameter) => {
 
                 if (parameter.following_parameter_next_to_this_one) {
 
@@ -152,10 +152,10 @@ const ReportParameters: React.FC<{
                     nextToThisOneActivated = false;
                     componentByRow = 1;
                 }
-            }
+            });
 
             nextToThisOneActivated = false;
-            for (const [index, parameter] of reportParameters.entries()) {
+            reportParameters.filter((parameter: TReportParameter) => !(reportIsEmbedded && !parameter.available_public_access)).forEach((parameter: TReportParameter, index: number) => {
 
                 let className = 'col-12 mb-1 p-p-1 ';
                 if (parameter.following_parameter_next_to_this_one || nextToThisOneActivated) {
@@ -186,7 +186,7 @@ const ReportParameters: React.FC<{
                         />
                     </div>
                 );
-            }
+            });
 
             // Display inputs components.
             setInputComponents(
@@ -196,7 +196,7 @@ const ReportParameters: React.FC<{
             );
         }
 
-    }, [reportParameters, reportParameterInputValues, updateReportParameterInputValueAndLocalState]);
+    }, [reportParameters, reportIsEmbedded, reportParameterInputValues, updateReportParameterInputValueAndLocalState]);
 
     React.useEffect(() => {
 
@@ -214,7 +214,7 @@ const ReportParameters: React.FC<{
                     }
                 });
             }
-            // Cleanup input parameters when there are some which are modified, updated or deleted.
+            // Cleanup input parameters when there are some that are modified, updated or deleted.
             else {
 
                 // Get existing input parameters. (from URL, initialized when report is loaded)
@@ -237,12 +237,13 @@ const ReportParameters: React.FC<{
                     return !currentReportParameterInputValues.find((parameterInputValue) => parameterInputValue.name === reportParameter.variable_name);
                 });
 
-                for (const [, reportParameter] of newReportParameters.entries()) {
+                newReportParameters.forEach((reportParameter: TReportParameter) => {
+
                     currentReportParameterInputValues.push({
                         name: reportParameter.variable_name,
                         value: reportParameter.forced_default_value
                     });
-                }
+                });
 
                 // Handle delete parameters.
                 currentReportParameterInputValues = currentReportParameterInputValues.filter((parameterInputValue) => {
@@ -284,13 +285,14 @@ const ReportParameters: React.FC<{
                         }
                     });
 
-                    // If we have parameters here it's because we loaded a report. (so we have all data we need)...
+                    // If we have parameters here, it's because we loaded a report. (so we have all data we need)...
                     // ... and parameters should already be available in a form of an Array<TFormValue> from ReportState.
                 } else if (reportState.report?.parameters) {
 
-                    setReportParameters(
-                        reportState?.report?.parameters.filter((parameter: TReportParameter) => !(reportIsEmbedded && !parameter.available_public_access))
-                    );
+                    // setReportParameters(
+                    //     reportState?.report?.parameters.filter((parameter: TReportParameter) => !(reportIsEmbedded && !parameter.available_public_access))
+                    // );
+                    setReportParameters(reportState?.report?.parameters);
                     setIsReportParametersLoading(false);
                 }
             }

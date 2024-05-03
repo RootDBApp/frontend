@@ -57,13 +57,14 @@ const PublicReportRunReport: React.FC<{
 
         if (reportState.report?.has_parameters) {
 
+            console.log('----------------------------------------', reportState);
             setHasParameters(true)
         } else {
 
             setHasParameters(false);
         }
 
-    }, [reportState.report?.has_parameters]);
+    }, [reportState, reportState.report?.has_parameters]);
 
     return (
         <>

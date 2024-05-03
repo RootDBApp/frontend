@@ -23,6 +23,7 @@
 import { Dropdown }       from "primereact/dropdown";
 import * as React         from 'react';
 import { useTranslation } from "react-i18next";
+import { Nullable }       from "primereact/ts-helpers";
 
 export enum offSetType {
     DAYS,
@@ -41,7 +42,7 @@ type preDefinedDateOption = {
 const DropDownPreDefinedDate: React.FC<{
     onChange: Function,
     values: preDefinedDateOption[],
-    baseDate: Date | undefined,
+    baseDate: Nullable<Date>,
 }> = ({
           onChange,
           values,

@@ -21,6 +21,7 @@
 
 import { Calendar }       from "primereact/calendar";
 import { Dropdown }       from "primereact/dropdown";
+import { Nullable }       from "primereact/ts-helpers";
 import * as React         from "react";
 import { useTranslation } from "react-i18next";
 
@@ -47,7 +48,7 @@ const ReportParameterCalendar: React.FC<{
     const {state: authState} = React.useContext(authContext);
 
     const {t} = useTranslation('common');
-    const [value, setValue] = React.useState<Date | undefined>(undefined);
+    const [value, setValue] = React.useState<Nullable<Date>>();
     const [randomKey, setRandomKey] = React.useState<number>(Math.random() * 100);
 
     const defaultValue = React.useMemo(() => {

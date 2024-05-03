@@ -112,7 +112,7 @@ const ReportCacheJobParameters: React.FC<{
             let componentByRow: number = 1;
             let componentByRowMax: number = 1;
 
-            for (const [, parameter] of reportParameters.entries()) {
+            reportParameters.forEach((parameter: TReportParameter) => {
 
                 if (parameter.following_parameter_next_to_this_one) {
 
@@ -127,10 +127,10 @@ const ReportCacheJobParameters: React.FC<{
                     nextToThisOneActivated = false;
                     componentByRow = 1;
                 }
-            }
+            });
 
             nextToThisOneActivated = false;
-            for (const [index, parameter] of reportParameters.entries()) {
+            reportParameters.forEach((parameter: TReportParameter, index: number) => {
 
                 let className = 'col-12 mb-1 p-p-1 ';
                 if (parameter.following_parameter_next_to_this_one || nextToThisOneActivated) {
@@ -164,7 +164,7 @@ const ReportCacheJobParameters: React.FC<{
                         />
                     </div>
                 );
-            }
+            });
 
             // Display inputs components.
             setInputComponents(
