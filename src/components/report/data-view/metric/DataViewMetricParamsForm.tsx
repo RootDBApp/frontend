@@ -205,7 +205,7 @@ const DataViewMetricParamsForm: React.FC<{
 
                                                         <div className="flex-grow-1 flex align-items-center justify-content-between" onClick={() => activeSubTabColumnIndex(index)}>
 
-                                                            <span>{columnParameter.text?.substring(0, 20) || columnParameter.id}</span>
+                                                            <span>{columnParameter.text?.substring(0, 40) || columnParameter.id}</span>
 
                                                             <div>
                                                                 <i className="tooltip-drag-n-drop p-button-icon-only p-button-icon-small p-button-sm p-button-text pi pi-bars icon-draggable"
