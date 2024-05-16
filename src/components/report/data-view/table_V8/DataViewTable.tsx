@@ -23,8 +23,8 @@ import { Message }        from "primereact/message";
 import * as React         from 'react';
 import { useTranslation } from "react-i18next";
 
-import { ICallbackTableJsonFormOnChange } from "../../../../types/ICallBacks";
-import DataViewTableParamsForm            from "../table_V8/DataViewTableParamsForm";
+import { ICallbackTableJsonFormOnChange }            from "../../../../types/ICallBacks";
+import DataViewTableParamsForm                       from "../table_V8/DataViewTableParamsForm";
 import DataViewTableView                             from "../table_V8/DataViewTableView";
 import TDataViewTableColumnParameter                 from "../../../../types/TDataViewTableColumnParameter";
 import { columnsV8FormToJS, paginationInitialState } from "../../../../utils/tableView";
@@ -79,7 +79,7 @@ const DataViewTable: React.FC<{
     const [expanded_paginate, setExpandedPaginate] = React.useState<boolean>(true);
     const [adjustWidth, setAdjustWidth] = React.useState<boolean>(false);
 
-    const resetColumns = (columns: TDataViewTableColumnParameter[]) => {
+    const resetColumns = (columns: TDataViewTableColumnParameter[]):void => {
 
         onChangeCallback({
             // exclude removed columns and remove new flag on new columns
@@ -88,7 +88,7 @@ const DataViewTable: React.FC<{
         });
     }
 
-    const handleOnChange = (jsonForm: TDataViewTableForm) => {
+    const handleOnChange = (jsonForm: TDataViewTableForm):void => {
 
         onChangeCallback(jsonForm);
 
@@ -111,7 +111,7 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(() => {
+    React.useEffect(():void => {
 
         if (dataView.report_data_view_js.json_form) {
             try {
@@ -142,9 +142,28 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(() => {
+    React.useEffect(():void => {
 
         setErrorEmptyColumnId(false);
+
+        // if( results && results.length > 0) {
+        //     results.map((resultObject: Object) => {
+        //         resultObject = Object.keys(resultObject).forEach((key: string, value: any) => {
+        //
+        //             if (value === true || value === false) {
+        //
+        //                 // cli Postgres returns : f / t
+        //                 if (report.conf_connector && report.conf_connector.connector_database_id === 2) {
+        //
+        //                     key = value ? 't' : 'f';
+        //                 } else {
+        //
+        //                     key = value ? 'true' : 'false';
+        //                 }
+        //             }
+        //         })
+        //     });
+        // }
 
         if (dbColumnsParameters.length === 0 && results && results.length > 0) {
 
@@ -201,6 +220,7 @@ const DataViewTable: React.FC<{
                             externalLinks: [],
                         })
                     });
+
                 setColumnsParameters(columns);
                 setColumns(columnsV8FormToJS(columns));
             } else {
@@ -216,7 +236,7 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(() => {
+    React.useEffect(():void => {
 
         if (errorEmptyColumnId) {
 
@@ -253,7 +273,6 @@ const DataViewTable: React.FC<{
                         expanded={mountParams}
                         report={report}
                         reportInstance={reportInstance}
-                        dataViewName={dataView.name}
                         loading={loading}
                         jsCode={columns}
                         dataViewId={dataView.id}

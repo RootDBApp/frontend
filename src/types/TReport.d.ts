@@ -28,6 +28,7 @@ import TDirectory         from "./TDirectory";
 import TReportGroup       from "./TReportGroup";
 import TReportUser        from "./TReportUser";
 import TReportParameter   from "./TReportParameter";
+import TConnector         from "./TConnector";
 
 type TReport = {
     category_id: number,
@@ -50,7 +51,7 @@ type TReport = {
     allowed_groups?: Array<TReportGroup>,
     allowed_users?: Array<TReportUser>,
     category?: TCategory,
-    conf_connector?: TConnectorDatabase,
+    conf_connector?: TConnector,
     description?: string,
     description_listing?: string,
     created_at?: Date,

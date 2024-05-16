@@ -21,6 +21,7 @@
 
 import * as React         from 'react';
 import { useTranslation } from "react-i18next";
+import { useVirtual }     from "react-virtual";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -50,7 +51,6 @@ import {
     customIncludesString
 }                                from "../../../../utils/tableView";
 import CenteredLoading           from "../../../common/loading/CenteredLoading";
-import { useVirtual }            from "react-virtual";
 import { getElementContentSize } from "../../../../utils/htmlElement";
 
 
@@ -143,7 +143,6 @@ const ReactTable: React.FC<{
         getSortedRowModel: getSortedRowModel(),
         getPaginationRowModel: getPaginationRowModel(),
     })
-
 
     const {rows} = table.getRowModel()
     const rowVirtualizer = useVirtual({
@@ -292,10 +291,8 @@ const ReactTable: React.FC<{
                                                             )}
                                                             <span>
                                                                             {{
-                                                                                asc: <i
-                                                                                    className="pi pi-sort-amount-up ml-1"/>,
-                                                                                desc: <i
-                                                                                    className="pi pi-sort-amount-down ml-1"/>,
+                                                                                asc: <i className="pi pi-sort-amount-up ml-1"/>,
+                                                                                desc: <i className="pi pi-sort-amount-down ml-1"/>,
                                                                             }[header.column.getIsSorted() as string] ?? null}
                                                                         </span>
                                                         </div>

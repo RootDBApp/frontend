@@ -21,6 +21,7 @@
 
 import { ContextMenu }            from "primereact/contextmenu";
 import { Dialog }                 from "primereact/dialog";
+import { Image }                  from "primereact/image";
 import { MenuItem }               from "primereact/menuitem";
 import { OverlayPanel }           from "primereact/overlaypanel";
 import * as React                 from 'react';
@@ -47,7 +48,6 @@ import TReport                                   from "../../../../types/TReport
 import TReportInstance                           from "../../../../types/TReportInstance";
 import AncestorSizeProvider                      from "../../../common/size/AncestorSizeProvider";
 import TExternalLink                             from "../../../../types/TExternalLink";
-import { Image }                                 from "primereact/image";
 
 const DataViewTableView: React.FC<{
     dataViewId: number,
@@ -79,13 +79,13 @@ const DataViewTableView: React.FC<{
     const contextMenuRef = React.useRef<ContextMenu>(null);
     const overlayPanelCollapsibleRef = React.useRef<OverlayPanel>(null);
 
-    const showLinksInOverlayPanel = (event: React.MouseEvent<HTMLButtonElement>, links: Array<TReportLink | TExternalLink>) => {
+    const showLinksInOverlayPanel = (event: React.MouseEvent<HTMLButtonElement>, links: Array<TReportLink | TExternalLink>): void => {
 
         setOverlayPanelLinks(links);
         contextMenuRef.current?.show(event);
     };
 
-    const showCollapsibleContentInOverLayPanel = (event: React.MouseEvent<HTMLButtonElement>, content: string) => {
+    const showCollapsibleContentInOverLayPanel = (event: React.MouseEvent<HTMLButtonElement>, content: string): void => {
 
         setOverlayPanelCollapsibleContent(content);
         overlayPanelCollapsibleRef.current?.toggle(event);
@@ -93,7 +93,7 @@ const DataViewTableView: React.FC<{
 
     const tableColumns = React.useMemo(() => {
 
-        return columns.map((column) => {
+        return columns.map((column: TDataViewTableColumnV8) => {
 
             const {
                 filterFn,
@@ -119,7 +119,9 @@ const DataViewTableView: React.FC<{
                 aggregationFn: getAggregationFnV8(footerMethod),
                 aggregatedCell: ({getValue}) => replacePlaceholder(footerText || '', round(getValue<number>(), footerRounding).toFixed(footerRounding)),
                 cell: (cell: CellContext<any, any>) => {
+
                     if ((reportLinks || []).length > 0 || (externalLinks || []).length > 0) {
+
                         return (
                             <DataViewTableLinkedCell
                                 cell={cell}
@@ -132,6 +134,7 @@ const DataViewTableView: React.FC<{
                     }
 
                     if (collapsible === true) {
+
                         return (
                             <DataViewTableCollapsableCell
                                 value={cell.getValue()}
@@ -141,6 +144,7 @@ const DataViewTableView: React.FC<{
                     }
 
                     if (asImage) {
+
                         return <Image
                             preview={asImageFullSize}
                             src={cell.getValue()}
@@ -148,26 +152,40 @@ const DataViewTableView: React.FC<{
                             height={asImageThumbnailHeight ? String(asImageThumbnailHeight) : undefined}
                         />
                     }
+
+                    if (cell.getValue() === true || cell.getValue() === false) {
+
+                        // cli Postgres returns : f / t
+                        if (report.conf_connector && report.conf_connector.connector_database_id === 2) {
+
+                            return cell.getValue() ? 't' : 'f';
+                        } else {
+
+                            return cell.getValue() ? 'true' : 'false';
+                        }
+                    }
+
                     return cell.getValue();
                 },
                 footer: ({table, column}) => footer(table, column),
             } as ColumnDef<any, unknown>;
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [columns, reportInstance.reportParameterInputValues]);
 
     const data = React.useMemo((): any => {
 
         return renameKeys(
             jsonResults,
-            (key) => key.includes('.') ? key.replace('.', '') : key,
+            (key) => key.includes('.') ? key.replace('.', '') : key
         )
     }, [jsonResults])
 
-    const groupByColumns = React.useMemo(() => {
+    const groupByColumns: string[] = React.useMemo(() => {
 
         let cols: string[] = [];
 
-        columns.forEach((column) => {
+        columns.forEach((column: TDataViewTableColumnV8) => {
 
             if (column.groupBy) {
 
@@ -179,7 +197,7 @@ const DataViewTableView: React.FC<{
         return cols;
     }, [columns]);
 
-    React.useEffect(() => {
+    React.useEffect((): void => {
 
         if (jsonResults && jsonResults.length > 0) {
 
@@ -191,7 +209,6 @@ const DataViewTableView: React.FC<{
 
         const reportLinks = overlayPanelLinks.filter((link: TReportLink | TExternalLink) => isReportLink(link)) as TReportLink[];
         const externalLinks = overlayPanelLinks.filter((link: TReportLink | TExternalLink) => !isReportLink(link)) as TExternalLink[];
-
         const reportLinksItems = reportLinks.map(
             (link: TReportLink) => ({
                 label: link.label,
@@ -208,6 +225,7 @@ const DataViewTableView: React.FC<{
                 target: '_blank',
             } as MenuItem)
         )
+
         let menuItems = [...reportLinksItems];
         if (externalLinksItems.length > 0) {
             menuItems = [
@@ -216,7 +234,6 @@ const DataViewTableView: React.FC<{
                 // { label: 'External ressources', items: externalLinksItems }
                 ...externalLinksItems,
             ];
-
         }
 
         return menuItems;

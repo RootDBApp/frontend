@@ -19,8 +19,9 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React          from 'react';
-import { Column }          from "@tanstack/react-table";
+import * as React from 'react';
+import { Column } from "@tanstack/react-table";
+
 import StringFilterV8      from "./StringFilter";
 import SelectColumnFilter  from "./SelectColumnFilter";
 import MinMaxFilter        from "./MinMaxFilter";
@@ -29,6 +30,7 @@ import ColumnOverlayFilter from "../../table_V8/filters/ColunmOverlayFilter";
 const ReactTableV8Filter = ({column}: { column: Column<any, unknown> }): React.ReactElement => {
 
     let filterComponent = <StringFilterV8 column={column} activeFilter={column.getIsFiltered()}/>;
+
     switch (column.columnDef.filterFn) {
 
         case 'equals':
