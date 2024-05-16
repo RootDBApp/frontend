@@ -74,7 +74,7 @@
     "request_blocked" : "La requête a été bloqué car le serveur de websocket ne fonctionne pas. Contactez votre administrateur.",
     "welcome" : "Bienvenue sur RootDB",
     "dates" : {
-        "today": "Aujourd'hui",
+        "today" : "Aujourd'hui",
         "default" : "Date par défaut",
         "day_one" : "{{count}} jour",
         "day_other" : "{{count}} jours",
@@ -100,7 +100,8 @@
         "maximize-no-shortcut" : "Activer le mode plein écran",
         "minimize" : "Désactiver le mode plein écran (ALT+SHIFT+V)",
         "minimize-no-shortcut" : "Désactiver le mode plein écran",
-        "not-saved": "Non sauvegardé"
+        "not-saved" : "Non sauvegardé",
+        "refresh_connector" : "Re-génère l'arborescence complète de la base de données et l'auto-complétion."
     },
     "form" : {
         "account_activation" : "Activation du compte",

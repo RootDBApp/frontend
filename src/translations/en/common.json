@@ -71,7 +71,7 @@
     "request_blocked" : "Request has been blocked because the Websocket server is not running. Please contact you administrator.",
     "welcome" : "Welcome to RootDB",
     "dates" : {
-        "today": "Today",
+        "today" : "Today",
         "default" : "Default date",
         "day_one" : "{{count}} day ago",
         "day_other" : "{{count}} days ago",
@@ -98,7 +98,8 @@
         "maximize-no-shortcut" : "Activate fullscreen mode",
         "minimize" : "Deactivate fullscreen mode (ALT+SHIFT+V)",
         "minimize-no-shortcut" : "Deactivate fullscreen mode",
-        "not-saved": "Not saved"
+        "not-saved" : "Not saved",
+        "refresh_connector" : "Refresh the entire database tree structure and auto-completes."
     },
     "form" : {
         "account_activation" : "Account activation",

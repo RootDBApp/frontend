@@ -205,6 +205,12 @@ const CustomEditor: React.FC<{
         }
     }, [onSaveCallback]);
 
+    const handleRefreshAutoComplete = (confConnectorIdToUse: number): void => {
+
+        setAllHelpers([]);
+        apiDataDispatch(getConnectorCompletions(confConnectorIdToUse));
+        setDbHelpersTryCounter(1);
+    }
 
     // Update current value.
     React.useEffect(() => {
@@ -304,10 +310,16 @@ const CustomEditor: React.FC<{
                 && !connectorCompletionsFound
                 && !apiDataState.connectorCompletionsLoading) {
 
-                setAllHelpers([]);
-                apiDataDispatch(getConnectorCompletions(confConnectorIdToUse));
-                setDbHelpersTryCounter(1);
-            } else if (connectorCompletionsFound) {
+                handleRefreshAutoComplete(confConnectorIdToUse);
+            } else if (
+                connectorCompletionsFound
+                && connectorCompletionsFound.completions.length === 0
+                && dbHelpersTryCounter < 1
+                && !apiDataState.connectorCompletionsLoading
+            ) {
+
+                handleRefreshAutoComplete(confConnectorIdToUse);
+            } else if (connectorCompletionsFound && connectorCompletionsFound.completions.length > 0) {
 
                 const helpersToAdd: Array<Ace.Completion> = allHelpers;
                 helpersToAdd.push(...connectorCompletionsFound.completions);

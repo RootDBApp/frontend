@@ -526,10 +526,14 @@ const SQLConsole: React.FC<{
                             loading={confConnectorLoading}
                             onClick={() => {
 
+                                // It will empty the localstorage, so useEffects with localstorage dependencies will
+                                // trigger refreshes.
                                 apiDataDispatch(refreshConnectorSchemasTree(confConnectorId));
                                 apiDataDispatch(refreshConnectorCompletions(confConnectorId));
                                 setRefreshCompletion(true);
                             }}
+                            tooltip={t('common:editor.refresh_connector').toString()}
+                            tooltipOptions={{position: 'right'}}
                         />
                         <DropdownConnector
                             className="p-inputgroup-addon"
