@@ -200,7 +200,7 @@ export const average: AggregationFn<any> = (columnId, _leafRows, childRows) => {
     return count > 0 ? sum / count : undefined;
 }
 
-// built-in functions assume the type of the value
+// Built-in functions assume the type of the value
 // if we receive numbers, functions based in string values break
 export const customArrIncludesSome: FilterFn<any> = (
     row,
@@ -224,23 +224,46 @@ export const customIncludesString: FilterFn<any> = (
     return Boolean(String(value).toLowerCase().includes(search))
 }
 
-export function renameKeys(data: Object[] | undefined, fn: (key: string) => string) {
+export function renameKeysAndHandleBooleanValue(
+    data: Object[] | undefined,
+    fn: (key: string) => string,
+    databaseTypeId?: number | undefined
+) {
+
     if (typeof fn !== 'function') {
+
         return data;
     }
 
     return data?.map(row => {
+
         const keys = Object.keys(row);
         const result: { [key: string]: any } = {};
 
         for (let i = 0; i < keys.length; i++) {
+
             let key = keys[i];
             // @ts-ignore
-            const val = row[key];
+            let val = row[key];
             const str = fn(key);
+
             if (str && str !== '') {
                 key = str;
             }
+
+            // Display string for real boolean value from database results.
+            if (databaseTypeId && (val === true || val === false)) {
+
+                // cli Postgres returns : f / t
+                if (databaseTypeId === 2) {
+
+                    val = val ? 't' : 'f';
+                } else {
+
+                    val = val ? 'true' : 'false';
+                }
+            }
+
             result[key] = val;
         }
 

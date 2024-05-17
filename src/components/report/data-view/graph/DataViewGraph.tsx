@@ -33,9 +33,9 @@ import CenteredError                  from "../../../common/loading/CenteredErro
 import SQLConsoleResult               from "../../../sqlconsole/SQLConsoleResult";
 import TDataViewInstance              from "../../../../types/TDataViewInstance";
 import TReport                        from "../../../../types/TReport";
-import TReportInstance      from "../../../../types/TReportInstance";
-import AncestorSizeProvider from "../../../common/size/AncestorSizeProvider";
-import { EReportViewMode }  from "../../../../types/EReportViewMode";
+import TReportInstance                from "../../../../types/TReportInstance";
+import AncestorSizeProvider           from "../../../common/size/AncestorSizeProvider";
+import { EReportViewMode }            from "../../../../types/EReportViewMode";
 
 enum viewModes {
     GRAPH,

@@ -27,17 +27,17 @@ import { CSVLink }        from "react-csv";
 import { useNavigate }    from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import * as RTReport                     from "../../../contexts/report/ReportContextProvider";
-import TReportDataView                   from "../../../types/TReportDataView";
-import { apiSendRequest }                from "../../../services/api";
-import { EAPIEndPoint }                  from "../../../types/EAPIEndPoint";
-import TReport                           from "../../../types/TReport";
-import TReportInstance                   from "../../../types/TReportInstance";
-import env                               from "../../../envVariables";
-import { EDataViewType }                 from "../../../types/EDataViewType";
-import { getCSVFileName }                from "../../../utils/tools";
-import { renameKeys }                    from "../../../utils/tableView";
-import { dataviewDeletionConfirmDialog } from "./DataViewDeletionConfirmDialog";
+import * as RTReport                       from "../../../contexts/report/ReportContextProvider";
+import TReportDataView                     from "../../../types/TReportDataView";
+import { apiSendRequest }                  from "../../../services/api";
+import { EAPIEndPoint }                    from "../../../types/EAPIEndPoint";
+import TReport                             from "../../../types/TReport";
+import TReportInstance                     from "../../../types/TReportInstance";
+import env                                 from "../../../envVariables";
+import { EDataViewType }                   from "../../../types/EDataViewType";
+import { getCSVFileName }                  from "../../../utils/tools";
+import { renameKeysAndHandleBooleanValue } from "../../../utils/tableView";
+import { dataviewDeletionConfirmDialog }   from "./DataViewDeletionConfirmDialog";
 
 const DataViewOptionsOverlay: React.FC<{
     className: string
@@ -71,9 +71,10 @@ const DataViewOptionsOverlay: React.FC<{
             let items: MenuItem[] = [];
 
             if (dataView.type === EDataViewType.TABLE) {
-                const preparedResults = renameKeys(
+                const preparedResults = renameKeysAndHandleBooleanValue(
                     jsonResults,
                     (key) => key.includes('.') ? key.replace('.', '') : key,
+                    report.conf_connector?.connector_database_id
                 ) || [];
 
                 items.push(

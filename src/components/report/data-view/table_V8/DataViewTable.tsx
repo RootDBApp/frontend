@@ -144,27 +144,6 @@ const DataViewTable: React.FC<{
     //
     React.useEffect(():void => {
 
-        setErrorEmptyColumnId(false);
-
-        // if( results && results.length > 0) {
-        //     results.map((resultObject: Object) => {
-        //         resultObject = Object.keys(resultObject).forEach((key: string, value: any) => {
-        //
-        //             if (value === true || value === false) {
-        //
-        //                 // cli Postgres returns : f / t
-        //                 if (report.conf_connector && report.conf_connector.connector_database_id === 2) {
-        //
-        //                     key = value ? 't' : 'f';
-        //                 } else {
-        //
-        //                     key = value ? 'true' : 'false';
-        //                 }
-        //             }
-        //         })
-        //     });
-        // }
-
         if (dbColumnsParameters.length === 0 && results && results.length > 0) {
 
             const [result] = results;

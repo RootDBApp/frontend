@@ -23,9 +23,9 @@ import * as React    from 'react';
 import { ColumnDef } from "@tanstack/react-table";
 import { filterFns } from "@tanstack/table-core";
 
-import ReactTable       from "../report/data-view/table_V8/ReactTable";
-import TSQLConsoleQuery from "../../types/TSQLConsoleQuery";
-import { renameKeys }   from "../../utils/tableView";
+import ReactTable                          from "../report/data-view/table_V8/ReactTable";
+import TSQLConsoleQuery                    from "../../types/TSQLConsoleQuery";
+import { renameKeysAndHandleBooleanValue } from "../../utils/tableView";
 
 const SQLConsoleResult: React.FC<{
     sqlConsoleQuery: TSQLConsoleQuery,
@@ -58,9 +58,9 @@ const SQLConsoleResult: React.FC<{
 
     const data = React.useMemo((): any => {
 
-        return renameKeys(
+        return renameKeysAndHandleBooleanValue(
             sqlConsoleQuery.results.stdout,
-            (key: string) => key.includes('.') ? key.replace('.', '') : key,
+            (key: string) => key.includes('.') ? key.replace('.', '') : key
         )
     }, [sqlConsoleQuery.results.stdout])
 

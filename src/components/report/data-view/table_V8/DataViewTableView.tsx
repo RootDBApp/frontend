@@ -32,7 +32,7 @@ import round                      from 'lodash.round';
 
 import {
     getAggregationFnV8,
-    getColumnFooterV8, renameKeys,
+    getColumnFooterV8, renameKeysAndHandleBooleanValue,
     replacePlaceholder
 }                                                from "../../../../utils/tableView";
 import TDataViewTableForm                        from "../../../../types/TDataViewTableForm";
@@ -153,33 +153,21 @@ const DataViewTableView: React.FC<{
                         />
                     }
 
-                    if (cell.getValue() === true || cell.getValue() === false) {
-
-                        // cli Postgres returns : f / t
-                        if (report.conf_connector && report.conf_connector.connector_database_id === 2) {
-
-                            return cell.getValue() ? 't' : 'f';
-                        } else {
-
-                            return cell.getValue() ? 'true' : 'false';
-                        }
-                    }
-
                     return cell.getValue();
                 },
                 footer: ({table, column}) => footer(table, column),
             } as ColumnDef<any, unknown>;
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [columns, reportInstance.reportParameterInputValues]);
 
     const data = React.useMemo((): any => {
 
-        return renameKeys(
+        return renameKeysAndHandleBooleanValue(
             jsonResults,
-            (key) => key.includes('.') ? key.replace('.', '') : key
+            (key) => key.includes('.') ? key.replace('.', '') : key,
+            report.conf_connector?.connector_database_id as number
         )
-    }, [jsonResults])
+    }, [jsonResults, report.conf_connector?.connector_database_id])
 
     const groupByColumns: string[] = React.useMemo(() => {
 
