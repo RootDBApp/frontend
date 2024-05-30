@@ -24,7 +24,6 @@ import * as React from 'react';
 import { EAceEditorMode }              from "../../../../types/primereact/EAceEditorMode";
 import { ICallbackSQLEditorOnChange }  from "../../../../types/ICallBacks";
 import TCallbackResponse               from "../../../../types/TCallbackResponse";
-// import * as RTReport                   from "../../../../contexts/report/ReportContextProvider";
 import CenteredLoading                 from "../../../common/loading/CenteredLoading";
 
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
