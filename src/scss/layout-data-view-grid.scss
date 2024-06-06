@@ -66,6 +66,24 @@
             border-bottom-right-radius: 0 !important;
           }
 
+          .tab-view-chart-js-param-js {
+
+            width: 100%;
+
+            a {
+              padding: 0.5rem;
+            }
+
+            .p-tabview-panels {
+              padding-top: 0.2rem;
+            }
+
+            .p-tabview-panels {
+              padding-left: 0;
+              padding-right: 0;
+            }
+          }
+
           &:not(.hidden) {
             display: flex;
 
@@ -117,7 +135,7 @@
       display: block;
 
       .data-view-card > .p-card-body > .p-card-content {
-        display: flex!important;
+        display: flex !important;
       }
     }
 

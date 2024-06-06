@@ -21,9 +21,14 @@
 
 import React from "react";
 
-const ChartJsConfiguratorConfig: React.FC<{}> = ({}): React.ReactElement => {
+const ChartJsConfiguratorLabels: React.FC<{
+}> = ({
+                                                 }): React.ReactElement => {
 
-    return <></>
+
+        return (
+        <></>
+    );
 }
 
-export default ChartJsConfiguratorConfig;
+export default ChartJsConfiguratorLabels;

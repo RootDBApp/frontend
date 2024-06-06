@@ -19,12 +19,14 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React from 'react';
+import * as React            from 'react';
+import { TabPanel, TabView } from "primereact/tabview";
 
-import { EAceEditorMode }              from "../../../../types/primereact/EAceEditorMode";
-import { ICallbackSQLEditorOnChange }  from "../../../../types/ICallBacks";
-import TCallbackResponse               from "../../../../types/TCallbackResponse";
-import CenteredLoading                 from "../../../common/loading/CenteredLoading";
+import { EAceEditorMode }             from "../../../../types/primereact/EAceEditorMode";
+import { ICallbackSQLEditorOnChange } from "../../../../types/ICallBacks";
+import TCallbackResponse              from "../../../../types/TCallbackResponse";
+import CenteredLoading                from "../../../common/loading/CenteredLoading";
+import ChartJsConfigurator            from "./chartjs-configurator/ChartJsConfigurator";
 
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
 
@@ -42,29 +44,38 @@ const DataViewGraphParamsJs: React.FC<{
           reportId,
       }): React.ReactElement => {
 
-    // const reportDispatch = RTReport.useDispatch();
-
     return (
-        <React.Suspense fallback={<CenteredLoading/>}>
-            <CustomEditor
-                saveCallbackResponse={callBackResponse}
-                height="100%"
-                id={'js_editor_code_data_view_' + dataViewId}
-                mode={EAceEditorMode.JS}
-                // onBlurCallback={(js_code: string) => {
-                //
-                //     onChangeCallback(js_code);
-                // }}
-                onSaveCallback={(js_code: string) => {
+        <TabView className="tab-view-chart-js-param-js">
+            <TabPanel header="Configurator">
+                <ChartJsConfigurator
+                    jsCode={jsCode}
+                />
+            </TabPanel>
+            <TabPanel header="Code">
 
-                    onChangeCallback(js_code);
-                }}
-                onLoad={true}
-                resize="none"
-                value={jsCode}
+                <React.Suspense fallback={<CenteredLoading/>}>
 
-            />
-        </React.Suspense>
+                    <CustomEditor
+                        saveCallbackResponse={callBackResponse}
+                        height="100%"
+                        id={'js_editor_code_data_view_' + dataViewId}
+                        mode={EAceEditorMode.JS}
+                        // onBlurCallback={(js_code: string) => {
+                        //
+                        //     onChangeCallback(js_code);
+                        // }}
+                        onSaveCallback={(js_code: string) => {
+
+                            onChangeCallback(js_code);
+                        }}
+                        onLoad={true}
+                        resize="none"
+                        value={jsCode}
+
+                    />
+                </React.Suspense>
+            </TabPanel>
+        </TabView>
     )
 }
 
