@@ -19,6 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import Chart from "chart.js";
+
 import TCallbackResponse             from "./TCallbackResponse";
 import TDataViewTableColumnParameter from "./TDataViewTableParameter";
 import TReportLinkParameter          from "./TReportLinkParameter";
@@ -32,6 +34,10 @@ import TExternalLink                 from "./TExternalLink";
 import TDataViewMetricForm           from "./TDataViewMetricForm";
 import TDataViewMetricRow            from "./TDataViewMetricRow";
 import TDataViewTextForm             from "./TDataViewTextForm";
+
+export interface ICallbackChartJsObject {
+    (chartJsObj: Chart): void
+}
 
 export interface ICallbackCreateDataViewSuccess {
     (dataView: TReportDataView, dataViewJs?: TReportDataViewJs | undefined): void

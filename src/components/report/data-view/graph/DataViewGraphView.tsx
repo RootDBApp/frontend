@@ -19,21 +19,24 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import Chart           from "chart.js";
 import * as React      from 'react';
 import { useNavigate } from "react-router-dom";
 
-import TReportDataViewJs          from "../../../../types/TReportDataViewJs";
-import CenteredNoData             from "../../../common/loading/CenteredNoData";
-import { sleep, uncompress }      from "../../../../utils/tools";
-import ReportErrorBoundary        from "../../ReportErrorBoundary";
-import { context as authContext } from "../../../../contexts/auth/store/context";
-import GraphSkeleton              from "../../../skeleton/GraphSkeleton";
-import TReportInstance            from "../../../../types/TReportInstance";
-import TReport                    from "../../../../types/TReport";
-import { getElementContentSize }  from "../../../../utils/htmlElement";
-import { reportDataViewRunError } from "../../../../contexts/report/store/actions";
-import * as RTReport              from "../../../../contexts/report/ReportContextProvider";
-import { EReportViewMode }        from "../../../../types/EReportViewMode";
+import TReportDataViewJs                                          from "../../../../types/TReportDataViewJs";
+import CenteredNoData                                             from "../../../common/loading/CenteredNoData";
+import { sleep, uncompress }                                      from "../../../../utils/tools";
+import ReportErrorBoundary                                        from "../../ReportErrorBoundary";
+import { context as authContext }                                 from "../../../../contexts/auth/store/context";
+import GraphSkeleton                                              from "../../../skeleton/GraphSkeleton";
+import TReportInstance                                            from "../../../../types/TReportInstance";
+import TReport                                                    from "../../../../types/TReport";
+import { getElementContentSize }                                  from "../../../../utils/htmlElement";
+import { reportDataViewRunError }                                 from "../../../../contexts/report/store/actions";
+import * as RTReport                                              from "../../../../contexts/report/ReportContextProvider";
+import { EReportViewMode }                                        from "../../../../types/EReportViewMode";
+import dataView                                                   from "../DataView";
+import { ICallbackChartJsObject, ICallbackCreateDataViewSuccess } from "../../../../types/ICallBacks";
 
 const DataViewGraphView: React.FC<{
         dataViewJs: TReportDataViewJs,
@@ -44,6 +47,7 @@ const DataViewGraphView: React.FC<{
         maxWidth?: number,
         parentHeight?: number,
         parentWidth?: number,
+        chartJsObj: ICallbackChartJsObject
     }> = ({
               dataViewJs,
               report,
@@ -53,6 +57,7 @@ const DataViewGraphView: React.FC<{
               maxWidth,
               parentHeight,
               parentWidth,
+              chartJsObj
           }): React.ReactElement => {
 
         const {state: authState} = React.useContext(authContext);
@@ -138,6 +143,14 @@ const DataViewGraphView: React.FC<{
             }
         }
 
+
+        // const runCodeWithDateFunction = (jsCodeToExectute: string) => {
+        //
+        //     console.debug('----------------------------------------------------------');
+        //     console.debug('jsCodeToExectute ->', jsCodeToExectute);
+        //     return
+        // }
+
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {
 
@@ -161,11 +174,11 @@ const DataViewGraphView: React.FC<{
 
                                                     try {
 
-                                                        // eslint-disable-next-line no-eval
-                                                        eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
+                                                        let jsCodeToExecute = (dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
                                                             + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
-                                                            + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
-                                                        );
+                                                            + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init);
+
+                                                        chartJsObj(Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas));
 
                                                     } catch (error: any) {
 

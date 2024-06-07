@@ -21,6 +21,7 @@
 
 import React                 from "react";
 import { TabPanel, TabView } from "primereact/tabview";
+import TReportDataViewJs     from "../../../../../types/TReportDataViewJs";
 
 const ChartJsConfiguratorConfig = React.lazy(() => import('./ChartJsConfiguratorConfig'));
 const ChartJsConfiguratorConfigDatasets = React.lazy(() => import('./ChartJsConfiguratorConfigDatasets'));
@@ -28,15 +29,18 @@ const ChartJsConfiguratorLabels = React.lazy(() => import('./ChartJsConfigurator
 const ChartJsConfiguratorActions = React.lazy(() => import('./ChartJsConfiguratorActions'));
 
 const ChartJsConfigurator: React.FC<{
-    jsCode: string
+    dataViewJs: TReportDataViewJs
 }> = ({
-          jsCode
+                                     dataViewJs
       }): React.ReactElement => {
 
     // Initialize chartjs object with existing js code.
     React.useEffect(() => {
 
     }, []);
+
+    console.debug('----------------------------------------------------------');
+    console.debug('dataViewJs ->', dataViewJs);
 
 
     return (

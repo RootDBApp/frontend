@@ -72,6 +72,7 @@ const DataViewGraph: React.FC<{
 
     const [viewMode, setViewMode] = React.useState(viewModes.GRAPH);
 
+
     // React.useEffect(() => {
     //
     //     console.debug('======> [RENDER] DataViewGraph');
@@ -99,6 +100,10 @@ const DataViewGraph: React.FC<{
                                     maxWidth={dataView.max_width}
                                     report={report}
                                     reportInstance={reportInstance}
+                                    chartJsObj={(chartJsObj) => {
+                                        console.debug('----------------------------------------------------------');
+                                        console.debug(' ->', chartJsObj);
+                                    }}
                                 />
                             </AncestorSizeProvider>
                         )}
@@ -145,8 +150,7 @@ const DataViewGraph: React.FC<{
                 <div className={expanded ? 'subgrid-area-data-view-params' : 'hidden subgrid-area-data-view-params'}>
                     <DataViewGraphParamsJs
                         callBackResponse={callBackResponse}
-                        dataViewId={dataView.id}
-                        jsCode={dataView.report_data_view_js.js_code}
+                        dataView={dataView}
                         onChangeCallback={(js_code: string) => {
 
                             onChangeCallback(js_code);

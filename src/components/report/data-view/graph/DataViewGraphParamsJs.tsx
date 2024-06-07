@@ -27,19 +27,18 @@ import { ICallbackSQLEditorOnChange } from "../../../../types/ICallBacks";
 import TCallbackResponse              from "../../../../types/TCallbackResponse";
 import CenteredLoading                from "../../../common/loading/CenteredLoading";
 import ChartJsConfigurator            from "./chartjs-configurator/ChartJsConfigurator";
+import TReportDataView                from "../../../../types/TReportDataView";
 
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
 
 const DataViewGraphParamsJs: React.FC<{
     callBackResponse: TCallbackResponse,
-    dataViewId: number,
-    jsCode: string,
+    dataView: TReportDataView,
     onChangeCallback: ICallbackSQLEditorOnChange,
     reportId: number,
 }> = ({
           callBackResponse,
-          dataViewId,
-          jsCode,
+          dataView,
           onChangeCallback,
           reportId,
       }): React.ReactElement => {
@@ -48,7 +47,7 @@ const DataViewGraphParamsJs: React.FC<{
         <TabView className="tab-view-chart-js-param-js">
             <TabPanel header="Configurator">
                 <ChartJsConfigurator
-                    jsCode={jsCode}
+                    dataViewJs={dataView.report_data_view_js}
                 />
             </TabPanel>
             <TabPanel header="Code">
@@ -58,7 +57,7 @@ const DataViewGraphParamsJs: React.FC<{
                     <CustomEditor
                         saveCallbackResponse={callBackResponse}
                         height="100%"
-                        id={'js_editor_code_data_view_' + dataViewId}
+                        id={'js_editor_code_data_view_' + dataView.id}
                         mode={EAceEditorMode.JS}
                         // onBlurCallback={(js_code: string) => {
                         //
@@ -70,8 +69,7 @@ const DataViewGraphParamsJs: React.FC<{
                         }}
                         onLoad={true}
                         resize="none"
-                        value={jsCode}
-
+                        value={dataView.report_data_view_js.js_code}
                     />
                 </React.Suspense>
             </TabPanel>
