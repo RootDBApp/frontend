@@ -21,27 +21,20 @@
 
 import React                 from "react";
 import { TabPanel, TabView } from "primereact/tabview";
-import TReportDataViewJs     from "../../../../../types/TReportDataViewJs";
+
+import TReportDataViewJs from "../../../../../types/TReportDataViewJs";
 
 const ChartJsConfiguratorConfig = React.lazy(() => import('./ChartJsConfiguratorConfig'));
 const ChartJsConfiguratorConfigDatasets = React.lazy(() => import('./ChartJsConfiguratorConfigDatasets'));
-const ChartJsConfiguratorLabels = React.lazy(() => import('./ChartJsConfiguratorLabels'));
 const ChartJsConfiguratorActions = React.lazy(() => import('./ChartJsConfiguratorActions'));
 
 const ChartJsConfigurator: React.FC<{
+    reportId: number
     dataViewJs: TReportDataViewJs
 }> = ({
-                                     dataViewJs
+          reportId,
+          dataViewJs
       }): React.ReactElement => {
-
-    // Initialize chartjs object with existing js code.
-    React.useEffect(() => {
-
-    }, []);
-
-    console.debug('----------------------------------------------------------');
-    console.debug('dataViewJs ->', dataViewJs);
-
 
     return (
         <>
@@ -50,14 +43,17 @@ const ChartJsConfigurator: React.FC<{
                     <ChartJsConfiguratorConfig/>
                 </TabPanel>
                 <TabPanel header="Setup">
-                    <TabView>
-                        <TabPanel header="Datasets">
-                            <ChartJsConfiguratorConfigDatasets/>
-                        </TabPanel>
-                        <TabPanel header="Labels">
-                            <ChartJsConfiguratorLabels/>
-                        </TabPanel>
-                    </TabView>
+                    <ChartJsConfiguratorConfigDatasets
+                        reportId={reportId}
+                        dataViewJs={dataViewJs}
+                    />
+                    {/*<TabView>*/}
+                    {/*    <TabPanel header="Datasets">*/}
+                    {/*        <ChartJsConfiguratorConfigDatasets*/}
+                    {/*            dataViewJs={dataViewJs}*/}
+                    {/*        />*/}
+                    {/*    </TabPanel>*/}
+                    {/*</TabView>*/}
                 </TabPanel>
                 <TabPanel header="Actions">
                     <ChartJsConfiguratorActions/>

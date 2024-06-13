@@ -19,6 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import Chart from "chart.js/auto";
+
 import * as types               from './types';
 import TReport                  from "../../../types/TReport";
 import TReportParameter         from "../../../types/TReportParameter";
@@ -135,6 +137,16 @@ export interface IReportDataViewRunEnd {
 export interface IReportDataViewRunError {
     type: types.TReportDataViewRunError,
     payload: TReportAndDataViewEvent,
+}
+
+export interface IReportDataViewSetChartJs {
+    type: types.TReportDataViewSetChartJsObject,
+    payload: { chartjs: Chart, reportId: number, dataViewId: number },
+}
+
+export interface IReportDataViewUpdateChartJsDataSet {
+    type: types.TReportDataViewUpdateChartJsDataSet,
+    payload: { dataSet: Chart.ChartDataSets, dataSetIndex: number, reportId: number, dataViewId: number },
 }
 
 export interface IReportDataViewUpdateQueryJs {
@@ -257,6 +269,16 @@ export const reportDataViewRunStart = (payload: TReportAndDataViewEvent): IRepor
     payload
 });
 
+export const reportDataViewSetChartJS = (payload: { chartjs: Chart, reportId: number, dataViewId: number }): IReportDataViewSetChartJs => ({
+    type: types.REPORT_DATAVIEW_SET_CHARTJS_OBJECT,
+    payload
+});
+
+export const reportDataViewUpdateChartJsDataSet = (payload: { dataSet: Chart.ChartDataSets, dataSetIndex: number, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsDataSet => ({
+    type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET,
+    payload
+});
+
 export const reportDataViewUpdateQueryJs = (payload: { reportId: number, dataViewId: number, field: EDataViewFieldUpdate, contents: string }): IReportDataViewUpdateQueryJs => ({
     type: types.REPORT_DATAVIEW_UPDATE_QUERY_JS,
     payload
@@ -365,6 +387,8 @@ export type TReportAction =
     | IReportDataViewRunStart
     | IReportDataViewRunEnd
     | IReportDataViewRunError
+    | IReportDataViewSetChartJs
+    | IReportDataViewUpdateChartJsDataSet
     | IReportDataViewUpdateQueryJs
     | IReportExpandDataView
     | IReportResultsCached

@@ -18,11 +18,61 @@
  * PORQUET Sébastien <sebastien.porquet@ijaz.fr>
  * ROBIN Brice <brice@robri.net>
  */
-import React from "react";
 
-const ChartJsConfiguratorConfigDatasets: React.FC<{}> = ({}): React.ReactElement => {
+// @ts-ignore
+import { ChartDataSets }                       from "chart.js";
+import { Accordion, AccordionTab }             from "primereact/accordion";
+import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
+import React                                   from "react";
 
-    return <></>
+import TReportDataViewJs                      from "../../../../../types/TReportDataViewJs";
+import * as RTReport                          from "../../../../../contexts/report/ReportContextProvider";
+import { reportDataViewUpdateChartJsDataSet } from "../../../../../contexts/report/store/actions";
+
+
+const ChartJsConfiguratorConfigDatasets: React.FC<{
+    reportId: number,
+    dataViewJs: TReportDataViewJs
+}> = ({
+          reportId,
+          dataViewJs
+      }): React.ReactElement => {
+
+    const reportDispatch = RTReport.useDispatch();
+
+    return (
+        <Accordion>
+            {dataViewJs.chartJs?.config.data?.datasets?.map((dataSet: ChartDataSets, index: number) => {
+
+                    return (
+                        <AccordionTab
+                            header={dataSet.label}
+                            key={`accordion-tab-dataset-${reportId}-${dataViewJs.report_data_view_id}-${index}`}
+                        >
+                            <ColorPicker
+                                value={dataSet.borderColor}
+                                onChange={(event: ColorPickerChangeEvent) => {
+                                    reportDispatch(
+                                        reportDataViewUpdateChartJsDataSet(
+                                            {
+                                                dataSet: {
+                                                    ...dataSet,
+                                                    borderColor: `#${event.value}`
+                                                },
+                                                dataSetIndex: index,
+                                                reportId: reportId,
+                                                dataViewId: dataViewJs.report_data_view_id,
+                                            }
+                                        )
+                                    );
+                                }}
+                            />{dataSet.borderColor}
+                        </AccordionTab>
+                    );
+                }
+            )}
+        </Accordion>
+    );
 }
 
 export default ChartJsConfiguratorConfigDatasets;

@@ -22,12 +22,13 @@
 import * as React            from 'react';
 import { TabPanel, TabView } from "primereact/tabview";
 
-import { EAceEditorMode }             from "../../../../types/primereact/EAceEditorMode";
-import { ICallbackSQLEditorOnChange } from "../../../../types/ICallBacks";
-import TCallbackResponse              from "../../../../types/TCallbackResponse";
-import CenteredLoading                from "../../../common/loading/CenteredLoading";
-import ChartJsConfigurator            from "./chartjs-configurator/ChartJsConfigurator";
-import TReportDataView                from "../../../../types/TReportDataView";
+import { EAceEditorMode }                                  from "../../../../types/primereact/EAceEditorMode";
+import { ICallbackSQLEditorOnChange }                      from "../../../../types/ICallBacks";
+import TCallbackResponse                                   from "../../../../types/TCallbackResponse";
+import CenteredLoading                                     from "../../../common/loading/CenteredLoading";
+import ChartJsConfigurator                                 from "./chartjs-configurator/ChartJsConfigurator";
+import TReportDataView                                     from "../../../../types/TReportDataView";
+import { useReportDataViewStateFromReportIdAndDataViewId } from "../../../../contexts/report/ReportContextProvider";
 
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
 
@@ -47,6 +48,7 @@ const DataViewGraphParamsJs: React.FC<{
         <TabView className="tab-view-chart-js-param-js">
             <TabPanel header="Configurator">
                 <ChartJsConfigurator
+                    reportId={reportId}
                     dataViewJs={dataView.report_data_view_js}
                 />
             </TabPanel>

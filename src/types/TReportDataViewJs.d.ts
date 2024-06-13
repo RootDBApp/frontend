@@ -19,6 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import Chart from "chart.js/auto";
+
 import TReportDataView           from "./TReportDataView";
 import TReportDataViewLibVersion from "./TReportDataViewLibVersion";
 
@@ -30,14 +32,15 @@ type TReportDataViewJs = {
     json_form_minified: boolean,
     js_code: string,
     js_code_minified: boolean,
+    chartJs?: Chart,
     created_at?: DateTime,
-    updated_at?: DateTime,
     js_register?: string,
     js_register_minified?: boolean,
     js_init?: string,
     js_init_minified?: boolean,
-    report_data_view?: TReportDataView
-    report_data_view_lib_version?: TReportDataViewLibVersion
+    report_data_view?: TReportDataView,
+    report_data_view_lib_version?: TReportDataViewLibVersion,
+    updated_at?: DateTime,
 }
 
 export = TReportDataViewJs;

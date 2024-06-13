@@ -19,24 +19,23 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart           from "chart.js";
+import Chart           from "chart.js/auto";
 import * as React      from 'react';
 import { useNavigate } from "react-router-dom";
 
-import TReportDataViewJs                                          from "../../../../types/TReportDataViewJs";
-import CenteredNoData                                             from "../../../common/loading/CenteredNoData";
-import { sleep, uncompress }                                      from "../../../../utils/tools";
-import ReportErrorBoundary                                        from "../../ReportErrorBoundary";
-import { context as authContext }                                 from "../../../../contexts/auth/store/context";
-import GraphSkeleton                                              from "../../../skeleton/GraphSkeleton";
-import TReportInstance                                            from "../../../../types/TReportInstance";
-import TReport                                                    from "../../../../types/TReport";
-import { getElementContentSize }                                  from "../../../../utils/htmlElement";
-import { reportDataViewRunError }                                 from "../../../../contexts/report/store/actions";
-import * as RTReport                                              from "../../../../contexts/report/ReportContextProvider";
-import { EReportViewMode }                                        from "../../../../types/EReportViewMode";
-import dataView                                                   from "../DataView";
-import { ICallbackChartJsObject, ICallbackCreateDataViewSuccess } from "../../../../types/ICallBacks";
+import TReportDataViewJs                                    from "../../../../types/TReportDataViewJs";
+import CenteredNoData                                       from "../../../common/loading/CenteredNoData";
+import { sleep, uncompress }                                from "../../../../utils/tools";
+import ReportErrorBoundary                                  from "../../ReportErrorBoundary";
+import { context as authContext }                           from "../../../../contexts/auth/store/context";
+import GraphSkeleton                                        from "../../../skeleton/GraphSkeleton";
+import TReportInstance                                      from "../../../../types/TReportInstance";
+import TReport                                              from "../../../../types/TReport";
+import { getElementContentSize }                            from "../../../../utils/htmlElement";
+import { reportDataViewRunError, reportDataViewSetChartJS } from "../../../../contexts/report/store/actions";
+import * as RTReport                                        from "../../../../contexts/report/ReportContextProvider";
+import { EReportViewMode }                                  from "../../../../types/EReportViewMode";
+import { ERole }                                            from "../../../../types/ERole";
 
 const DataViewGraphView: React.FC<{
         dataViewJs: TReportDataViewJs,
@@ -47,7 +46,6 @@ const DataViewGraphView: React.FC<{
         maxWidth?: number,
         parentHeight?: number,
         parentWidth?: number,
-        chartJsObj: ICallbackChartJsObject
     }> = ({
               dataViewJs,
               report,
@@ -57,7 +55,6 @@ const DataViewGraphView: React.FC<{
               maxWidth,
               parentHeight,
               parentWidth,
-              chartJsObj
           }): React.ReactElement => {
 
         const {state: authState} = React.useContext(authContext);
@@ -143,18 +140,27 @@ const DataViewGraphView: React.FC<{
             }
         }
 
+        // Used to update on the fly a Chart.js graph from ChartJsConfigurator components.
+        const updateChartJsObject = (chartJs: Chart) => {
 
-        // const runCodeWithDateFunction = (jsCodeToExectute: string) => {
-        //
-        //     console.debug('----------------------------------------------------------');
-        //     console.debug('jsCodeToExectute ->', jsCodeToExectute);
-        //     return
-        // }
+            if (authState.user.organization_user.role_ids.includes(ERole.DEVELOPER)) {
+
+                // console.log('=================================================================');
+                // console.log('=== 1111111111111111111111', chartJs);
+
+                reportDispatch(
+                    reportDataViewSetChartJS(
+                        {
+                            reportId: report.id,
+                            dataViewId: dataViewJs.report_data_view_id,
+                            chartjs: chartJs as Chart
+                        }
+                    ));
+            }
+        }
 
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {
-
-            // console.debug('======> [useEffect 1] DataViewGraphView', dataViewJs.id);
 
             try {
                 if ((refCanvas.current || refDiv.current) && jsonResults && jsonResults.length >= 1) {
@@ -178,7 +184,10 @@ const DataViewGraphView: React.FC<{
                                                             + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
                                                             + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init);
 
-                                                        chartJsObj(Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas));
+
+                                                        updateChartJsObject(
+                                                            Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas)
+                                                        );
 
                                                     } catch (error: any) {
 
@@ -234,11 +243,35 @@ const DataViewGraphView: React.FC<{
             jsonResults
         ]);
 
+
+        React.useEffect(() => {
+
+            if (dataViewJs.chartJs && refCanvas.current) {
+
+                let chartToUpdate = Chart.getChart(refCanvas.current);
+                if (chartToUpdate) {
+
+                    console.log('=================================================================');
+                    console.log('=== 1', dataViewJs.chartJs.config.data.datasets[0].borderColor);
+                    // @ts-ignore
+                    //console.log('=== 2', dataViewJs.chartJs.$context.chart.config.data.datasets[0].borderColor);
+
+
+                    // @ts-ignore
+                    chartToUpdate.config.options =  dataViewJs.chartJs.config.options;
+                    // @ts-ignore
+                    chartToUpdate.config.data =  dataViewJs.chartJs.config.data;
+                    chartToUpdate.update();
+                }
+
+            }
+        }, [dataViewJs.chartJs, refCanvas.current]);
+
         // Use to update the canvas container
         //
         React.useEffect(() => {
 
-            console.debug('======> [useEffect 2] DataViewGraphView');
+            //console.debug('DataViewGraphView - updateCanvasContainer');
             updateCanvasContainer();
 
             // eslint-disable-next-line react-hooks/exhaustive-deps

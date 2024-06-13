@@ -19,6 +19,10 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+// @ts-ignore
+import Chart      from "chart.js/auto";
+import { Layout } from "react-grid-layout";
+
 import {
     IDeletedReportDataView,
     IGotReportDataView,
@@ -52,6 +56,8 @@ import {
     REPORT_DATAVIEW_RUN_END,
     REPORT_DATAVIEW_RUN_ERROR,
     REPORT_DATAVIEW_RUN_START,
+    REPORT_DATAVIEW_SET_CHARTJS_OBJECT,
+    REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET,
     REPORT_DATAVIEW_UPDATE_QUERY_JS,
     REPORT_EXPAND_DATAVIEW,
     REPORT_INSTANCE_SET_USE_CACHE,
@@ -84,7 +90,6 @@ import TReportDataViewState                               from "../../../types/T
 import { EDataViewType }                                  from "../../../types/EDataViewType";
 import TReport                                            from "../../../types/TReport";
 import { TNameValue }                                     from "../../../types/TNameValue";
-import { Layout }                                         from "react-grid-layout";
 import TReportDataViewJs                                  from "../../../types/TReportDataViewJs";
 
 
@@ -813,6 +818,97 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                     }
                 );
             }
+            return state;
+
+        // Used when initialising the ChartJs object from js code.
+        case REPORT_DATAVIEW_SET_CHARTJS_OBJECT:
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                action.payload?.reportId || null,
+            );
+
+            if (reportState.report?.dataViews) {
+
+                return updateReportState(
+                    state,
+                    action.payload?.reportId || null,
+                    {
+                        ...reportState,
+                        report: {
+                            ...reportState.report,
+                            dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
+
+                                if (dataView.id === action.payload?.dataViewId) {
+
+                                    return {
+                                        ...dataView,
+                                        report_data_view_js: {
+                                            ...dataView.report_data_view_js,
+                                            chartJs: action.payload?.chartjs
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                );
+            }
+
+            return state;
+
+        // Mainly used by ChartJsConfigurator components.
+        case REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET:
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                action.payload?.reportId || null,
+            );
+
+            if (reportState.report?.dataViews) {
+
+                return updateReportState(
+                    state,
+                    action.payload?.reportId || null,
+                    {
+                        ...reportState,
+                        report: {
+                            ...reportState.report,
+                            dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
+
+                                if (dataView.id === action.payload?.dataViewId) {
+
+                                    return {
+                                        ...dataView,
+                                        report_data_view_js: {
+                                            ...dataView.report_data_view_js,
+                                            chartJs: {
+                                                ...dataView.report_data_view_js.chartJs,
+                                                config: {
+                                                    ...dataView.report_data_view_js.chartJs?.config,
+                                                    data: {
+                                                        ...dataView.report_data_view_js.chartJs?.config?.data,
+                                                        datasets: dataView.report_data_view_js.chartJs?.config?.data?.datasets?.map((dataSet, index: number) => {
+
+                                                            if (index === action.payload.dataSetIndex) {
+
+                                                                return action.payload.dataSet;
+                                                            }
+
+                                                            return dataSet;
+                                                        })
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                );
+            }
+
             return state;
 
         case REPORT_DATAVIEW_RUN_START:
