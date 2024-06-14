@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart from "chart.js";
+import Chart, { ChartDataset } from "chart.js";
 
 import TCallbackResponse             from "./TCallbackResponse";
 import TDataViewTableColumnParameter from "./TDataViewTableParameter";
@@ -37,6 +37,10 @@ import TDataViewTextForm             from "./TDataViewTextForm";
 
 export interface ICallbackChartJsObject {
     (chartJsObj: Chart): void
+}
+
+export interface ICallbackChartJsUpdateDataSett {
+    (dataSet: ChartDataset): void
 }
 
 export interface ICallbackCreateDataViewSuccess {

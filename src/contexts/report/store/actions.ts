@@ -19,7 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart from "chart.js/auto";
+import { ChartDataset }         from "chart.js";
+import Chart                    from "chart.js/auto";
 
 import * as types               from './types';
 import TReport                  from "../../../types/TReport";
@@ -146,7 +147,7 @@ export interface IReportDataViewSetChartJs {
 
 export interface IReportDataViewUpdateChartJsDataSet {
     type: types.TReportDataViewUpdateChartJsDataSet,
-    payload: { dataSet: Chart.ChartDataSets, dataSetIndex: number, reportId: number, dataViewId: number },
+    payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number },
 }
 
 export interface IReportDataViewUpdateQueryJs {
@@ -274,7 +275,7 @@ export const reportDataViewSetChartJS = (payload: { chartjs: Chart, reportId: nu
     payload
 });
 
-export const reportDataViewUpdateChartJsDataSet = (payload: { dataSet: Chart.ChartDataSets, dataSetIndex: number, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsDataSet => ({
+export const reportDataViewUpdateChartJsDataSet = (payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsDataSet => ({
     type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET,
     payload
 });

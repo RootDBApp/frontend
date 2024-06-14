@@ -19,16 +19,16 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import Chart                 from "chart.js/auto";
 import * as React            from 'react';
 import { TabPanel, TabView } from "primereact/tabview";
 
-import { EAceEditorMode }                                  from "../../../../types/primereact/EAceEditorMode";
-import { ICallbackSQLEditorOnChange }                      from "../../../../types/ICallBacks";
-import TCallbackResponse                                   from "../../../../types/TCallbackResponse";
-import CenteredLoading                                     from "../../../common/loading/CenteredLoading";
-import ChartJsConfigurator                                 from "./chartjs-configurator/ChartJsConfigurator";
-import TReportDataView                                     from "../../../../types/TReportDataView";
-import { useReportDataViewStateFromReportIdAndDataViewId } from "../../../../contexts/report/ReportContextProvider";
+import { EAceEditorMode }             from "../../../../types/primereact/EAceEditorMode";
+import { ICallbackSQLEditorOnChange } from "../../../../types/ICallBacks";
+import TCallbackResponse              from "../../../../types/TCallbackResponse";
+import CenteredLoading                from "../../../common/loading/CenteredLoading";
+import ChartJsConfigurator            from "./chartjs-configurator/ChartJsConfigurator";
+import TReportDataView                from "../../../../types/TReportDataView";
 
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
 
@@ -43,6 +43,15 @@ const DataViewGraphParamsJs: React.FC<{
           onChangeCallback,
           reportId,
       }): React.ReactElement => {
+
+
+    React.useEffect(() => {
+        if (dataView.report_data_view_js.chartJs) {
+            console.debug('----------------------------------------------------------');
+            console.debug('datasets ->', (dataView.report_data_view_js.chartJs as Chart).config.data.datasets);
+            console.debug('labels ->', (dataView.report_data_view_js.chartJs as Chart).config.data.labels);
+        }
+    }, [dataView.report_data_view_js]);
 
     return (
         <TabView className="tab-view-chart-js-param-js">

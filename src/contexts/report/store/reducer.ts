@@ -19,8 +19,6 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-// @ts-ignore
-import Chart      from "chart.js/auto";
 import { Layout } from "react-grid-layout";
 
 import {
@@ -91,6 +89,7 @@ import { EDataViewType }                                  from "../../../types/E
 import TReport                                            from "../../../types/TReport";
 import { TNameValue }                                     from "../../../types/TNameValue";
 import TReportDataViewJs                                  from "../../../types/TReportDataViewJs";
+import { ChartDataset }                                   from "chart.js";
 
 
 export const defaultDataViewInstance: TDataViewInstance = {
@@ -849,6 +848,8 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                         }
                                     }
                                 }
+
+                                return dataView;
                             })
                         }
                     }
@@ -888,7 +889,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                                     ...dataView.report_data_view_js.chartJs?.config,
                                                     data: {
                                                         ...dataView.report_data_view_js.chartJs?.config?.data,
-                                                        datasets: dataView.report_data_view_js.chartJs?.config?.data?.datasets?.map((dataSet, index: number) => {
+                                                        datasets: dataView.report_data_view_js.chartJs?.config?.data?.datasets?.map((dataSet: ChartDataset, index: number) => {
 
                                                             if (index === action.payload.dataSetIndex) {
 
@@ -903,6 +904,8 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                         }
                                     }
                                 }
+
+                                return dataView;
                             })
                         }
                     }

@@ -111,7 +111,6 @@
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
         "@babel/preset-react": "^7.24.6",
         "@babel/preset-typescript": "^7.24.6",
-        "@types/chart.js": "^2.9.41",
         "@types/js-cookie": "^3.0.6",
         "cypress": "^13.10.0",
         "eslint-config-react-app": "^7.0.1"

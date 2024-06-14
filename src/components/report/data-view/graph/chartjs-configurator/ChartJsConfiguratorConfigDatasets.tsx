@@ -19,16 +19,20 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-// @ts-ignore
-import { ChartDataSets }                       from "chart.js";
+import { t }                                   from "i18next";
+import { ChartDataset }                        from "chart.js";
 import { Accordion, AccordionTab }             from "primereact/accordion";
 import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
+import { InputText }                           from "primereact/inputtext";
 import React                                   from "react";
 
 import TReportDataViewJs                      from "../../../../../types/TReportDataViewJs";
 import * as RTReport                          from "../../../../../contexts/report/ReportContextProvider";
 import { reportDataViewUpdateChartJsDataSet } from "../../../../../contexts/report/store/actions";
+import CenteredLoading                        from "../../../../common/loading/CenteredLoading";
+import ChartJsConfiguratorConfigDatasetsBackgroundColor from "./ChartJsConfiguratorConfigDatasetsBackgroundColor";
 
+// const ChartJsConfiguratorConfigDatasetsBackgroundColor = React.lazy(() => import('./ChartJsConfiguratorConfigDatasetsBackgroundColor'));
 
 const ChartJsConfiguratorConfigDatasets: React.FC<{
     reportId: number,
@@ -40,35 +44,102 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
 
     const reportDispatch = RTReport.useDispatch();
 
+    const updateChartJsDataSet = (dataSet: ChartDataset, dataSetIndex: number) => {
+
+        reportDispatch(
+            reportDataViewUpdateChartJsDataSet(
+                {
+                    dataSet: dataSet,
+                    dataSetIndex: dataSetIndex,
+                    reportId: reportId,
+                    dataViewId: dataViewJs.report_data_view_id,
+                }
+            )
+        );
+    }
+
     return (
         <Accordion>
-            {dataViewJs.chartJs?.config.data?.datasets?.map((dataSet: ChartDataSets, index: number) => {
+            {dataViewJs.chartJs?.config.data?.datasets?.map((dataSet: ChartDataset, dataSetIndex: number) => {
 
                     return (
                         <AccordionTab
                             header={dataSet.label}
-                            key={`accordion-tab-dataset-${reportId}-${dataViewJs.report_data_view_id}-${index}`}
+                            key={`accordion-tab-dataset-${reportId}-${dataViewJs.report_data_view_id}-${dataSetIndex}`}
                         >
-                            <ColorPicker
-                                value={dataSet.borderColor}
-                                onChange={(event: ColorPickerChangeEvent) => {
-                                    reportDispatch(
-                                        reportDataViewUpdateChartJsDataSet(
-                                            {
-                                                dataSet: {
-                                                    ...dataSet,
-                                                    borderColor: `#${event.value}`
-                                                },
-                                                dataSetIndex: index,
-                                                reportId: reportId,
-                                                dataViewId: dataViewJs.report_data_view_id,
-                                            }
-                                        )
-                                    );
-                                }}
-                            />{dataSet.borderColor}
+                            <div className="formgrid grid">
+                                {/*Border color*/}
+                                <div className="field col-12 md:col-6">
+                                    <label htmlFor="firstname6">{t('report:dataview.chartjs_config.border_color')}</label>
+                                    <div className="surface-overlay appearance-none outline-none focus:border-primary w-full">
+                                        <ColorPicker
+                                            format="hex"
+                                            value={(dataSet.borderColor as string) ?? 'ffffff'}
+                                            onChange={(event: ColorPickerChangeEvent) => {
+                                                updateChartJsDataSet({
+                                                        ...dataSet,
+                                                        borderColor: `#${event?.value}`
+                                                    }
+                                                    , dataSetIndex)
+                                            }}
+                                        />
+                                        <InputText
+                                            keyfilter="hex"
+                                            maxLength={6}
+                                            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                                                updateChartJsDataSet({
+                                                        ...dataSet,
+                                                        borderColor: `#${event.target.value}`
+                                                    }
+                                                    , dataSetIndex)
+                                            }}
+                                            value={dataSet.borderColor ? (dataSet.borderColor as string).replace('#', '') : 'ffffff'}
+                                        />
+                                    </div>
+                                </div>
+                                {/*Background color*/}
+                                <div className="field col-12 md:col-6">
+                                    <React.Suspense fallback={<CenteredLoading/>}>
+                                        {Array.isArray(dataSet.backgroundColor)
+                                            ?
+                                            <Accordion>
+                                                {dataViewJs.chartJs.config.data.labels.map((label: string, labelIndex: number) => {
+                                                    return (
+                                                        <AccordionTab
+                                                            header={label}
+                                                            key={`accordion-tab-dataset-background-color-${reportId}-${dataViewJs.report_data_view_id}-${dataSetIndex}-${labelIndex}`}
+                                                        >
+
+                                                            <ChartJsConfiguratorConfigDatasetsBackgroundColor
+                                                                // backgroundColor={((dataSet.backgroundColor as Array<string>).hasOwnProperty(labelIndex))
+                                                                //     ? (dataSet.backgroundColor as Array<string>).at(labelIndex) as string
+                                                                //     : 'ffffff'
+                                                                // }
+                                                                // @ts-ignore
+                                                                backgroundColor={dataSet.backgroundColor[labelIndex]}
+                                                                dataSet={dataSet}
+                                                                // 
+                                                                updateChartJsDataSet={(dataSet: ChartDataset) => updateChartJsDataSet(dataSet, dataSetIndex)}
+                                                            />
+                                                        </AccordionTab>
+                                                    );
+
+                                                })}
+                                            </Accordion>
+                                            :
+                                            <ChartJsConfiguratorConfigDatasetsBackgroundColor
+                                                backgroundColor={dataSet.backgroundColor as string}
+                                                dataSet={dataSet}
+                                                updateChartJsDataSet={(dataSet: ChartDataset) => updateChartJsDataSet(dataSet, dataSetIndex)}
+                                            />
+                                        }
+                                    </React.Suspense>
+
+                                </div>
+                            </div>
                         </AccordionTab>
-                    );
+                    )
+                        ;
                 }
             )}
         </Accordion>

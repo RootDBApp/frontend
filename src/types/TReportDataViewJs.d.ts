@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart from "chart.js/auto";
+import Chart                     from "chart.js";
 
 import TReportDataView           from "./TReportDataView";
 import TReportDataViewLibVersion from "./TReportDataViewLibVersion";

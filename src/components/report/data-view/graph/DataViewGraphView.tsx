@@ -140,13 +140,10 @@ const DataViewGraphView: React.FC<{
             }
         }
 
-        // Used to update on the fly a Chart.js graph from ChartJsConfigurator components.
-        const updateChartJsObject = (chartJs: Chart) => {
+        // Used to set up initially the Chart.js object, to be used from ChartJsConfigurator components.
+        const setChartJsObject = (chartJs: Chart) => {
 
             if (authState.user.organization_user.role_ids.includes(ERole.DEVELOPER)) {
-
-                // console.log('=================================================================');
-                // console.log('=== 1111111111111111111111', chartJs);
 
                 reportDispatch(
                     reportDataViewSetChartJS(
@@ -184,8 +181,8 @@ const DataViewGraphView: React.FC<{
                                                             + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
                                                             + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init);
 
-
-                                                        updateChartJsObject(
+                                                        setChartJsObject(
+                                                            // eslint-disable-next-line
                                                             Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas)
                                                         );
 
@@ -243,7 +240,7 @@ const DataViewGraphView: React.FC<{
             jsonResults
         ]);
 
-
+        // It's this effect who really updates ChartJs on the fly.
         React.useEffect(() => {
 
             if (dataViewJs.chartJs && refCanvas.current) {
@@ -251,21 +248,12 @@ const DataViewGraphView: React.FC<{
                 let chartToUpdate = Chart.getChart(refCanvas.current);
                 if (chartToUpdate) {
 
-                    console.log('=================================================================');
-                    console.log('=== 1', dataViewJs.chartJs.config.data.datasets[0].borderColor);
-                    // @ts-ignore
-                    //console.log('=== 2', dataViewJs.chartJs.$context.chart.config.data.datasets[0].borderColor);
-
-
-                    // @ts-ignore
-                    chartToUpdate.config.options =  dataViewJs.chartJs.config.options;
-                    // @ts-ignore
-                    chartToUpdate.config.data =  dataViewJs.chartJs.config.data;
+                    chartToUpdate.config.options = dataViewJs.chartJs.config.options;
+                    chartToUpdate.config.data = dataViewJs.chartJs.config.data;
                     chartToUpdate.update();
                 }
-
             }
-        }, [dataViewJs.chartJs, refCanvas.current]);
+        }, [dataViewJs.chartJs]);
 
         // Use to update the canvas container
         //

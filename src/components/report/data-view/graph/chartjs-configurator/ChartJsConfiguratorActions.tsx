@@ -21,8 +21,7 @@
 
 import React from "react";
 
-const ChartJsConfiguratorActions: React.FC<{}> = ({}): React.ReactElement => {
-
+const ChartJsConfiguratorActions: React.FC<{}> = (): React.ReactElement => {
 
     return <></>
 }
