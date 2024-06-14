@@ -26,10 +26,10 @@ import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
 import { InputText }                           from "primereact/inputtext";
 import React                                   from "react";
 
-import TReportDataViewJs                      from "../../../../../types/TReportDataViewJs";
-import * as RTReport                          from "../../../../../contexts/report/ReportContextProvider";
-import { reportDataViewUpdateChartJsDataSet } from "../../../../../contexts/report/store/actions";
-import CenteredLoading                        from "../../../../common/loading/CenteredLoading";
+import TReportDataViewJs                                from "../../../../../types/TReportDataViewJs";
+import * as RTReport                                    from "../../../../../contexts/report/ReportContextProvider";
+import { reportDataViewUpdateChartJsDataSet }           from "../../../../../contexts/report/store/actions";
+import CenteredLoading                                  from "../../../../common/loading/CenteredLoading";
 import ChartJsConfiguratorConfigDatasetsBackgroundColor from "./ChartJsConfiguratorConfigDatasetsBackgroundColor";
 
 // const ChartJsConfiguratorConfigDatasetsBackgroundColor = React.lazy(() => import('./ChartJsConfiguratorConfigDatasetsBackgroundColor'));
@@ -111,15 +111,13 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
                                                         >
 
                                                             <ChartJsConfiguratorConfigDatasetsBackgroundColor
-                                                                // backgroundColor={((dataSet.backgroundColor as Array<string>).hasOwnProperty(labelIndex))
-                                                                //     ? (dataSet.backgroundColor as Array<string>).at(labelIndex) as string
-                                                                //     : 'ffffff'
-                                                                // }
-                                                                // @ts-ignore
-                                                                backgroundColor={dataSet.backgroundColor[labelIndex]}
+                                                                backgroundColor={((dataSet.backgroundColor as Array<string>)[labelIndex])
+                                                                    ? (dataSet.backgroundColor as Array<string>).at(labelIndex) as string
+                                                                    : 'ffffff'
+                                                                }
+                                                                backgroundColorIndex={labelIndex}
                                                                 dataSet={dataSet}
-                                                                // 
-                                                                updateChartJsDataSet={(dataSet: ChartDataset) => updateChartJsDataSet(dataSet, dataSetIndex)}
+                                                                updateChartJsDataSet={(dataSetUpdated: ChartDataset) => updateChartJsDataSet(dataSetUpdated, dataSetIndex)}
                                                             />
                                                         </AccordionTab>
                                                     );
@@ -129,8 +127,9 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
                                             :
                                             <ChartJsConfiguratorConfigDatasetsBackgroundColor
                                                 backgroundColor={dataSet.backgroundColor as string}
+                                                backgroundColorIndex={0}
                                                 dataSet={dataSet}
-                                                updateChartJsDataSet={(dataSet: ChartDataset) => updateChartJsDataSet(dataSet, dataSetIndex)}
+                                                updateChartJsDataSet={(dataSetUpdated: ChartDataset) => updateChartJsDataSet(dataSetUpdated, dataSetIndex)}
                                             />
                                         }
                                     </React.Suspense>

@@ -50,13 +50,6 @@ const ChartJsConfigurator: React.FC<{
                             dataViewJs={dataViewJs}
                         />
                     </React.Suspense>
-                    {/*<TabView>*/}
-                    {/*    <TabPanel header="Datasets">*/}
-                    {/*        <ChartJsConfiguratorConfigDatasets*/}
-                    {/*            dataViewJs={dataViewJs}*/}
-                    {/*        />*/}
-                    {/*    </TabPanel>*/}
-                    {/*</TabView>*/}
                 </TabPanel>
                 <TabPanel header="Actions">
                     <React.Suspense fallback={<CenteredLoading/>}>

@@ -29,10 +29,12 @@ import { ICallbackChartJsUpdateDataSett } from "../../../../../types/ICallBacks"
 
 const ChartJsConfiguratorConfigDatasetsBackgroundColor: React.FC<{
     backgroundColor: string,
+    backgroundColorIndex: number,
     dataSet: ChartDataset,
     updateChartJsDataSet: ICallbackChartJsUpdateDataSett
 }> = ({
           backgroundColor,
+          backgroundColorIndex,
           dataSet,
           updateChartJsDataSet,
       }): React.ReactElement => {
@@ -45,11 +47,29 @@ const ChartJsConfiguratorConfigDatasetsBackgroundColor: React.FC<{
                     format="hex"
                     value={backgroundColor ?? 'ffffff'}
                     onChange={(event: ColorPickerChangeEvent) => {
-                        updateChartJsDataSet({
-                                ...dataSet,
-                                backgroundColor: `#${event?.value}`
-                            }
-                        );
+
+                        if (Array.isArray(dataSet.backgroundColor)) {
+
+                            updateChartJsDataSet({
+                                    ...dataSet,
+                                    backgroundColor: dataSet.backgroundColor.map((backgroundColorMap: string, backgroundColorIndexMap: number) => {
+
+                                        if (backgroundColorIndex === backgroundColorIndexMap) {
+
+                                            return `#${event?.value}`;
+                                        }
+                                        return backgroundColorMap;
+                                    })
+                                }
+                            );
+                        } else {
+
+                            updateChartJsDataSet({
+                                    ...dataSet,
+                                    backgroundColor: `#${event?.value}`
+                                }
+                            );
+                        }
                     }}
                 />
                 <InputText

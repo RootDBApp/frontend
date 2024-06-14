@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart                 from "chart.js/auto";
+// import Chart                 from "chart.js/auto";
 import * as React            from 'react';
 import { TabPanel, TabView } from "primereact/tabview";
 
@@ -45,13 +45,13 @@ const DataViewGraphParamsJs: React.FC<{
       }): React.ReactElement => {
 
 
-    React.useEffect(() => {
-        if (dataView.report_data_view_js.chartJs) {
-            console.debug('----------------------------------------------------------');
-            console.debug('datasets ->', (dataView.report_data_view_js.chartJs as Chart).config.data.datasets);
-            console.debug('labels ->', (dataView.report_data_view_js.chartJs as Chart).config.data.labels);
-        }
-    }, [dataView.report_data_view_js]);
+    // React.useEffect(() => {
+    //     if (dataView.report_data_view_js.chartJs) {
+    //         console.debug('----------------------------------------------------------');
+    //         console.debug('datasets ->', (dataView.report_data_view_js.chartJs as Chart).config.data.datasets);
+    //         console.debug('labels ->', (dataView.report_data_view_js.chartJs as Chart).config.data.labels);
+    //     }
+    // }, [dataView.report_data_view_js]);
 
     return (
         <TabView className="tab-view-chart-js-param-js">
