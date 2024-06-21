@@ -20,9 +20,10 @@
  */
 
 import { Formik }         from "formik";
-import { Dropdown }       from "primereact/dropdown";
-import { InputSwitch }    from "primereact/inputswitch";
-import { InputText }      from "primereact/inputtext";
+import { Checkbox }       from "primereact/checkbox";
+import { Dropdown }                            from "primereact/dropdown";
+import { InputSwitch, InputSwitchChangeEvent } from "primereact/inputswitch";
+import { InputText }                           from "primereact/inputtext";
 import { Message }        from "primereact/message";
 import { SelectButton }   from "primereact/selectbutton";
 import { Tooltip }        from "primereact/tooltip";
@@ -130,7 +131,8 @@ const ReportDataViewForm: React.FC<{
                     by_chunk: values.by_chunk,
                     chunk_size: values.chunk_size,
                     is_visible: values.is_visible,
-                    on_queue: values.on_queue
+                    on_queue: values.on_queue,
+                    use_configurator: values.use_configurator
                 },
                 callbackSuccess: (response: TReportDataView) => {
 
@@ -178,7 +180,8 @@ const ReportDataViewForm: React.FC<{
                 chunk_size: Yup.number(),
                 max_width: Yup.number().nullable(),
                 is_visible: Yup.boolean(),
-                on_queue: Yup.boolean()
+                on_queue: Yup.boolean(),
+                use_configurator: Yup.boolean()
             })}
             onSubmit={handleOnSubmit}
         >
@@ -365,7 +368,7 @@ const ReportDataViewForm: React.FC<{
                             />
                         </div>
 
-                        <div className="field col-12 md:col-4"
+                        <div className="field col-12 md:col-3"
                              style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id) ? 'block' : 'none'}`}}
                         >
                             <label htmlFor="report_data_view_lib_version_id"
@@ -393,7 +396,7 @@ const ReportDataViewForm: React.FC<{
                             />
                         </div>
 
-                        <div className="field col-12 md:col-5"
+                        <div className="field col-12 md:col-3"
                              style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id) ? 'block' : 'none'}`}}
                         >
                             <label htmlFor="report_data_view_lib_type_id"
@@ -410,22 +413,20 @@ const ReportDataViewForm: React.FC<{
                             />
                         </div>
 
-                        {/*{formik.values.type === EDataViewType.GRAPH && (*/}
-                        {/*    <div className="field col-12">*/}
-                        {/*        <label htmlFor="max_width" className="block">{t('common:form.maxWidth')}</label>*/}
-                        {/*        <InputNumber*/}
-                        {/*            inputId="max_width"*/}
-                        {/*            {...formik.getFieldProps('max_width')}*/}
-                        {/*            className={!!formik.errors.max_width ? 'p-invalid' : ''}*/}
-                        {/*            onChange={(event) => {*/}
-                        {/*                formik.setFieldValue('max_width', event.value)*/}
-                        {/*            }}*/}
-                        {/*            showButtons*/}
-                        {/*            step={50}*/}
-                        {/*            suffix=" px"*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
+                        <div className={`field col-12 ${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id && formik.values.report_data_view_lib_version_id === 3) ? 'md:col-3' : ''}`}
+                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id && formik.values.report_data_view_lib_version_id === 3) ? 'block' : 'none'}`}}
+                        >
+                            {formik.values.type === EDataViewType.GRAPH && (
+                                <div className="field col-12">
+                                    <label htmlFor="use_configurator" className="block">{t('report:dataview.chartjs_config.use_configurator')}</label>
+                                    <Checkbox
+                                        id="use_configurator"
+                                        checked={formik.values.use_configurator ?? false}
+                                        {...formik.getFieldProps('use_configurator')}
+                                    ></Checkbox>
+                                </div>
+                            )}
+                        </div>
 
                         <div className="field col-2">
                             <label htmlFor="by_chunk">{t('report:dataview.by_chunk')}</label><br/>

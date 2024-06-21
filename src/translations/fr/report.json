@@ -77,9 +77,10 @@
         "all_dataviews" : "Toutes les vues",
         "available_data_views" : "Vues disponibles",
         "by_chunk" : "Par morceau",
-        "chartjs_config": {
-            "background_color": "Couleur de fond",
-            "border_color": "Couleur de bordure"
+        "chartjs_config" : {
+            "background_color" : "Couleur de fond",
+            "border_color" : "Couleur de bordure",
+            "use_configurator" : "Utiliser une interface graphique pour la configuration du chart."
         },
         "chunk_size" : "Taille des morceaux",
         "dataview_options" : "Options de la vue",

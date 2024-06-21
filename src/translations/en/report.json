@@ -77,9 +77,10 @@
         "all_dataviews" : "All data views",
         "available_data_views" : "Available data views",
         "by_chunk" : "By chunk",
-        "chartjs_config": {
-            "background_color": "Background color",
-            "border_color": "Border color"
+        "chartjs_config" : {
+            "background_color" : "Background color",
+            "border_color" : "Border color",
+            "use_configurator" : "Use a GUI for chart configuration"
         },
         "chunk_size" : "Chunk size",
         "dataview_options" : "Data view options",

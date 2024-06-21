@@ -39,7 +39,7 @@ const ChartJsConfigurator: React.FC<{
 
     return (
         <>
-            <TabView>
+            <TabView className="tab-view-chart-js-param-js">
                 <TabPanel header="Config">
                     <ChartJsConfiguratorConfig dataViewJs={dataViewJs}/>
                 </TabPanel>

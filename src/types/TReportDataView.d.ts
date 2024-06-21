@@ -43,6 +43,7 @@ type TReportDataView = {
     report_data_view_lib_type_id?: number,
     report_data_view_lib_version?: TReportDataViewLibVersion,
     title?: string,
+    use_configurator?: boolean,
     updated_at?: Date | null,
 }
 
