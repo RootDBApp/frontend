@@ -21,9 +21,9 @@
 
 import { Formik }         from "formik";
 import { Checkbox }       from "primereact/checkbox";
-import { Dropdown }                            from "primereact/dropdown";
-import { InputSwitch, InputSwitchChangeEvent } from "primereact/inputswitch";
-import { InputText }                           from "primereact/inputtext";
+import { Dropdown }       from "primereact/dropdown";
+import { InputSwitch }    from "primereact/inputswitch";
+import { InputText }      from "primereact/inputtext";
 import { Message }        from "primereact/message";
 import { SelectButton }   from "primereact/selectbutton";
 import { Tooltip }        from "primereact/tooltip";
@@ -143,6 +143,7 @@ const ReportDataViewForm: React.FC<{
                             report_data_view_id: response.id,
                             report_data_view_lib_version_id: values.report_data_view_lib_version_id,
                             report_data_view_lib_type_id: values.report_data_view_lib_type_id,
+                            use_configurator: values.use_configurator
                         },
                         callbackSuccess: (response2: TReportDataViewJs) => {
                             onSuccess(response, response2);
