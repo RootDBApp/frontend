@@ -137,8 +137,7 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
                                 </div>
                             </div>
                         </AccordionTab>
-                    )
-                        ;
+                    );
                 }
             )}
         </Accordion>

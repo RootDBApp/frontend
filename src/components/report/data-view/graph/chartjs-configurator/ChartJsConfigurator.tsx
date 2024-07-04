@@ -41,7 +41,9 @@ const ChartJsConfigurator: React.FC<{
         <>
             <TabView className="tab-view-chart-js-param-js">
                 <TabPanel header="Config">
-                    <ChartJsConfiguratorConfig dataViewJs={dataViewJs}/>
+                    <React.Suspense fallback={<CenteredLoading/>}>
+                        <ChartJsConfiguratorConfig dataViewJs={dataViewJs}/>
+                    </React.Suspense>
                 </TabPanel>
                 <TabPanel header="Setup">
                     <React.Suspense fallback={<CenteredLoading/>}>

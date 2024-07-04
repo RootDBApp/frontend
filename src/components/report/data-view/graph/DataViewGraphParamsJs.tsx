@@ -19,17 +19,15 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-// import Chart                 from "chart.js/auto";
 import * as React            from 'react';
-import { TabPanel, TabView } from "primereact/tabview";
 
 import { EAceEditorMode }             from "../../../../types/primereact/EAceEditorMode";
 import { ICallbackSQLEditorOnChange } from "../../../../types/ICallBacks";
 import TCallbackResponse              from "../../../../types/TCallbackResponse";
 import CenteredLoading                from "../../../common/loading/CenteredLoading";
-import ChartJsConfigurator            from "./chartjs-configurator/ChartJsConfigurator";
 import TReportDataView                from "../../../../types/TReportDataView";
 
+const ChartJsConfigurator = React.lazy(() => import("./chartjs-configurator/ChartJsConfigurator"));
 const CustomEditor = React.lazy(() => import('../../../common/CustomEditor'));
 
 const DataViewGraphParamsJs: React.FC<{
@@ -53,43 +51,36 @@ const DataViewGraphParamsJs: React.FC<{
     //     }
     // }, [dataView.report_data_view_js]);
 
-    return (
-        // <ChartJsConfigurator
-        //     reportId={reportId}
-        //     dataViewJs={dataView.report_data_view_js}
-        // />
-        <TabView className="tab-view-chart-js-param-js">
-            <TabPanel header="Configurator">
-                <ChartJsConfigurator
-                    reportId={reportId}
-                    dataViewJs={dataView.report_data_view_js}
+    return (<>
+        {dataView.use_configurator
+            ?
+            <ChartJsConfigurator
+                reportId={reportId}
+                dataViewJs={dataView.report_data_view_js}
+            />
+            :
+            <React.Suspense fallback={<CenteredLoading/>}>
+
+                <CustomEditor
+                    saveCallbackResponse={callBackResponse}
+                    height="100%"
+                    id={'js_editor_code_data_view_' + dataView.id}
+                    mode={EAceEditorMode.JS}
+                    // onBlurCallback={(js_code: string) => {
+                    //
+                    //     onChangeCallback(js_code);
+                    // }}
+                    onSaveCallback={(js_code: string) => {
+
+                        onChangeCallback(js_code);
+                    }}
+                    onLoad={true}
+                    resize="none"
+                    value={dataView.report_data_view_js.js_code}
                 />
-            </TabPanel>
-            <TabPanel header="Code">
-
-                <React.Suspense fallback={<CenteredLoading/>}>
-
-                    <CustomEditor
-                        saveCallbackResponse={callBackResponse}
-                        height="100%"
-                        id={'js_editor_code_data_view_' + dataView.id}
-                        mode={EAceEditorMode.JS}
-                        // onBlurCallback={(js_code: string) => {
-                        //
-                        //     onChangeCallback(js_code);
-                        // }}
-                        onSaveCallback={(js_code: string) => {
-
-                            onChangeCallback(js_code);
-                        }}
-                        onLoad={true}
-                        resize="none"
-                        value={dataView.report_data_view_js.js_code}
-                    />
-                </React.Suspense>
-            </TabPanel>
-        </TabView>
-    )
+            </React.Suspense>
+        }
+    </>)
 }
 
 export default DataViewGraphParamsJs;

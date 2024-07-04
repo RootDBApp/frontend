@@ -163,3 +163,9 @@ export const shallowEqual = (object1: any, object2: any): boolean => {
 
     return true;
 }
+
+export const initChartJsConfigurator = () => {
+
+    console.log('=================================================================');
+    console.log('=== ', );
+}

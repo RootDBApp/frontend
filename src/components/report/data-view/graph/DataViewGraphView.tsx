@@ -140,11 +140,12 @@ const DataViewGraphView: React.FC<{
             }
         }
 
-        // Used to set up initially the Chart.js object, to be used from ChartJsConfigurator components.
+        // ChartJS - configurator - used to set up initially the Chart.js object, to be used from ChartJsConfigurator components.
         const setChartJsObject = (chartJs: Chart) => {
 
             if (authState.user.organization_user.role_ids.includes(ERole.DEVELOPER)) {
 
+                console.log('par la');
                 reportDispatch(
                     reportDataViewSetChartJS(
                         {
@@ -181,10 +182,18 @@ const DataViewGraphView: React.FC<{
                                                             + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
                                                             + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init);
 
-                                                        setChartJsObject(
+                                                        // Use ChartJs configurator
+                                                        if (dataViewJs.json_form) {
+
+                                                            setChartJsObject(
+                                                                // eslint-disable-next-line
+                                                                Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas)
+                                                            );
+                                                        } else {
+
                                                             // eslint-disable-next-line
-                                                            Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas)
-                                                        );
+                                                            Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas);
+                                                        }
 
                                                     } catch (error: any) {
 
@@ -230,7 +239,8 @@ const DataViewGraphView: React.FC<{
                 handleError(error);
             }
 
-            // Render _only_ when we have change inside jsonResults
+            // Render _only_ when we have change inside jsonResults.
+            // Only when chart is configured with code.
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [
             authState.user.organization_user.user_preferences.theme,
@@ -240,11 +250,14 @@ const DataViewGraphView: React.FC<{
             jsonResults
         ]);
 
-        // It's this effect who really updates ChartJs on the fly.
+        // ChartJS - configurator - it's this effect who really updates ChartJs on the fly.
+        //
         React.useEffect(() => {
 
             if (dataViewJs.chartJs && refCanvas.current) {
 
+
+                console.log('--------------------->  par la <--------------------------');
                 let chartToUpdate = Chart.getChart(refCanvas.current);
                 if (chartToUpdate) {
 
@@ -255,7 +268,7 @@ const DataViewGraphView: React.FC<{
             }
         }, [dataViewJs.chartJs]);
 
-        // Use to update the canvas container
+        // Use to update the canvas container when view window is resized, or view mode changed.
         //
         React.useEffect(() => {
 
