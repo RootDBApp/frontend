@@ -36,6 +36,7 @@ import TReport                        from "../../../../types/TReport";
 import TReportInstance                from "../../../../types/TReportInstance";
 import AncestorSizeProvider           from "../../../common/size/AncestorSizeProvider";
 import { EReportViewMode }            from "../../../../types/EReportViewMode";
+import DataViewGraphViewChartJs       from "./DataViewGraphViewChartJs";
 
 enum viewModes {
     GRAPH,
@@ -92,14 +93,26 @@ const DataViewGraph: React.FC<{
                     <>
                         {viewMode === viewModes.GRAPH && (
                             <AncestorSizeProvider widthPropName="parentWidth" heightPropName="parentHeight">
-                                <DataViewGraphView
-                                    dataViewJs={dataView.report_data_view_js}
-                                    jsonResults={results}
-                                    loading={loading}
-                                    maxWidth={dataView.max_width}
-                                    report={report}
-                                    reportInstance={reportInstance}
-                                />
+                                {dataView.use_configurator
+                                    ?
+                                    <DataViewGraphViewChartJs
+                                        dataViewJs={dataView.report_data_view_js}
+                                        jsonResults={results}
+                                        loading={loading}
+                                        maxWidth={dataView.max_width}
+                                        report={report}
+                                        reportInstance={reportInstance}
+                                    />
+                                    :
+                                    <DataViewGraphView
+                                        dataViewJs={dataView.report_data_view_js}
+                                        jsonResults={results}
+                                        loading={loading}
+                                        maxWidth={dataView.max_width}
+                                        report={report}
+                                        reportInstance={reportInstance}
+                                    />
+                                }
                             </AncestorSizeProvider>
                         )}
 

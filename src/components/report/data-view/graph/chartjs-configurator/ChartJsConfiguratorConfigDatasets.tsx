@@ -26,11 +26,11 @@ import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
 import { InputText }                           from "primereact/inputtext";
 import React                                   from "react";
 
-import TReportDataViewJs                                from "../../../../../types/TReportDataViewJs";
-import * as RTReport                                    from "../../../../../contexts/report/ReportContextProvider";
-import { reportDataViewUpdateChartJsDataSet }           from "../../../../../contexts/report/store/actions";
-import CenteredLoading                                  from "../../../../common/loading/CenteredLoading";
-import ChartJsConfiguratorConfigDatasetsBackgroundColor from "./ChartJsConfiguratorConfigDatasetsBackgroundColor";
+import TReportDataViewJs                                  from "../../../../../types/TReportDataViewJs";
+import * as RTReport                                      from "../../../../../contexts/report/ReportContextProvider";
+import { reportDataViewUpdateChartJsConfiguratorDataSet } from "../../../../../contexts/report/store/actions";
+import CenteredLoading                                    from "../../../../common/loading/CenteredLoading";
+import ChartJsConfiguratorConfigDatasetsBackgroundColor   from "./ChartJsConfiguratorConfigDatasetsBackgroundColor";
 
 // const ChartJsConfiguratorConfigDatasetsBackgroundColor = React.lazy(() => import('./ChartJsConfiguratorConfigDatasetsBackgroundColor'));
 
@@ -47,7 +47,7 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
     const updateChartJsDataSet = (dataSet: ChartDataset, dataSetIndex: number) => {
 
         reportDispatch(
-            reportDataViewUpdateChartJsDataSet(
+            reportDataViewUpdateChartJsConfiguratorDataSet(
                 {
                     dataSet: dataSet,
                     dataSetIndex: dataSetIndex,
@@ -58,9 +58,14 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
         );
     }
 
+    React.useEffect(() => {
+
+
+    }, []);
+
     return (
         <Accordion>
-            {dataViewJs.chartJs?.config.data?.datasets?.map((dataSet: ChartDataset, dataSetIndex: number) => {
+            {dataViewJs.chartJsConfigurator?.chartJsSetup.config.data?.datasets?.map((dataSet: ChartDataset, dataSetIndex: number) => {
 
                     return (
                         <AccordionTab
@@ -103,13 +108,12 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
                                         {Array.isArray(dataSet.backgroundColor)
                                             ?
                                             <Accordion>
-                                                {dataViewJs.chartJs.config.data.labels.map((label: string, labelIndex: number) => {
+                                                {dataViewJs.chartJsConfigurator?.chartJsSetup.config.data.labels.map((label: string, labelIndex: number) => {
                                                     return (
                                                         <AccordionTab
                                                             header={label}
                                                             key={`accordion-tab-dataset-background-color-${reportId}-${dataViewJs.report_data_view_id}-${dataSetIndex}-${labelIndex}`}
                                                         >
-
                                                             <ChartJsConfiguratorConfigDatasetsBackgroundColor
                                                                 backgroundColor={((dataSet.backgroundColor as Array<string>)[labelIndex])
                                                                     ? (dataSet.backgroundColor as Array<string>).at(labelIndex) as string

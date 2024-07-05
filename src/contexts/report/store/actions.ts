@@ -19,8 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { ChartDataset }         from "chart.js";
-import Chart                    from "chart.js/auto";
+import { ChartDataset } from "chart.js";
 
 import * as types               from './types';
 import TReport                  from "../../../types/TReport";
@@ -34,6 +33,7 @@ import { EDataViewFieldUpdate } from "../../../types/EDataViewFieldUpdate";
 import { TAddReportInstance }   from "./types";
 import TReportAndDataViewEvent  from "../../../types/TReportAndDataViewEvent";
 import { TReportCacheStatus }   from "../../../types/TReportCacheStatus";
+import TChartJsConfigurator     from "../../../types/TChartJsConfigurator";
 
 export interface IAddReportInstance {
     type: TAddReportInstance
@@ -140,13 +140,13 @@ export interface IReportDataViewRunError {
     payload: TReportAndDataViewEvent,
 }
 
-export interface IReportDataViewSetChartJs {
-    type: types.TReportDataViewSetChartJsObject,
-    payload: { chartjs: Chart, reportId: number, dataViewId: number },
+export interface IReportDataViewSetChartJsConfigurator {
+    type: types.TReportDataViewSetChartJsConfiguratorObject,
+    payload: { chartJsConfigurator: TChartJsConfigurator, reportId: number, dataViewId: number },
 }
 
-export interface IReportDataViewUpdateChartJsDataSet {
-    type: types.TReportDataViewUpdateChartJsDataSet,
+export interface IReportDataViewUpdateChartJsConfiguratorDataSet {
+    type: types.TReportDataViewUpdateChartJsConfiguratorDataSet,
     payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number },
 }
 
@@ -270,13 +270,13 @@ export const reportDataViewRunStart = (payload: TReportAndDataViewEvent): IRepor
     payload
 });
 
-export const reportDataViewSetChartJS = (payload: { chartjs: Chart, reportId: number, dataViewId: number }): IReportDataViewSetChartJs => ({
-    type: types.REPORT_DATAVIEW_SET_CHARTJS_OBJECT,
+export const reportDataViewSetChartJSConfigurator = (payload: { chartJsConfigurator: TChartJsConfigurator, reportId: number, dataViewId: number }): IReportDataViewSetChartJsConfigurator => ({
+    type: types.REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT,
     payload
 });
 
-export const reportDataViewUpdateChartJsDataSet = (payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsDataSet => ({
-    type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET,
+export const reportDataViewUpdateChartJsConfiguratorDataSet = (payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsConfiguratorDataSet => ({
+    type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET,
     payload
 });
 
@@ -388,8 +388,8 @@ export type TReportAction =
     | IReportDataViewRunStart
     | IReportDataViewRunEnd
     | IReportDataViewRunError
-    | IReportDataViewSetChartJs
-    | IReportDataViewUpdateChartJsDataSet
+    | IReportDataViewSetChartJsConfigurator
+    | IReportDataViewUpdateChartJsConfiguratorDataSet
     | IReportDataViewUpdateQueryJs
     | IReportExpandDataView
     | IReportResultsCached

@@ -167,5 +167,18 @@ export const shallowEqual = (object1: any, object2: any): boolean => {
 export const initChartJsConfigurator = () => {
 
     console.log('=================================================================');
-    console.log('=== ', );
+    console.log('=== commonJs->initChartJsConfigurator', );
+}
+
+
+export const handleChartJsConfiguratorLabels = () => {
+
+    console.log('=================================================================');
+    console.log('=== commonJs->handleChartJsConfiguratorLabels', );
+}
+
+export const handleChartJsConfiguratorDatasets = () => {
+
+    console.log('=================================================================');
+    console.log('=== commonJs->handleChartJsConfiguratorDatasets', );
 }

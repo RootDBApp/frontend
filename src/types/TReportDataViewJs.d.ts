@@ -19,10 +19,9 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart                     from "chart.js";
-
 import TReportDataView           from "./TReportDataView";
 import TReportDataViewLibVersion from "./TReportDataViewLibVersion";
+import TChartJsConfigurator      from "./TChartJsConfigurator";
 
 type TReportDataViewJs = {
     id: number,
@@ -32,7 +31,7 @@ type TReportDataViewJs = {
     json_form_minified: boolean,
     js_code: string,
     js_code_minified: boolean,
-    chartJs?: Chart,
+    chartJsConfigurator?: TChartJsConfigurator,
     created_at?: DateTime,
     js_register?: string,
     js_register_minified?: boolean,

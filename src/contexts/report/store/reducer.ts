@@ -54,8 +54,8 @@ import {
     REPORT_DATAVIEW_RUN_END,
     REPORT_DATAVIEW_RUN_ERROR,
     REPORT_DATAVIEW_RUN_START,
-    REPORT_DATAVIEW_SET_CHARTJS_OBJECT,
-    REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET,
+    REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT,
+    REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET,
     REPORT_DATAVIEW_UPDATE_QUERY_JS,
     REPORT_EXPAND_DATAVIEW,
     REPORT_INSTANCE_SET_USE_CACHE,
@@ -820,7 +820,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
             return state;
 
         // Used when initialising the ChartJs object from js code.
-        case REPORT_DATAVIEW_SET_CHARTJS_OBJECT:
+        case REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT:
 
             reportState = extractReportStateFromReportId(
                 [...state],
@@ -844,7 +844,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                         ...dataView,
                                         report_data_view_js: {
                                             ...dataView.report_data_view_js,
-                                            chartJs: action.payload?.chartjs
+                                            chartJsConfigurator: action.payload?.chartJsConfigurator
                                         }
                                     }
                                 }
@@ -859,7 +859,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
             return state;
 
         // Mainly used by ChartJsConfigurator components.
-        case REPORT_DATAVIEW_UPDATE_CHARTJS_DATA_SET:
+        case REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET:
 
             reportState = extractReportStateFromReportId(
                 [...state],
@@ -883,21 +883,24 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                         ...dataView,
                                         report_data_view_js: {
                                             ...dataView.report_data_view_js,
-                                            chartJs: {
-                                                ...dataView.report_data_view_js.chartJs,
-                                                config: {
-                                                    ...dataView.report_data_view_js.chartJs?.config,
-                                                    data: {
-                                                        ...dataView.report_data_view_js.chartJs?.config?.data,
-                                                        datasets: dataView.report_data_view_js.chartJs?.config?.data?.datasets?.map((dataSet: ChartDataset, index: number) => {
+                                            chartJsConfigurator: {
+                                                ...dataView.report_data_view_js.chartJsConfigurator,
+                                                chartJsSetup: {
+                                                    ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup,
+                                                    config: {
+                                                        ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config,
+                                                        data: {
+                                                            ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data,
+                                                            datasets: dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data?.datasets?.map((dataSet: ChartDataset, index: number) => {
 
-                                                            if (index === action.payload.dataSetIndex) {
+                                                                if (index === action.payload.dataSetIndex) {
 
-                                                                return action.payload.dataSet;
-                                                            }
+                                                                    return action.payload.dataSet;
+                                                                }
 
-                                                            return dataSet;
-                                                        })
+                                                                return dataSet;
+                                                            })
+                                                        }
                                                     }
                                                 }
                                             }

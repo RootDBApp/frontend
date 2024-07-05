@@ -19,23 +19,21 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart           from "chart.js/auto";
 import * as React      from 'react';
 import { useNavigate } from "react-router-dom";
 
-import TReportDataViewJs                                    from "../../../../types/TReportDataViewJs";
-import CenteredNoData                                       from "../../../common/loading/CenteredNoData";
-import { sleep, uncompress }                                from "../../../../utils/tools";
-import ReportErrorBoundary                                  from "../../ReportErrorBoundary";
-import { context as authContext }                           from "../../../../contexts/auth/store/context";
-import GraphSkeleton                                        from "../../../skeleton/GraphSkeleton";
-import TReportInstance                                      from "../../../../types/TReportInstance";
-import TReport                                              from "../../../../types/TReport";
-import { getElementContentSize }                            from "../../../../utils/htmlElement";
-import { reportDataViewRunError, reportDataViewSetChartJS } from "../../../../contexts/report/store/actions";
-import * as RTReport                                        from "../../../../contexts/report/ReportContextProvider";
-import { EReportViewMode }                                  from "../../../../types/EReportViewMode";
-import { ERole }                                            from "../../../../types/ERole";
+import TReportDataViewJs          from "../../../../types/TReportDataViewJs";
+import CenteredNoData             from "../../../common/loading/CenteredNoData";
+import { sleep, uncompress }      from "../../../../utils/tools";
+import ReportErrorBoundary        from "../../ReportErrorBoundary";
+import { context as authContext } from "../../../../contexts/auth/store/context";
+import GraphSkeleton              from "../../../skeleton/GraphSkeleton";
+import TReportInstance            from "../../../../types/TReportInstance";
+import TReport                    from "../../../../types/TReport";
+import { getElementContentSize }  from "../../../../utils/htmlElement";
+import { reportDataViewRunError } from "../../../../contexts/report/store/actions";
+import * as RTReport              from "../../../../contexts/report/ReportContextProvider";
+import { EReportViewMode }        from "../../../../types/EReportViewMode";
 
 const DataViewGraphView: React.FC<{
         dataViewJs: TReportDataViewJs,
@@ -140,22 +138,6 @@ const DataViewGraphView: React.FC<{
             }
         }
 
-        // ChartJS - configurator - used to set up initially the Chart.js object, to be used from ChartJsConfigurator components.
-        const setChartJsObject = (chartJs: Chart) => {
-
-            if (authState.user.organization_user.role_ids.includes(ERole.DEVELOPER)) {
-
-                console.log('par la');
-                reportDispatch(
-                    reportDataViewSetChartJS(
-                        {
-                            reportId: report.id,
-                            dataViewId: dataViewJs.report_data_view_id,
-                            chartjs: chartJs as Chart
-                        }
-                    ));
-            }
-        }
 
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {
@@ -182,19 +164,8 @@ const DataViewGraphView: React.FC<{
                                                             + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
                                                             + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init);
 
-                                                        // Use ChartJs configurator
-                                                        if (dataViewJs.json_form) {
-
-                                                            setChartJsObject(
-                                                                // eslint-disable-next-line
-                                                                Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas)
-                                                            );
-                                                        } else {
-
-                                                            // eslint-disable-next-line
-                                                            Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas);
-                                                        }
-
+                                                        // eslint-disable-next-line
+                                                        Function('"use strict";return (function execChartJs' + dataViewJs.report_data_view_id + '(cjs, cjsh, rdb, jsonResults, refCanvas) {' + jsCodeToExecute + "return chart" + dataViewJs.report_data_view_id + "})")()(cjs, cjsh, rdb, jsonResults, refCanvas);
                                                     } catch (error: any) {
 
                                                         handleError(error);
@@ -250,23 +221,6 @@ const DataViewGraphView: React.FC<{
             jsonResults
         ]);
 
-        // ChartJS - configurator - it's this effect who really updates ChartJs on the fly.
-        //
-        React.useEffect(() => {
-
-            if (dataViewJs.chartJs && refCanvas.current) {
-
-
-                console.log('--------------------->  par la <--------------------------');
-                let chartToUpdate = Chart.getChart(refCanvas.current);
-                if (chartToUpdate) {
-
-                    chartToUpdate.config.options = dataViewJs.chartJs.config.options;
-                    chartToUpdate.config.data = dataViewJs.chartJs.config.data;
-                    chartToUpdate.update();
-                }
-            }
-        }, [dataViewJs.chartJs]);
 
         // Use to update the canvas container when view window is resized, or view mode changed.
         //
