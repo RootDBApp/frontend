@@ -32,8 +32,6 @@ import { reportDataViewUpdateChartJsConfiguratorDataSet } from "../../../../../c
 import CenteredLoading                                    from "../../../../common/loading/CenteredLoading";
 import ChartJsConfiguratorConfigDatasetsBackgroundColor   from "./ChartJsConfiguratorConfigDatasetsBackgroundColor";
 
-// const ChartJsConfiguratorConfigDatasetsBackgroundColor = React.lazy(() => import('./ChartJsConfiguratorConfigDatasetsBackgroundColor'));
-
 const ChartJsConfiguratorConfigDatasets: React.FC<{
     reportId: number,
     dataViewJs: TReportDataViewJs
@@ -60,7 +58,8 @@ const ChartJsConfiguratorConfigDatasets: React.FC<{
 
     React.useEffect(() => {
 
-
+        // console.debug('=======>======>======>======>======>======>======>======>======>======>');
+        // console.debug('======> ', dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales);
     }, []);
 
     return (

@@ -1,18 +1,13 @@
-import { Chart } from "chart.js";
+import { Chart } from "chart.js/auto";
 import React     from "react";
 
-import TReportDataViewJs                        from "../../../../types/TReportDataViewJs";
-import { reportDataViewSetChartJSConfigurator } from "../../../../contexts/report/store/actions";
-// import { ERole }                                from "../../../../types/ERole";
-// import TChartJsConfigurator                     from "../../../../types/TChartJsConfigurator";
-// import { context as authContext }               from "../../../../contexts/auth/store/context";
-import * as RTReport                            from "../../../../contexts/report/ReportContextProvider";
-import TReport                                  from "../../../../types/TReport";
-import { EReportViewMode }                      from "../../../../types/EReportViewMode";
-import { getElementContentSize }                from "../../../../utils/htmlElement";
-import TReportInstance                          from "../../../../types/TReportInstance";
-import chartJsConfigurator                      from "./chartjs-configurator/ChartJsConfigurator";
-import TChartJsConfigurator                     from "../../../../types/TChartJsConfigurator";
+import TReportDataViewJs                                         from "../../../../types/TReportDataViewJs";
+import { reportDataViewSetChartJSConfigurator }                  from "../../../../contexts/report/store/actions";
+import * as RTReport                                             from "../../../../contexts/report/ReportContextProvider";
+import TReport                                                   from "../../../../types/TReport";
+import { EReportViewMode }                                       from "../../../../types/EReportViewMode";
+import { getElementContentSize }                                 from "../../../../utils/htmlElement";
+import TReportInstance                                           from "../../../../types/TReportInstance";
 
 const DataViewGraphViewChartJs: React.FC<{
     dataViewJs: TReportDataViewJs,
@@ -20,7 +15,7 @@ const DataViewGraphViewChartJs: React.FC<{
     reportInstance: TReportInstance,
     jsonResults?: Array<Object>,
     // loading?: boolean, // true when data view is loaded don't have yet results.
-    // maxWidth?: number,
+    maxWidth?: number,
     parentHeight?: number,
     parentWidth?: number,
 }> = ({
@@ -29,7 +24,7 @@ const DataViewGraphViewChartJs: React.FC<{
           reportInstance,
           jsonResults,
           // loading = false,
-          // maxWidth,
+          maxWidth,
           parentHeight,
           parentWidth,
 
@@ -96,8 +91,8 @@ const DataViewGraphViewChartJs: React.FC<{
 
         if (!dataViewJs.chartJsConfigurator) {
 
-            console.debug('----------------------------------------------------------');
-            console.debug(' -> JSON.parse(dataViewJs.json_form) 1', JSON.parse(dataViewJs.json_form));
+            console.debug('=======>======>======>======>======>======>======>======>======>======>');
+            console.debug('======>  JSON.parse(dataViewJs.json_form) 1', JSON.parse(dataViewJs.json_form));
 
             reportDispatch(
                 reportDataViewSetChartJSConfigurator(
@@ -118,8 +113,6 @@ const DataViewGraphViewChartJs: React.FC<{
 
         if (refCanvas.current && dataViewJs.chartJsConfigurator) {
 
-            console.debug(' -> dataViewJs.chartJsConfigurator 2', dataViewJs.chartJsConfigurator);
-
             // @ts-ignore
             chartJsObject = Chart.getChart(refCanvas.current.id);
 
@@ -133,7 +126,7 @@ const DataViewGraphViewChartJs: React.FC<{
                 chartJsObject = new Chart(
                     refCanvas.current,
                     {
-                        type: 'bar',
+                        type: dataViewJs.chartJsConfigurator.chartJsSetup.type,
                         data: dataViewJs.chartJsConfigurator.chartJsSetup.config.data,
                         options: dataViewJs.chartJsConfigurator.chartJsSetup.config.options
                     }

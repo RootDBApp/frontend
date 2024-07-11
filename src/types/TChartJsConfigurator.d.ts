@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { ChartDataset, ChartOptions } from "chart.js";
+import { ChartDataset, ChartOptions, ChartType } from "chart.js";
 
 import TChartJsConfiguratorColumnSetup from "../translations/TChartJsConfiguratorColumnSetup";
 
@@ -30,6 +30,7 @@ type TChartJsConfigurator = {
         datasetValues: TChartJsConfiguratorColumnSetup
     }
     chartJsSetup: {
+        type: ChartType,
         config: {
             data: {
                 labels: Array<string>,

@@ -98,7 +98,6 @@ const DataViewGraph: React.FC<{
                                     <DataViewGraphViewChartJs
                                         dataViewJs={dataView.report_data_view_js}
                                         jsonResults={results}
-                                        loading={loading}
                                         maxWidth={dataView.max_width}
                                         report={report}
                                         reportInstance={reportInstance}

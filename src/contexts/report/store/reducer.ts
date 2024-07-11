@@ -56,6 +56,7 @@ import {
     REPORT_DATAVIEW_RUN_START,
     REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT,
     REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET,
+    REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_OPTIONS,
     REPORT_DATAVIEW_UPDATE_QUERY_JS,
     REPORT_EXPAND_DATAVIEW,
     REPORT_INSTANCE_SET_USE_CACHE,
@@ -858,26 +859,26 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
 
             return state;
 
-        // Mainly used by ChartJsConfigurator components.
+        // Used by ChartJsConfigurator components.
         case REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET:
 
             reportState = extractReportStateFromReportId(
                 [...state],
-                action.payload?.reportId || null,
+                action.payload.reportId || null,
             );
 
             if (reportState.report?.dataViews) {
 
                 return updateReportState(
                     state,
-                    action.payload?.reportId || null,
+                    action.payload.reportId || null,
                     {
                         ...reportState,
                         report: {
                             ...reportState.report,
                             dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
 
-                                if (dataView.id === action.payload?.dataViewId) {
+                                if (dataView.id === action.payload.dataViewId) {
 
                                     return {
                                         ...dataView,
@@ -901,6 +902,54 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                                                 return dataSet;
                                                             })
                                                         }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return dataView;
+                            })
+                        }
+                    }
+                );
+            }
+
+            return state;
+
+        // Used by ChartJsConfigurator components.
+        case REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_OPTIONS:
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                action.payload.reportId || null,
+            );
+
+            if (reportState.report?.dataViews) {
+
+                return updateReportState(
+                    state,
+                    action.payload?.reportId || null,
+                    {
+                        ...reportState,
+                        report: {
+                            ...reportState.report,
+                            dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
+
+                                if (dataView.id === action.payload.dataViewId) {
+
+                                    return {
+                                        ...dataView,
+                                        report_data_view_js: {
+                                            ...dataView.report_data_view_js,
+                                            chartJsConfigurator: {
+                                                ...dataView.report_data_view_js.chartJsConfigurator,
+                                                chartJsSetup: {
+                                                    ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup,
+                                                    config: {
+                                                        ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup?.config,
+                                                        options: action.payload.chartOptions
                                                     }
                                                 }
                                             }

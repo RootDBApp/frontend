@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { ChartDataset } from "chart.js";
+import { ChartDataset, ChartOptions } from "chart.js";
 
 import * as types               from './types';
 import TReport                  from "../../../types/TReport";
@@ -29,9 +29,9 @@ import { EReportPanel }         from "../../../types/EReportPanels";
 import TReportDataView          from "../../../types/TReportDataView";
 import { EReportViewMode }      from "../../../types/EReportViewMode";
 import TReportDataViewJs        from "../../../types/TReportDataViewJs";
-import { EDataViewFieldUpdate } from "../../../types/EDataViewFieldUpdate";
-import { TAddReportInstance }   from "./types";
-import TReportAndDataViewEvent  from "../../../types/TReportAndDataViewEvent";
+import { EDataViewFieldUpdate }                                                from "../../../types/EDataViewFieldUpdate";
+import { TAddReportInstance, TReportDataViewUpdateChartJsConfiguratorOptions } from "./types";
+import TReportAndDataViewEvent                                                 from "../../../types/TReportAndDataViewEvent";
 import { TReportCacheStatus }   from "../../../types/TReportCacheStatus";
 import TChartJsConfigurator     from "../../../types/TChartJsConfigurator";
 
@@ -148,6 +148,11 @@ export interface IReportDataViewSetChartJsConfigurator {
 export interface IReportDataViewUpdateChartJsConfiguratorDataSet {
     type: types.TReportDataViewUpdateChartJsConfiguratorDataSet,
     payload: { dataSet: ChartDataset, dataSetIndex: number, reportId: number, dataViewId: number },
+}
+
+export interface IReportDataViewUpdateChartJsConfiguratorOptions {
+    type: types.TReportDataViewUpdateChartJsConfiguratorOptions,
+    payload: { chartOptions: ChartOptions, reportId: number, dataViewId: number },
 }
 
 export interface IReportDataViewUpdateQueryJs {
@@ -280,6 +285,11 @@ export const reportDataViewUpdateChartJsConfiguratorDataSet = (payload: { dataSe
     payload
 });
 
+export const reportDataViewUpdateChartJsConfiguratorOptions = (payload: { chartOptions: ChartOptions, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsConfiguratorOptions => ({
+    type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_OPTIONS,
+    payload
+});
+
 export const reportDataViewUpdateQueryJs = (payload: { reportId: number, dataViewId: number, field: EDataViewFieldUpdate, contents: string }): IReportDataViewUpdateQueryJs => ({
     type: types.REPORT_DATAVIEW_UPDATE_QUERY_JS,
     payload
@@ -390,6 +400,7 @@ export type TReportAction =
     | IReportDataViewRunError
     | IReportDataViewSetChartJsConfigurator
     | IReportDataViewUpdateChartJsConfiguratorDataSet
+    | IReportDataViewUpdateChartJsConfiguratorOptions
     | IReportDataViewUpdateQueryJs
     | IReportExpandDataView
     | IReportResultsCached
