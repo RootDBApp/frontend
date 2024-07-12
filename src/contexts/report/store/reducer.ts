@@ -54,6 +54,7 @@ import {
     REPORT_DATAVIEW_RUN_END,
     REPORT_DATAVIEW_RUN_ERROR,
     REPORT_DATAVIEW_RUN_START,
+    REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_INITIAL_SETUP_DONE,
     REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT,
     REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET,
     REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_OPTIONS,
@@ -825,27 +826,27 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
 
             reportState = extractReportStateFromReportId(
                 [...state],
-                action.payload?.reportId || null,
+                action.payload.reportId || null,
             );
 
             if (reportState.report?.dataViews) {
 
                 return updateReportState(
                     state,
-                    action.payload?.reportId || null,
+                    action.payload.reportId || null,
                     {
                         ...reportState,
                         report: {
                             ...reportState.report,
                             dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
 
-                                if (dataView.id === action.payload?.dataViewId) {
+                                if (dataView.id === action.payload.dataViewId) {
 
                                     return {
                                         ...dataView,
                                         report_data_view_js: {
                                             ...dataView.report_data_view_js,
-                                            chartJsConfigurator: action.payload?.chartJsConfigurator
+                                            chartJsConfigurator: action.payload.chartJsConfigurator
                                         }
                                     }
                                 }
@@ -858,6 +859,48 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
             }
 
             return state;
+
+        case REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_INITIAL_SETUP_DONE: {
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                action.payload.reportId || null,
+            );
+
+            if (reportState.report?.dataViews) {
+
+                return updateReportState(
+                    state,
+                    action.payload.reportId || null,
+                    {
+                        ...reportState,
+                        report: {
+                            ...reportState.report,
+                            dataViews: reportState.report.dataViews?.map((dataView: TReportDataView) => {
+
+                                if (dataView.id === action.payload.dataViewId) {
+
+                                    return {
+                                        ...dataView,
+                                        report_data_view_js: {
+                                            ...dataView.report_data_view_js,
+                                            chartJsConfigurator: {
+                                                ...dataView.report_data_view_js.chartJsConfigurator,
+                                                initialSetupDone: true
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return dataView;
+                            })
+                        }
+                    }
+                );
+            }
+
+            return state;
+        }
 
         // Used by ChartJsConfigurator components.
         case REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET:

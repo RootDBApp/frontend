@@ -1,13 +1,14 @@
 import { Chart } from "chart.js/auto";
 import React     from "react";
 
-import TReportDataViewJs                                         from "../../../../types/TReportDataViewJs";
-import { reportDataViewSetChartJSConfigurator }                  from "../../../../contexts/report/store/actions";
-import * as RTReport                                             from "../../../../contexts/report/ReportContextProvider";
-import TReport                                                   from "../../../../types/TReport";
-import { EReportViewMode }                                       from "../../../../types/EReportViewMode";
-import { getElementContentSize }                                 from "../../../../utils/htmlElement";
-import TReportInstance                                           from "../../../../types/TReportInstance";
+import TReportDataViewJs                                                                                                                              from "../../../../types/TReportDataViewJs";
+import { reportDataViewSetChartJSConfigurator, reportDataViewSetChartJsConfiguratorInitialSetupDone, reportDataViewUpdateChartJsConfiguratorOptions } from "../../../../contexts/report/store/actions";
+import * as RTReport                                                                                                                                  from "../../../../contexts/report/ReportContextProvider";
+import TReport                                                                                                                                        from "../../../../types/TReport";
+import { EReportViewMode }                                                                                                                            from "../../../../types/EReportViewMode";
+import { getElementContentSize }                                                                                                                      from "../../../../utils/htmlElement";
+import TReportInstance                                                                                                                                from "../../../../types/TReportInstance";
+import { getSurfaceBorder, getTextColorSecondary }                                                                                                    from "../../../../utils/commonJs";
 
 const DataViewGraphViewChartJs: React.FC<{
     dataViewJs: TReportDataViewJs,
@@ -30,11 +31,8 @@ const DataViewGraphViewChartJs: React.FC<{
 
       }): React.ReactElement => {
 
-    // const {state: authState} = React.useContext(authContext);
-
     const reportDispatch = RTReport.useDispatch();
     const refCanvas = React.useRef<HTMLCanvasElement>(null);
-    let chartJsObject;
 
     const [dataViewContainerWidthPx, setDataViewContainerWidthPx] = React.useState<string>('');
     const [dataViewContainerHeightPx, setDataViewContainerHeightPx] = React.useState<string>('');
@@ -42,6 +40,7 @@ const DataViewGraphViewChartJs: React.FC<{
     const [dataViewContainerWidth, setDataViewContainerWidth] = React.useState<string>('');
     const [dataViewContainerHeight, setDataViewContainerHeight] = React.useState<string>('');
 
+    const [chartJsObject, setChartJsObject] = React.useState<Chart>();
 
     const updateCanvasContainer = () => {
 
@@ -91,9 +90,6 @@ const DataViewGraphViewChartJs: React.FC<{
 
         if (!dataViewJs.chartJsConfigurator) {
 
-            console.debug('=======>======>======>======>======>======>======>======>======>======>');
-            console.debug('======>  JSON.parse(dataViewJs.json_form) 1', JSON.parse(dataViewJs.json_form));
-
             reportDispatch(
                 reportDataViewSetChartJSConfigurator(
                     {
@@ -107,33 +103,82 @@ const DataViewGraphViewChartJs: React.FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataViewJs.json_form]);
 
-
     //
     React.useEffect(() => {
 
-        if (refCanvas.current && dataViewJs.chartJsConfigurator) {
+        if (refCanvas.current && dataViewJs.chartJsConfigurator && dataViewJs.chartJsConfigurator.initialSetupDone === true) {
 
-            // @ts-ignore
-            chartJsObject = Chart.getChart(refCanvas.current.id);
-
-            if (chartJsObject) {
+            if (Chart.getChart(refCanvas.current.id) && chartJsObject) {
 
                 chartJsObject.data = dataViewJs.chartJsConfigurator.chartJsSetup.config.data;
                 chartJsObject.options = dataViewJs.chartJsConfigurator.chartJsSetup.config.options;
                 chartJsObject.update();
             } else {
 
-                chartJsObject = new Chart(
+                setChartJsObject(new Chart(
                     refCanvas.current,
                     {
                         type: dataViewJs.chartJsConfigurator.chartJsSetup.type,
                         data: dataViewJs.chartJsConfigurator.chartJsSetup.config.data,
                         options: dataViewJs.chartJsConfigurator.chartJsSetup.config.options
                     }
-                );
+                ));
             }
         }
     }, [jsonResults, refCanvas.current, dataViewJs.chartJsConfigurator]);
+
+
+    // Initialize some default configurations stuff, like the right color to use depending choosen theme.
+    React.useEffect(() => {
+
+        if (refCanvas.current && dataViewJs.chartJsConfigurator && dataViewJs.chartJsConfigurator.initialSetupDone === false) {
+
+            reportDispatch(
+                reportDataViewUpdateChartJsConfiguratorOptions(
+                    {
+                        chartOptions: {
+                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options,
+                            scales: {
+                                ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales,
+                                x: {
+                                    ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x,
+                                    ticks: {
+                                        color: getTextColorSecondary()
+                                    },
+                                    grid: {
+                                        ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x?.grid,
+                                        color: getSurfaceBorder()
+                                    }
+                                },
+                                y: {
+                                    ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.y,
+                                    ticks: {
+                                        color: getTextColorSecondary()
+                                    },
+                                    grid: {
+                                        ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.y?.grid,
+                                        color: getSurfaceBorder()
+                                    }
+                                },
+                            },
+                        },
+                        reportId: report.id,
+                        dataViewId: dataViewJs.report_data_view_id,
+                    }
+                )
+            );
+
+            reportDispatch(
+                reportDataViewSetChartJsConfiguratorInitialSetupDone(
+                    {
+                        reportId: report.id,
+                        dataViewId: dataViewJs.report_data_view_id,
+                    }
+                )
+            );
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refCanvas.current, dataViewJs.chartJsConfigurator]);
 
 
     // Use to update the canvas container when view window is resized, or view mode changed.

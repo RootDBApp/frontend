@@ -22,11 +22,10 @@
 import React                 from "react";
 import { TabPanel, TabView } from "primereact/tabview";
 
-import TReportDataViewJs         from "../../../../../types/TReportDataViewJs";
-import CenteredLoading           from "../../../../common/loading/CenteredLoading";
-import ChartJsConfiguratorConfig from "./ChartJsConfiguratorConfig";
+import TReportDataViewJs from "../../../../../types/TReportDataViewJs";
+import CenteredLoading   from "../../../../common/loading/CenteredLoading";
 
-// const ChartJsConfiguratorConfig = React.lazy(() => import('./ChartJsConfiguratorConfig'));
+const ChartJsConfiguratorConfig = React.lazy(() => import('./ChartJsConfiguratorConfig'));
 const ChartJsConfiguratorConfigDatasets = React.lazy(() => import('./ChartJsConfiguratorConfigDatasets'));
 const ChartJsConfiguratorActions = React.lazy(() => import('./ChartJsConfiguratorActions'));
 
@@ -42,12 +41,12 @@ const ChartJsConfigurator: React.FC<{
         <>
             <TabView className="tab-view-chart-js-param-js">
                 <TabPanel header="Config">
-                    {/*<React.Suspense fallback={<CenteredLoading/>}>*/}
+                    <React.Suspense fallback={<CenteredLoading/>}>
                     <ChartJsConfiguratorConfig
                         reportId={reportId}
                         dataViewJs={dataViewJs}
                     />
-                    {/*</React.Suspense>*/}
+                    </React.Suspense>
                 </TabPanel>
                 <TabPanel header="Setup">
                     <React.Suspense fallback={<CenteredLoading/>}>

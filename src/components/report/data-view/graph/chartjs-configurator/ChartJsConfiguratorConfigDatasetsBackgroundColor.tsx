@@ -25,13 +25,13 @@ import { ColorPicker, ColorPickerChangeEvent } from "primereact/colorpicker";
 import { InputText }                           from "primereact/inputtext";
 import React                                   from "react";
 
-import { ICallbackChartJsUpdateDataSett } from "../../../../../types/ICallBacks";
+import { ICallbackChartJsUpdateDataSet } from "../../../../../types/ICallBacks";
 
 const ChartJsConfiguratorConfigDatasetsBackgroundColor: React.FC<{
     backgroundColor: string,
     backgroundColorIndex: number,
     dataSet: ChartDataset,
-    updateChartJsDataSet: ICallbackChartJsUpdateDataSett
+    updateChartJsDataSet: ICallbackChartJsUpdateDataSet
 }> = ({
           backgroundColor,
           backgroundColorIndex,

@@ -24,6 +24,7 @@ import { ChartDataset, ChartOptions, ChartType } from "chart.js";
 import TChartJsConfiguratorColumnSetup from "../translations/TChartJsConfiguratorColumnSetup";
 
 type TChartJsConfigurator = {
+    initialSetupDone: boolean,
     columnSetup: {
         labels: TChartJsConfiguratorColumnSetup
         datasetNames: TChartJsConfiguratorColumnSetup

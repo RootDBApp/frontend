@@ -19,16 +19,18 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { ChartOptions } from "chart.js";
-import React            from "react";
+import { CartesianScaleOptions, ChartOptions, } from "chart.js";
+import { Accordion, AccordionTab }              from "primereact/accordion";
+import React                                    from "react";
 
 import TReportDataViewJs                                  from "../../../../../types/TReportDataViewJs";
-import { Accordion, AccordionTab }                        from "primereact/accordion";
-import { ColorPicker, ColorPickerChangeEvent }            from "primereact/colorpicker";
-import { InputText }                                      from "primereact/inputtext";
 import { reportDataViewUpdateChartJsConfiguratorOptions } from "../../../../../contexts/report/store/actions";
 import * as RTReport                                      from "../../../../../contexts/report/ReportContextProvider";
-import { getSurfaceBorder, getTextColorSecondary }        from "../../../../../utils/commonJs";
+import { Divider }                                        from "primereact/divider";
+import CenteredLoading                                    from "../../../../common/loading/CenteredLoading";
+
+const ChartJsConfiguratorConfigScale = React.lazy(() => import('./ChartJsConfiguratorConfigScale'));
+
 
 const ChartJsConfiguratorConfig: React.FC<{
     reportId: number,
@@ -53,40 +55,6 @@ const ChartJsConfiguratorConfig: React.FC<{
         );
     }
 
-    // Initialize some default configurations stuff
-    React.useEffect(() => {
-
-        if (dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x?.grid?.color === '') {
-            updateChartJsOptions({
-                ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options,
-                scales: {
-                    ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales,
-                    x: {
-                        ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x,
-                        ticks: {
-                            color: getTextColorSecondary()
-                        },
-                        grid: {
-                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x?.grid,
-                            color: getSurfaceBorder()
-                        }
-                    },
-                    y: {
-                        ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.y,
-                        ticks: {
-                            color: getTextColorSecondary()
-                        },
-                        grid: {
-                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.y?.grid,
-                            color: getSurfaceBorder()
-                        }
-                    },
-                },
-            });
-        }
-
-    }, [dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x?.grid?.color]);
-
     return (
         <Accordion>
             <AccordionTab
@@ -95,41 +63,47 @@ const ChartJsConfiguratorConfig: React.FC<{
             >
                 <div className="formgrid grid">
                     <div className="field col-12 md:col-6">
-                        <ColorPicker
-                            format="hex"
-                            // value={(dataViewJs.chartJsConfigurator?.chartJsSetup?.config?.options?.scales?.x?.grid?.color as string) ?? getSurfaceBorder()}
-                            value={(dataViewJs.chartJsConfigurator?.chartJsSetup?.config?.options?.scales?.x?.grid?.color as string) ?? "#e30059"}
-                            onChange={(event: ColorPickerChangeEvent) => {
-                                updateChartJsOptions({
-                                        ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options,
-                                        scales: {
-                                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales,
-                                            x: {
-                                                ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x,
-                                                grid: {
-                                                    ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x?.grid,
-                                                    color: `#${event.target.value}`
-                                                }
-                                            },
-                                        },
-                                    }
-                                )
-                            }}
-                        />
-                        {/*<InputText*/}
-                        {/*    keyfilter="hex"*/}
-                        {/*    maxLength={6}*/}
-                        {/*    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {*/}
-                        {/*        updateChartJsOptions({*/}
-                        {/*                borderColor: `#${event.target.value}`*/}
-                        {/*            }*/}
-                        {/*        )*/}
-                        {/*    }}*/}
-                        {/*    value={dataSet.borderColor ? (dataSet.borderColor as string).replace('#', '') : 'ffffff'}*/}
-                        {/*/>*/}
-                    </div>
+                        <Divider align="center">
+                            X
+                        </Divider>
 
+                        <React.Suspense fallback={<CenteredLoading/>}>
+                            <ChartJsConfiguratorConfigScale
+                                scaleOptions={dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.x as CartesianScaleOptions}
+                                updateOptionsScales={(scaleOptions: CartesianScaleOptions) => {
+
+                                    updateChartJsOptions({
+                                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options,
+                                            scales: {
+                                                ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales,
+                                                x: scaleOptions
+                                            },
+                                        }
+                                    )
+                                }}
+                            />
+                        </React.Suspense>
+                    </div>
                     <div className="field col-12 md:col-6">
+                        <Divider align="center">
+                            Y
+                        </Divider>
+                        <React.Suspense fallback={<CenteredLoading/>}>
+                            <ChartJsConfiguratorConfigScale
+                                scaleOptions={dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales?.y as CartesianScaleOptions}
+                                updateOptionsScales={(scaleOptions: CartesianScaleOptions) => {
+
+                                    updateChartJsOptions({
+                                            ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options,
+                                            scales: {
+                                                ...dataViewJs.chartJsConfigurator?.chartJsSetup.config.options.scales,
+                                                y: scaleOptions
+                                            },
+                                        }
+                                    )
+                                }}
+                            />
+                        </React.Suspense>
                     </div>
                 </div>
             </AccordionTab>

@@ -78,6 +78,7 @@
         "available_data_views" : "Vues disponibles",
         "by_chunk" : "Par morceau",
         "chartjs_config" : {
+            "display": "visible",
             "background_color" : "Couleur de fond",
             "border_color" : "Couleur de bordure",
             "use_configurator" : "Utiliser une interface graphique pour la configuration du chart."

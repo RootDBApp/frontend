@@ -88,7 +88,6 @@ const DataViewMetricView: React.FC<{
         const replacedTitle = replaceParametersPlaceholders(dataView.title || '', reportInstance.reportParameterInputValues, report.parameters || []);
         const replacedDesc = replaceParametersPlaceholders(dataView.description || '', reportInstance.reportParameterInputValues, report.parameters || []);
 
-
         return (
             <>
                 {(jsonResults?.length === 0) ? (

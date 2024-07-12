@@ -78,6 +78,7 @@
         "available_data_views" : "Available data views",
         "by_chunk" : "By chunk",
         "chartjs_config" : {
+            "display": "visible",
             "background_color" : "Background color",
             "border_color" : "Border color",
             "use_configurator" : "Use a GUI for chart configuration"

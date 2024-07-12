@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import Chart, { ChartDataset } from "chart.js";
+import Chart, { CartesianScaleOptions, ChartDataset } from "chart.js/dist";
 
 import TCallbackResponse             from "./TCallbackResponse";
 import TDataViewTableColumnParameter from "./TDataViewTableParameter";
@@ -39,8 +39,12 @@ export interface ICallbackChartJsObject {
     (chartJsObj: Chart): void
 }
 
-export interface ICallbackChartJsUpdateDataSett {
+export interface ICallbackChartJsUpdateDataSet {
     (dataSet: ChartDataset): void
+}
+
+export interface ICallbackChartJsUpdateOptionsScalesOptions {
+    (scaleOptions: CartesianScaleOptions): void
 }
 
 export interface ICallbackCreateDataViewSuccess {
