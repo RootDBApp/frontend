@@ -53,3 +53,12 @@ export const getElementContentSize = (element: HTMLElement | null | undefined): 
         marginY
     }
 }
+
+export const getElementBackgroundColor = (element: HTMLElement | null | undefined): string | undefined => {
+    if (!element) return undefined;
+
+    const cs = getComputedStyle(element);
+    console.debug('computed style', cs);
+
+    return cs.backgroundColor;
+}

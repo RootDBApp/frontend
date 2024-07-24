@@ -49,6 +49,7 @@ import { context as authContext }                                               
 import { useMobileLayout }                                                                               from "../../utils/windowResize";
 import AncestorSizeProvider                                                                              from "../common/size/AncestorSizeProvider";
 import { EReportViewMode }                                                                               from "../../types/EReportViewMode";
+import { generateGridBackground }                                                                        from "../../utils/grid";
 
 const ReportInstance: React.FC<{
     report: TReport,
@@ -146,8 +147,28 @@ const ReportInstance: React.FC<{
     const [layouts, setLayouts] = React.useState<Array<Layout>>([]);
     const [currentBreakpoint, setCurrentBreakpoint] = React.useState<string>('lg');
     const [disabled, setDisabled] = React.useState<boolean>(false);
+    const [dragging, setDragging] = React.useState(true);
+    const [colorGiverElement, setColorGiverElement] = React.useState<HTMLDivElement | null>(null);
+
+    const colsMap: { [index: string]: number } = React.useMemo(() => ({lg: 12, md: 12, sm: 1, xs: 1, xxs: 1}), []);
+
+    const background = React.useMemo(() => {
+        if (colorGiverElement) {
+            return generateGridBackground(colsMap[currentBreakpoint], window.innerWidth);
+        }
+        return "";
+    }, [colsMap, currentBreakpoint, colorGiverElement]);
+
+    const style = React.useMemo(
+        () => ({
+            width: window.innerWidth,
+            background: dragging ? background : "",
+        }),
+        [background, dragging],
+    );
 
     const handleLayoutChange = React.useCallback((currentLayout: Layout[]) => {
+        setDragging(false);
         const transformedLayout = currentLayout.map(
             (layout: Layout) => {
                 return {
@@ -332,22 +353,26 @@ const ReportInstance: React.FC<{
                 />
             </div>
 
+            <div id="color-giver" className="react-grid-item react-grid-placeholder hidden" ref={(ref) => setColorGiverElement(ref)} />
 
             <AncestorSizeProvider widthPropName="width">
                 <ResponsiveGridLayout
                     className={`layout grid-report-area-data-views ${!!reportInstance.expandedDataViewId ? 'expanded-data-view' : ''}`}
                     breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-                    cols={{lg: 12, md: 12, sm: 1, xs: 1, xxs: 1}}
+                    cols={colsMap}
                     layouts={{lg: layouts}}
                     compactType='vertical'
-                    preventCollision={true}
+                    preventCollision={false}
                     onBreakpointChange={(newBreakpoint) => setCurrentBreakpoint(newBreakpoint)}
+                    onDragStart={() => setDragging(true)}
+                    onResizeStart={() => setDragging(true)}
                     onDragStop={handleLayoutChange}
                     onResizeStop={handleLayoutChange}
                     // measureBeforeMount={true}
                     // useCSSTransforms={false}
                     draggableHandle='.react-grid-layout-draggable-handle'
                     width={window.innerWidth}
+                    style={style}
                 >
                     {report.dataViews
                         ?.map((dataView) => (
@@ -357,23 +382,23 @@ const ReportInstance: React.FC<{
                                     ${reportInstance.viewMode === EReportViewMode.CLIENT ? 'client' : ''} 
                                     ${getDataViewTypeText(dataView.type)}
                                     ${!(!reportInstance.expandedDataViewId || dataView.id === reportInstance.expandedDataViewId) ? 'hidden' : ''}`
-                                }
-                                key={`dataview-client-${report.id}-${reportInstance.id}-${dataView.id}`}
-                            >
-                                <DataViewClient
-                                    dataView={dataView}
-                                    dataViewInstance={getDataViewInstance(dataView)}
-                                    // dataViewInstance={reportInstance?.dataViewInstances?.find(dataViewInstance => dataViewInstance.id === dataView.id) || defaultDataViewInstance}
-                                    report={report}
-                                    reportInstance={reportInstance}
-                                    reportParameters={report.parameters || []}
-                                    reportParameterInputValues={reportInstance.reportParameterInputValues}
-                                    publicMode={publicMode}
-                                />
-                            </div>
-                        ))
-                    }
-                </ResponsiveGridLayout>
+                            }
+                            key={`dataview-client-${report.id}-${reportInstance.id}-${dataView.id}`}
+                        >
+                            <DataViewClient
+                                dataView={dataView}
+                                dataViewInstance={getDataViewInstance(dataView)}
+                                // dataViewInstance={reportInstance?.dataViewInstances?.find(dataViewInstance => dataViewInstance.id === dataView.id) || defaultDataViewInstance}
+                                report={report}
+                                reportInstance={reportInstance}
+                                reportParameters={report.parameters || []}
+                                reportParameterInputValues={reportInstance.reportParameterInputValues}
+                                publicMode={publicMode}
+                            />
+                        </div>
+                    ))
+                }
+            </ResponsiveGridLayout>
             </AncestorSizeProvider>
 
             <div
