@@ -57,6 +57,7 @@ import {
     REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_INITIAL_SETUP_DONE,
     REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_OBJECT,
     REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET,
+    REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET_FROM_RESULTS,
     REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_OPTIONS,
     REPORT_DATAVIEW_UPDATE_QUERY_JS,
     REPORT_EXPAND_DATAVIEW,
@@ -941,6 +942,67 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
 
                                                                     return action.payload.dataSet;
                                                                 }
+
+                                                                return dataSet;
+                                                            })
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                return dataView;
+                            })
+                        }
+                    }
+                );
+            }
+
+            return state;
+
+        case REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET_FROM_RESULTS:
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                action.payload.reportId || null,
+            );
+
+            if (reportState.report?.dataViews) {
+
+                return updateReportState(
+                    state,
+                    action.payload.reportId || null,
+                    {
+                        ...reportState,
+                        report: {
+                            ...reportState.report,
+                            dataViews: reportState.report?.dataViews?.map((dataView: TReportDataView) => {
+
+                                if (dataView.id === action.payload.dataViewId) {
+
+                                    return {
+                                        ...dataView,
+                                        report_data_view_js: {
+                                            ...dataView.report_data_view_js,
+                                            chartJsConfigurator: {
+                                                ...dataView.report_data_view_js.chartJsConfigurator,
+                                                chartJsSetup: {
+                                                    ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup,
+                                                    config: {
+                                                        ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config,
+                                                        data: {
+                                                            ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data,
+                                                            labels: action.payload.labels,
+                                                            datasets: dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data?.datasets?.map((dataSet: ChartDataset, index: number) => {
+
+                                                                // if (index === action.payload.dataSetIndex) {
+                                                                //
+                                                                //     return action.payload.dataSet;
+                                                                // }
+
+
 
                                                                 return dataSet;
                                                             })

@@ -1,14 +1,15 @@
-import { Chart } from "chart.js/auto";
-import React     from "react";
+import { Chart }           from "chart.js/auto";
+import React, { useState } from "react";
 
-import TReportDataViewJs                                                                                                                              from "../../../../types/TReportDataViewJs";
-import { reportDataViewSetChartJSConfigurator, reportDataViewSetChartJsConfiguratorInitialSetupDone, reportDataViewUpdateChartJsConfiguratorOptions } from "../../../../contexts/report/store/actions";
-import * as RTReport                                                                                                                                  from "../../../../contexts/report/ReportContextProvider";
-import TReport                                                                                                                                        from "../../../../types/TReport";
-import { EReportViewMode }                                                                                                                            from "../../../../types/EReportViewMode";
-import { getElementContentSize }                                                                                                                      from "../../../../utils/htmlElement";
-import TReportInstance                                                                                                                                from "../../../../types/TReportInstance";
-import { getSurfaceBorder, getTextColorSecondary }                                                                                                    from "../../../../utils/commonJs";
+import TReportDataViewJs                                                                                                                                                                                          from "../../../../types/TReportDataViewJs";
+import { reportDataViewSetChartJSConfigurator, reportDataViewSetChartJsConfiguratorInitialSetupDone, reportDataViewUpdateChartJsConfiguratorDataSetsFromResults, reportDataViewUpdateChartJsConfiguratorOptions } from "../../../../contexts/report/store/actions";
+import * as RTReport                                                                                                                                                                                              from "../../../../contexts/report/ReportContextProvider";
+import TReport                                                                                                                                                                                                    from "../../../../types/TReport";
+import { EReportViewMode }                                                                                                                                                                                        from "../../../../types/EReportViewMode";
+import { getElementContentSize }                                                                                                                                                                                  from "../../../../utils/htmlElement";
+import TReportInstance                                                                                                                                                                                            from "../../../../types/TReportInstance";
+import { getSurfaceBorder, getTextColorSecondary }                                                                                                                                                                from "../../../../utils/commonJs";
+import { json }                                                                                                                                                                                                   from "node:stream/consumers";
 
 const DataViewGraphViewChartJs: React.FC<{
     dataViewJs: TReportDataViewJs,
@@ -108,6 +109,37 @@ const DataViewGraphViewChartJs: React.FC<{
 
         if (refCanvas.current && dataViewJs.chartJsConfigurator && dataViewJs.chartJsConfigurator.initialSetupDone === true) {
 
+            // Handle datasets, labels & co.
+            if (jsonResults && jsonResults.length > 0) {
+
+                const labels: Array<string> = [];
+                const dataset_names: Array<string> = [];
+                const dataset_values: Array<number> = [];
+
+                jsonResults.forEach((row) => {
+
+                    type JsonResultsKey = keyof typeof row;
+                    const label_key = dataViewJs.chartJsConfigurator?.columnSetup.labels.columnName as JsonResultsKey;
+                    const dataset_name_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetNames.columnName as JsonResultsKey;
+                    const dataset_value_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetValues.columnName as JsonResultsKey;
+
+                    labels.push(row[label_key].toString());
+                    dataset_names.push(row[dataset_name_key].toString());
+                    dataset_values.push(Number(row[dataset_value_key]));
+                });
+
+                reportDispatch(
+                    reportDataViewUpdateChartJsConfiguratorDataSetsFromResults({
+                        labels,
+                        datasetNames: dataset_names,
+                        datasetValues: dataset_values,
+                        reportId: report.id,
+                        dataViewId: dataViewJs.report_data_view_id
+                    })
+                );
+            }
+
+            // Chart creation / update.
             if (Chart.getChart(refCanvas.current.id) && chartJsObject) {
 
                 chartJsObject.data = dataViewJs.chartJsConfigurator.chartJsSetup.config.data;
@@ -131,6 +163,7 @@ const DataViewGraphViewChartJs: React.FC<{
     // Initialize some default configurations stuff, like the right color to use depending choosen theme.
     React.useEffect(() => {
 
+        // Initialize a new chart with some default options.
         if (refCanvas.current && dataViewJs.chartJsConfigurator && dataViewJs.chartJsConfigurator.initialSetupDone === false) {
 
             reportDispatch(
