@@ -21,6 +21,9 @@
 
 type TChartJsConfiguratorColumnSetup = {
     columnName: string
+    columnNames?: Array<TChartJsConfiguratorColumnSetup>
+    dataType: "string" | "number " | "object"
+    objectMember: string
 }
 
 export default TChartJsConfiguratorColumnSetup;

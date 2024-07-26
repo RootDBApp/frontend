@@ -1,5 +1,5 @@
-import { Chart }           from "chart.js/auto";
-import React, { useState } from "react";
+import { Chart } from "chart.js/auto";
+import React     from "react";
 
 import TReportDataViewJs                                                                                                                                                                                          from "../../../../types/TReportDataViewJs";
 import { reportDataViewSetChartJSConfigurator, reportDataViewSetChartJsConfiguratorInitialSetupDone, reportDataViewUpdateChartJsConfiguratorDataSetsFromResults, reportDataViewUpdateChartJsConfiguratorOptions } from "../../../../contexts/report/store/actions";
@@ -9,8 +9,8 @@ import { EReportViewMode }                                                      
 import { getElementContentSize }                                                                                                                                                                                  from "../../../../utils/htmlElement";
 import TReportInstance                                                                                                                                                                                            from "../../../../types/TReportInstance";
 import { getSurfaceBorder, getTextColorSecondary }                                                                                                                                                                from "../../../../utils/commonJs";
-import { json }                                                                                                                                                                                                   from "node:stream/consumers";
 import { ChartDataset }                                                                                                                                                                                           from "chart.js";
+import TChartJsConfiguratorColumnSetup                                                                                                                                                                            from "../../../../translations/TChartJsConfiguratorColumnSetup";
 
 const DataViewGraphViewChartJs: React.FC<{
     dataViewJs: TReportDataViewJs,
@@ -145,7 +145,7 @@ const DataViewGraphViewChartJs: React.FC<{
 
                 let looped_label: string;
                 let looped_dataset_name: string;
-                let looped_dataset_value: number;
+                let looped_dataset_value: number | object;
 
                 jsonResults.forEach((row) => {
 
@@ -165,23 +165,47 @@ const DataViewGraphViewChartJs: React.FC<{
                     }
 
                     looped_dataset_name = row[dataset_name_key].toString();
-                    looped_dataset_value = Number(row[dataset_value_key]);
 
                     const current_dataset = datasets.find((dataset: ChartDataset) => {
                         return dataset.label === looped_dataset_name;
                     });
 
-                    if (current_dataset) {
-                        current_dataset.data.push(looped_dataset_value);
-                        if (current_dataset.backgroundColor) {
 
+                    if (dataViewJs.chartJsConfigurator?.columnSetup.datasetValues.dataType === "object") {
+
+                        let looped_dataset_value = {}
+                        dataViewJs.chartJsConfigurator?.columnSetup.datasetValues.columnNames?.forEach((columnSetup) => {
+
+                            const dataset_value_obj_key = columnSetup.columnName as JsonResultsKey;
+
+                            looped_dataset_value = {
+                                ...looped_dataset_value,
+                                [columnSetup.objectMember]: Number(row[dataset_value_obj_key])
+                            }
+                        });
+
+                        if (current_dataset) {
                             // @ts-ignore
-                            current_dataset.backgroundColor.push("#166a8f");
+                            current_dataset.data.push(looped_dataset_value);
+                        } else {
+                            // @ts-ignore
+                            datasets.push({label: looped_dataset_name, data: [looped_dataset_value], backgroundColor: "#166a8f"});
                         }
-                    } else {
-                        datasets.push({label: looped_dataset_name, data: [looped_dataset_value], backgroundColor: ["#166a8f"]});
-                    }
 
+                    } else {
+                        looped_dataset_value = Number(row[dataset_value_key]);
+
+                        if (current_dataset) {
+                            current_dataset.data.push(looped_dataset_value);
+                            if (current_dataset.backgroundColor) {
+
+                                // @ts-ignore
+                                current_dataset.backgroundColor.push("#166a8f");
+                            }
+                        } else {
+                            datasets.push({label: looped_dataset_name, data: [looped_dataset_value], backgroundColor: ["#166a8f"]});
+                        }
+                    }
                 });
 
                 reportDispatch(
