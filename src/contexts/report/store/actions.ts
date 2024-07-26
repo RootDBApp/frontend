@@ -21,23 +21,23 @@
 
 import { ChartDataset, ChartOptions } from "chart.js";
 
-import * as types                                                                                                                                                                                                                                                     from './types';
-import TReport                                                                                                                                                                                                                                                        from "../../../types/TReport";
+import * as types               from './types';
+import TReport                  from "../../../types/TReport";
 import TReportParameter
-                                                                                                                                                                                                                                                                      from "../../../types/TReportParameter";
-import { TNameValue }                                                                                                                                                                                                                                                 from "../../../types/TNameValue";
-import { EReportPanel }                                                                                                                                                                                                                                               from "../../../types/EReportPanels";
-import TReportDataView                                                                                                                                                                                                                                                from "../../../types/TReportDataView";
-import { EReportViewMode }                                                                                                                                                                                                                                            from "../../../types/EReportViewMode";
+                                from "../../../types/TReportParameter";
+import { TNameValue }           from "../../../types/TNameValue";
+import { EReportPanel }         from "../../../types/EReportPanels";
+import TReportDataView          from "../../../types/TReportDataView";
+import { EReportViewMode }      from "../../../types/EReportViewMode";
 import TReportDataViewJs
-                                                                                                                                                                                                                                                                      from "../../../types/TReportDataViewJs";
-import { EDataViewFieldUpdate }                                                                                                                                                                                                                                       from "../../../types/EDataViewFieldUpdate";
-import { REPORT_DATAVIEW_SET_CHARTJS_CONFIGURATOR_INITIAL_SETUP_DONE, REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET_FROM_RESULTS, TAddReportInstance, TReportDataViewSetChartJsConfiguratorInitialSetupDone, TReportDataViewUpdateChartJsConfiguratorOptions } from "./types";
+                                from "../../../types/TReportDataViewJs";
+import { EDataViewFieldUpdate } from "../../../types/EDataViewFieldUpdate";
+import { TAddReportInstance }   from "./types";
 import TReportAndDataViewEvent
-                                                                                                                                                                                                                                                                      from "../../../types/TReportAndDataViewEvent";
-import { TReportCacheStatus }                                                                                                                                                                                                                                         from "../../../types/TReportCacheStatus";
+                                from "../../../types/TReportAndDataViewEvent";
+import { TReportCacheStatus }   from "../../../types/TReportCacheStatus";
 import TChartJsConfigurator
-                                                                                                                                                                                                                                                                      from "../../../types/TChartJsConfigurator";
+                                from "../../../types/TChartJsConfigurator";
 
 export interface IAddReportInstance {
     type: TAddReportInstance
@@ -156,7 +156,7 @@ export interface IReportDataViewUpdateChartJsConfiguratorDataSet {
 
 export interface IReportDataViewUpdateChartJsConfiguratorDataSetsFromResults {
     type: types.TReportDataViewUpdateChartJsConfiguratorDataSetsFromResults,
-    payload: { labels: Array<string>, datasetNames: Array<string>, datasetValues: Array<number>, reportId: number, dataViewId: number },
+    payload: { labels: Array<string>, datasets: Array<ChartDataset>, reportId: number, dataViewId: number },
 }
 
 export interface IReportDataViewSetChartJsConfiguratorInitialSetupDone {
@@ -300,7 +300,7 @@ export const reportDataViewUpdateChartJsConfiguratorDataSet = (payload: { dataSe
     payload
 });
 
-export const reportDataViewUpdateChartJsConfiguratorDataSetsFromResults = (payload: { labels: Array<string>, datasetNames: Array<string>, datasetValues: Array<number>, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsConfiguratorDataSetsFromResults => ({
+export const reportDataViewUpdateChartJsConfiguratorDataSetsFromResults = (payload: { labels: Array<string>, datasets: Array<ChartDataset>, reportId: number, dataViewId: number }): IReportDataViewUpdateChartJsConfiguratorDataSetsFromResults => ({
     type: types.REPORT_DATAVIEW_UPDATE_CHARTJS_CONFIGURATOR_DATA_SET_FROM_RESULTS,
     payload
 });

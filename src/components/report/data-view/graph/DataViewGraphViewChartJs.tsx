@@ -10,6 +10,7 @@ import { getElementContentSize }                                                
 import TReportInstance                                                                                                                                                                                            from "../../../../types/TReportInstance";
 import { getSurfaceBorder, getTextColorSecondary }                                                                                                                                                                from "../../../../utils/commonJs";
 import { json }                                                                                                                                                                                                   from "node:stream/consumers";
+import { ChartDataset }                                                                                                                                                                                           from "chart.js";
 
 const DataViewGraphViewChartJs: React.FC<{
     dataViewJs: TReportDataViewJs,
@@ -104,40 +105,10 @@ const DataViewGraphViewChartJs: React.FC<{
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataViewJs.json_form]);
 
-    //
+    // Handle chartjs object creation / update when datasets updated.
     React.useEffect(() => {
 
         if (refCanvas.current && dataViewJs.chartJsConfigurator && dataViewJs.chartJsConfigurator.initialSetupDone === true) {
-
-            // Handle datasets, labels & co.
-            if (jsonResults && jsonResults.length > 0) {
-
-                const labels: Array<string> = [];
-                const dataset_names: Array<string> = [];
-                const dataset_values: Array<number> = [];
-
-                jsonResults.forEach((row) => {
-
-                    type JsonResultsKey = keyof typeof row;
-                    const label_key = dataViewJs.chartJsConfigurator?.columnSetup.labels.columnName as JsonResultsKey;
-                    const dataset_name_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetNames.columnName as JsonResultsKey;
-                    const dataset_value_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetValues.columnName as JsonResultsKey;
-
-                    labels.push(row[label_key].toString());
-                    dataset_names.push(row[dataset_name_key].toString());
-                    dataset_values.push(Number(row[dataset_value_key]));
-                });
-
-                reportDispatch(
-                    reportDataViewUpdateChartJsConfiguratorDataSetsFromResults({
-                        labels,
-                        datasetNames: dataset_names,
-                        datasetValues: dataset_values,
-                        reportId: report.id,
-                        dataViewId: dataViewJs.report_data_view_id
-                    })
-                );
-            }
 
             // Chart creation / update.
             if (Chart.getChart(refCanvas.current.id) && chartJsObject) {
@@ -157,8 +128,74 @@ const DataViewGraphViewChartJs: React.FC<{
                 ));
             }
         }
-    }, [jsonResults, refCanvas.current, dataViewJs.chartJsConfigurator]);
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [refCanvas.current, dataViewJs.chartJsConfigurator?.chartJsSetup.config.options, dataViewJs.chartJsConfigurator?.chartJsSetup.config.data]);
+
+    // Handle jsonResults updates, to generate datasets.
+    React.useEffect(() => {
+
+        if (refCanvas.current && dataViewJs.chartJsConfigurator) {
+
+            // Handle datasets, labels & co.
+            if (jsonResults && jsonResults.length > 0) {
+
+                const labels: Array<string> = [];
+                const datasets: Array<ChartDataset> = [];
+
+                let looped_label: string;
+                let looped_dataset_name: string;
+                let looped_dataset_value: number;
+
+                jsonResults.forEach((row) => {
+
+                    type JsonResultsKey = keyof typeof row;
+                    const label_key = dataViewJs.chartJsConfigurator?.columnSetup.labels.columnName as JsonResultsKey;
+                    const dataset_name_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetNames.columnName as JsonResultsKey;
+                    const dataset_value_key = dataViewJs.chartJsConfigurator?.columnSetup.datasetValues.columnName as JsonResultsKey;
+
+                    looped_label = row[label_key].toString();
+
+                    if (!labels.find((label: string) => {
+
+                        return label === looped_label;
+                    })) {
+
+                        labels.push(looped_label);
+                    }
+
+                    looped_dataset_name = row[dataset_name_key].toString();
+                    looped_dataset_value = Number(row[dataset_value_key]);
+
+                    const current_dataset = datasets.find((dataset: ChartDataset) => {
+                        return dataset.label === looped_dataset_name;
+                    });
+
+                    if (current_dataset) {
+                        current_dataset.data.push(looped_dataset_value);
+                        if (current_dataset.backgroundColor) {
+
+                            // @ts-ignore
+                            current_dataset.backgroundColor.push("#166a8f");
+                        }
+                    } else {
+                        datasets.push({label: looped_dataset_name, data: [looped_dataset_value], backgroundColor: ["#166a8f"]});
+                    }
+
+                });
+
+                reportDispatch(
+                    reportDataViewUpdateChartJsConfiguratorDataSetsFromResults({
+                        labels,
+                        datasets,
+                        reportId: report.id,
+                        dataViewId: dataViewJs.report_data_view_id
+                    })
+                );
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [jsonResults, refCanvas.current]);
 
     // Initialize some default configurations stuff, like the right color to use depending choosen theme.
     React.useEffect(() => {
@@ -211,7 +248,7 @@ const DataViewGraphViewChartJs: React.FC<{
             );
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refCanvas.current, dataViewJs.chartJsConfigurator]);
+    }, [refCanvas.current, dataViewJs.chartJsConfigurator?.initialSetupDone]);
 
 
     // Use to update the canvas container when view window is resized, or view mode changed.

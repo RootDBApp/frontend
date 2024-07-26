@@ -995,17 +995,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                                         data: {
                                                             ...dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data,
                                                             labels: action.payload.labels,
-                                                            datasets: dataView.report_data_view_js.chartJsConfigurator?.chartJsSetup.config?.data?.datasets?.map((dataSet: ChartDataset, index: number) => {
-
-                                                                // if (index === action.payload.dataSetIndex) {
-                                                                //
-                                                                //     return action.payload.dataSet;
-                                                                // }
-
-
-
-                                                                return dataSet;
-                                                            })
+                                                            datasets: action.payload.datasets
                                                         }
                                                     }
                                                 }
