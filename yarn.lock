@@ -6751,6 +6751,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"echarts@npm:^5.5.1":
+  version: 5.5.1
+  resolution: "echarts@npm:5.5.1"
+  dependencies:
+    tslib: "npm:2.3.0"
+    zrender: "npm:5.6.0"
+  checksum: 10/573ebfd6795a8976c2320225b3de49daca518e41192bf86d7afb53ce793b072932ae913a027b8de613fda319dacccb53fb23a73d5f128bfed6de808fe2d476c5
+  languageName: node
+  linkType: hard
+
 "ee-first@npm:1.1.1":
   version: 1.1.1
   resolution: "ee-first@npm:1.1.1"
@@ -13945,6 +13955,7 @@ __metadata:
     cypress: "npm:^13.13.2"
     d3: "npm:^7.9.0"
     dompurify: "npm:^3.1.6"
+    echarts: "npm:^5.5.1"
     env-cmd: "npm:^10.1.0"
     eslint: "npm:^8.57.0"
     eslint-config-react-app: "npm:^7.0.1"
@@ -15371,6 +15382,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tslib@npm:2.3.0":
+  version: 2.3.0
+  resolution: "tslib@npm:2.3.0"
+  checksum: 10/9c55c9abd5ecd94e5fd37573db27e26933fb6c33506431403fb4627dcb8aa9a45b772afa6d05dd2c25dc1de22a213193251e6303742f3bcdc179e523a9295bfd
+  languageName: node
+  linkType: hard
+
 "tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
@@ -16594,5 +16612,14 @@ __metadata:
     toposort: "npm:^2.0.2"
     type-fest: "npm:^2.19.0"
   checksum: 10/3d1277e5e1fff4d8130e525c7361f54874ca848ebd427a0aa66606952e3370b9947d84a1ea0b943f389649e886d26b1349930889727489460d6f2f86c2a26e77
+  languageName: node
+  linkType: hard
+
+"zrender@npm:5.6.0":
+  version: 5.6.0
+  resolution: "zrender@npm:5.6.0"
+  dependencies:
+    tslib: "npm:2.3.0"
+  checksum: 10/7904bb17818fcf3c4a2729712991d8e29776404d8dc7aa58bc69cd853bdbb4cf8c8b302aaf10c1392a63bffbe07aad82ffef1d037537aab3d8a2f564940dd78d
   languageName: node
   linkType: hard

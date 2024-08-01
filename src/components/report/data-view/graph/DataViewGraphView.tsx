@@ -72,7 +72,7 @@ const DataViewGraphView: React.FC<{
 
         // Chart.js
         const refCanvas = React.useRef<HTMLCanvasElement>(null);
-        // D3.js
+        // D3.js, Apache ECharts
         const refDiv = React.useRef<HTMLDivElement>(null);
 
         const handleError = (error: any) => {
@@ -141,7 +141,7 @@ const DataViewGraphView: React.FC<{
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {
 
-            // console.debug('======> [useEffect 1] DataViewGraphView', dataViewJs.id);
+            // console.debug('======> [useEffect 1] dataViewJs', dataViewJs);
 
             try {
                 if ((refCanvas.current || refDiv.current) && jsonResults && jsonResults.length >= 1) {
@@ -203,6 +203,30 @@ const DataViewGraphView: React.FC<{
                                 });
                             break;
                         }
+                        case 9: { // Apache ECharts
+
+                            import('echarts')
+                                .then((ec) => {
+
+                                    import('../../../../utils/commonJs')
+                                        .then((rdb) => {
+
+                                            try {
+
+                                                // eslint-disable-next-line no-eval
+                                                eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
+                                                    + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
+                                                    + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
+                                                );
+
+                                            } catch (error: any) {
+
+                                                handleError(error);
+                                            }
+                                        })
+                                });
+                            break;
+                        }
                     }
                 }
 
@@ -225,7 +249,7 @@ const DataViewGraphView: React.FC<{
         //
         React.useEffect(() => {
 
-            console.debug('======> [useEffect 2] DataViewGraphView');
+            // console.debug('======> [useEffect 2] DataViewGraphView');
             updateCanvasContainer();
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -281,6 +305,26 @@ const DataViewGraphView: React.FC<{
                                 />
                             </div>
                         )}
+
+                        {/*Apache ECharts*/}
+                        {dataViewJs.report_data_view_lib_version_id === 9 &&
+                            <div
+                                className="canvas-container"
+                                style={{
+                                    position: "relative",
+                                    height: dataViewContainerHeight,
+                                    width: dataViewContainerWidth,
+                                    maxHeight: dataViewContainerHeightPx,
+                                    maxWidth: dataViewContainerWidthPx
+                                }}
+                            >
+                                <div
+                                    style={{width: dataViewContainerWidth, height: dataViewContainerHeight, minWidth: dataViewContainerWidth, minHeight: dataViewContainerHeight}}
+                                    ref={refDiv}
+                                    id={`divGraph-${report.id}-${reportInstance.id}-${dataViewJs.report_data_view_id}`}
+                                />
+                            </div>
+                        }
                     </ReportErrorBoundary>
                 )}
             </>
