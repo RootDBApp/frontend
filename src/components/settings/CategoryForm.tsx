@@ -202,7 +202,7 @@ const CategoryForm: React.FC<{
                 initialValues={{...category, description: category.description ?? ''}}
             >
                 {(formik) => (
-                    <Form  placeholder="" onSubmit={formik.handleSubmit}>
+                    <Form onSubmit={formik.handleSubmit}>
                         <div className="formgrid grid">
                             <div className="field col-12 md:col-6">
                                 <label htmlFor={'name' + category.id}>

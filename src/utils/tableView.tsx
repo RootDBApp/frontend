@@ -19,18 +19,16 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React from "react";
+import * as React                                                 from "react";
+import { BuiltInFilterFn }                                        from "@tanstack/table-core";
+import { AggregationFn, Column, FilterFn, FilterFns, Row, Table } from "@tanstack/react-table";
+import round                                                      from "lodash.round";
 
 import TDataViewTableColumnParameter from "../types/TDataViewTableColumnParameter";
 import { ETableFilterType }          from "../types/ETableFilterType";
 import { ETableAggregateType }       from "../types/ETableAggregateType";
 import TDataViewTablePagination      from "../types/TDataViewTablePagination";
-import { BuiltInFilterFn }           from "@tanstack/table-core";
 import TDataViewTableColumnV8        from "../types/TDataViewTableColumnV8";
-import { Column, FilterFns, Table }  from "@tanstack/react-table";
-import { AggregationFn }             from "@tanstack/table-core/src/features/Grouping";
-import { FilterFn }                  from "@tanstack/table-core/src/features/Filters";
-import round                         from "lodash.round";
 
 export const footerDefaultText = {
     [ETableAggregateType.SUM]: '∑ [PLACEHOLDER]',
@@ -181,7 +179,7 @@ export const getColumnFooterV8 = (footerMethod: ETableAggregateType, footerText:
     }
 }
 
-export const customSum: AggregationFn<any> = (columnId, _leafRows, childRows) => {
+export const customSum: AggregationFn<any> = (columnId: any, _leafRows: any, childRows: any[]) => {
     // It's faster to just add the aggregations together instead of
     // process leaf nodes individually
     return childRows.reduce((sum, next) => {
@@ -190,7 +188,7 @@ export const customSum: AggregationFn<any> = (columnId, _leafRows, childRows) =>
     }, 0)
 };
 
-export const average: AggregationFn<any> = (columnId, _leafRows, childRows) => {
+export const average: AggregationFn<any> = (columnId: any, _leafRows: Row<any>[], childRows: Row<any>[]) => {
     const count = childRows.length;
     const sum = childRows.reduce((sum, next) => {
         const nextValue = Number(next.getValue(columnId))

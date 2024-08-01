@@ -89,7 +89,7 @@ const ReportDataViewEditInitJSCodeForm: React.FC<{
             onSubmit={handleOnSubmit}
         >
             {formik => (
-                <Form  placeholder="" onSubmit={formik.handleSubmit}>
+                <Form onSubmit={formik.handleSubmit}>
                     <div className="formgrid grid">
 
                         <div className="field col-12">

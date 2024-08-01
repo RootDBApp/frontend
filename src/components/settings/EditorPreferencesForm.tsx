@@ -52,8 +52,7 @@ const EditorPreference: React.FC = (): React.ReactElement => {
         >
 
             {(formik) => (
-                <Form placeholder=""
-                      onSubmit={formik.handleSubmit}
+                <Form onSubmit={formik.handleSubmit}
                       style={{minWidth: '38rem'}}
                 >
                     <div className="formgrid grid">
