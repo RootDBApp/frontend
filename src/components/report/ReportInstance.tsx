@@ -148,7 +148,7 @@ const ReportInstance: React.FC<{
     const [layouts, setLayouts] = React.useState<Array<Layout>>([]);
     const [currentBreakpoint, setCurrentBreakpoint] = React.useState<string>('lg');
     const [disabled, setDisabled] = React.useState<boolean>(false);
-    const [dragging, setDragging] = React.useState(true);
+    const [dragging, setDragging] = React.useState(false);
     const [colorGiverElement, setColorGiverElement] = React.useState<HTMLDivElement | null>(null);
 
     const colsMap: { [index: string]: number } = React.useMemo(() => ({lg: 12, md: 12, sm: 1, xs: 1, xxs: 1}), []);
@@ -169,7 +169,7 @@ const ReportInstance: React.FC<{
     );
 
     const handleLayoutChange = React.useCallback((currentLayout: Layout[]) => {
-        // setDragging(false);
+        setDragging(false);
         const transformedLayout = currentLayout.map(
             (layout: Layout) => {
                 return {
