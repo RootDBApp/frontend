@@ -44,6 +44,7 @@ const DataViewGraphView: React.FC<{
         maxWidth?: number,
         parentHeight?: number,
         parentWidth?: number,
+        parentElementId: string,
     }> = ({
               dataViewJs,
               report,
@@ -53,6 +54,7 @@ const DataViewGraphView: React.FC<{
               maxWidth,
               parentHeight,
               parentWidth,
+              parentElementId,
           }): React.ReactElement => {
 
         const {state: authState} = React.useContext(authContext);
@@ -98,42 +100,45 @@ const DataViewGraphView: React.FC<{
 
         const updateCanvasContainer = () => {
 
-            if ((!reportInstance.expandedDataViewId || reportInstance.viewMode === EReportViewMode.CLIENT) && (refCanvas.current || refDiv.current)) {
+            const containerElement = document.getElementById(parentElementId)?.closest('.data-view-card');
+            // const containerSize = getElementContentSize((refCanvas.current || refDiv.current)?.closest('.data-view-card'));
+            const headerSize = getElementContentSize(containerElement?.querySelector('.p-card-header'));
+            const bodySize = getElementContentSize(containerElement?.querySelector('.p-card-body'));
+            const contentSize = getElementContentSize(containerElement?.querySelector('.p-card-body > .p-card-content'));
 
-                const containerElement = (refCanvas.current || refDiv.current)?.closest('.data-view-card');
-                const containerSize = getElementContentSize((refCanvas.current || refDiv.current)?.closest('.data-view-card'));
-                const headerSize = getElementContentSize(containerElement?.querySelector('.p-card-header'));
-                const bodySize = getElementContentSize(containerElement?.querySelector('.p-card-body'));
-                const contentSize = getElementContentSize(containerElement?.querySelector('.p-card-body > .p-card-content'));
+            //let subgridWidth = (containerSize?.width || 0) - (bodySize?.paddingX || 0);
+            let subgridWidth = (parentWidth || 0) - (bodySize?.paddingX || 0);
+            // const subgridHeight = (containerSize?.height || 0) - (headerSize?.height || 0) - (bodySize?.paddingY || 0) - (contentSize?.paddingY || 0);
+            // Calculate the height by removing header and paddings from the parentHeight
+            let subgridHeight = (parentHeight || 0) - (headerSize?.height || 0) - (bodySize?.paddingY || 0) - (contentSize?.paddingY || 0);
 
-                const subgridWidth = (containerSize?.width || 0) - (bodySize?.paddingX || 0);
-                // const subgridHeight = (containerSize?.height || 0) - (headerSize?.height || 0) - (bodySize?.paddingY || 0) - (contentSize?.paddingY || 0);
-                // Calculate the height by removing header and paddings from the parentHeight
-                const subgridHeight = (parentHeight || 0) - (headerSize?.height || 0) - (bodySize?.paddingY || 0) - (contentSize?.paddingY || 0);
+            if (reportInstance.viewMode === EReportViewMode.DEV) {
+                // subgridWidth = subgridWidth / 2;
+                subgridHeight = subgridHeight / 2;
+            }
 
-                if (subgridWidth) {
-                    setDataViewContainerWidthPx(`${Number(subgridWidth)}px`);
-                    // in px         => %
-                    // window width  => 100
-                    // subgrid width => x
-                    //
-                    // x = subgrid width * 100 / window width
-                    // const canvas_vw = parseFloat(String(((subgrid_width-20) * 100) / window.innerWidth)).toFixed(2);
-                    const canvasVw = Number(subgridWidth) / window.innerWidth * 100;
+            if (subgridWidth) {
+                setDataViewContainerWidthPx(`${Number(subgridWidth)}px`);
+                // in px         => %
+                // window width  => 100
+                // subgrid width => x
+                //
+                // x = subgrid width * 100 / window width
+                // const canvas_vw = parseFloat(String(((subgrid_width-20) * 100) / window.innerWidth)).toFixed(2);
+                const canvasVw = Number(subgridWidth) / window.innerWidth * 100;
 
-                    if (canvasVw <= 100) {
-                        setDataViewContainerWidth(canvasVw + 'vw');
-                    }
+                if (canvasVw <= 100) {
+                    setDataViewContainerWidth(canvasVw + 'vw');
                 }
+            }
 
-                if (subgridHeight) {
-                    setDataViewContainerHeightPx(`${Number(subgridHeight)}px`);
+            if (subgridHeight) {
+                setDataViewContainerHeightPx(`${Number(subgridHeight)}px`);
 
-                    // const canvas_vh = parseFloat(String(((subgrid_height-20) * 100) / window.innerHeight)).toFixed(2);
-                    const canvasVh = Number(subgridHeight) / window.innerHeight * 100;
-                    if (canvasVh <= 100) {
-                        setDataViewContainerHeight(canvasVh + 'vh');
-                    }
+                // const canvas_vh = parseFloat(String(((subgrid_height-20) * 100) / window.innerHeight)).toFixed(2);
+                const canvasVh = Number(subgridHeight) / window.innerHeight * 100;
+                if (canvasVh <= 100) {
+                    setDataViewContainerHeight(canvasVh + 'vh');
                 }
             }
         }
@@ -250,10 +255,12 @@ const DataViewGraphView: React.FC<{
         React.useEffect(() => {
 
             // console.debug('======> [useEffect 2] DataViewGraphView');
-            updateCanvasContainer();
+            if (parentWidth && parentHeight) {
+                updateCanvasContainer();
+            }
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [parentWidth, parentHeight, reportInstance.expandedDataViewId, reportInstance.viewMode]);
+        }, [parentWidth, parentHeight, reportInstance.expandedDataViewId, reportInstance.viewMode, parentElementId]);
 
         return (
             <>

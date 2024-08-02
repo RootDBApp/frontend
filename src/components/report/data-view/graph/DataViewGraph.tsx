@@ -79,7 +79,7 @@ const DataViewGraph: React.FC<{
 
     return (
         <>
-            <div className={showView ? 'subgrid-area-data-view-view' : 'hidden subgrid-area-data-view-view'}>
+            <div id={`data-view-graph-${dataViewInstance.id}`} className={showView ? 'subgrid-area-data-view-view' : 'hidden subgrid-area-data-view-view'}>
                 {dataViewInstance?.errors && dataViewInstance.errors.length > 0 ? (
                     <CenteredError extraMessage={dataViewInstance.errors.map((error, index) => (
                         <Message
@@ -90,7 +90,7 @@ const DataViewGraph: React.FC<{
                     ))}/>
                 ) : (
                     <>
-                        {viewMode === viewModes.GRAPH && (
+                        {viewMode === viewModes.GRAPH && (!reportInstance.expandedDataViewId || reportInstance.expandedDataViewId === dataView.id) && (
                             <AncestorSizeProvider widthPropName="parentWidth" heightPropName="parentHeight">
                                 <DataViewGraphView
                                     dataViewJs={dataView.report_data_view_js}
@@ -99,6 +99,7 @@ const DataViewGraph: React.FC<{
                                     maxWidth={dataView.max_width}
                                     report={report}
                                     reportInstance={reportInstance}
+                                    parentElementId={`data-view-graph-${dataViewInstance.id}`}
                                 />
                             </AncestorSizeProvider>
                         )}
