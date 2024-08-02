@@ -58,7 +58,6 @@ export const getElementBackgroundColor = (element: HTMLElement | null | undefine
     if (!element) return undefined;
 
     const cs = getComputedStyle(element);
-    console.debug('computed style', cs);
 
     return cs.backgroundColor;
 }

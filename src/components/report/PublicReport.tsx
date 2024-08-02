@@ -34,6 +34,7 @@ import { EAPIEndPoint }                             from "../../types/EAPIEndPoi
 import { getReportRunInfo }                         from "../../utils/report";
 import { useReportStateFromReportIdAndInstanceId, } from "../../contexts/report/ReportContextProvider";
 import ReportInstance                               from "./ReportInstance";
+import AncestorSizeProvider                         from "../common/size/AncestorSizeProvider";
 
 const PublicReport: React.FC<{
     reportId: number,
@@ -156,11 +157,13 @@ const PublicReport: React.FC<{
                     </div>
 
                     {reportState?.instance &&
-                        <ReportInstance
-                            report={reportState.report}
-                            reportInstance={reportState.instance}
-                            publicMode
-                        />
+                        <AncestorSizeProvider widthPropName="width">
+                            <ReportInstance
+                                report={reportState.report}
+                                reportInstance={reportState.instance}
+                                publicMode
+                            />
+                        </AncestorSizeProvider>
                     }
 
                 </>
