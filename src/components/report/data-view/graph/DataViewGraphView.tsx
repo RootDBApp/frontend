@@ -100,7 +100,15 @@ const DataViewGraphView: React.FC<{
 
         const updateCanvasContainer = () => {
 
-            const containerElement = document.getElementById(parentElementId)?.closest('.data-view-card');
+            if (
+                dataViewJs.report_data_view_lib_version_id !== 4 ||
+                (
+                    dataViewJs.report_data_view_lib_version_id === 4 &&
+                    (!reportInstance.expandedDataViewId || reportInstance.viewMode === EReportViewMode.CLIENT) &&
+                    refDiv.current
+                )) {
+            }
+                const containerElement = document.getElementById(parentElementId)?.closest('.data-view-card');
             // const containerSize = getElementContentSize((refCanvas.current || refDiv.current)?.closest('.data-view-card'));
             const headerSize = getElementContentSize(containerElement?.querySelector('.p-card-header'));
             const bodySize = getElementContentSize(containerElement?.querySelector('.p-card-body'));
@@ -260,7 +268,14 @@ const DataViewGraphView: React.FC<{
             }
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [parentWidth, parentHeight, reportInstance.expandedDataViewId, reportInstance.viewMode, parentElementId]);
+        }, [
+            dataViewJs.report_data_view_lib_version_id,
+            parentElementId,
+            parentWidth,
+            parentHeight,
+            reportInstance.expandedDataViewId,
+            reportInstance.viewMode,
+        ]);
 
         return (
             <>
