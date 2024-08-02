@@ -31,6 +31,7 @@ import { EAPIEndPoint }                            from "../../types/EAPIEndPoin
 import { context as apiDataContext }               from "../../contexts/api_data/store/context";
 import TReport                                     from "../../types/TReport";
 import ReportInstance                              from "./ReportInstance";
+import AncestorSizeProvider                        from "../common/size/AncestorSizeProvider";
 
 const Report: React.FC<{ reportId: number, instanceId: number }> = ({reportId, instanceId}): React.ReactElement => {
 
@@ -120,10 +121,13 @@ const Report: React.FC<{ reportId: number, instanceId: number }> = ({reportId, i
                 ? <CenteredLoading/>
                 : <>
                     {(reportState.report && reportState.instance) &&
-                        <ReportInstance
-                            report={reportState.report}
-                            reportInstance={reportState.instance}
-                        />
+
+                        <AncestorSizeProvider widthPropName="width">
+                            <ReportInstance
+                                report={reportState.report}
+                                reportInstance={reportState.instance}
+                            />
+                        </AncestorSizeProvider>
                     }
                 </>
             }

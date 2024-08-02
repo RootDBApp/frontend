@@ -4,8 +4,7 @@ export function generateGridBackground(cols: number, gridWidth: number): string 
     const XMLNS = "http://www.w3.org/2000/svg";
     const margin = 10; // default grid layout margin
 
-    const marginSlotsCount = cols - 1;
-    const totalHorizontalMargin = marginSlotsCount * margin;
+    const totalHorizontalMargin = cols * margin;
     const freeSpace = gridWidth - totalHorizontalMargin;
 
     const w = freeSpace / cols;
@@ -17,7 +16,7 @@ export function generateGridBackground(cols: number, gridWidth: number): string 
 
     const cellStrokeColor = getElementBackgroundColor(colorGiver);
 
-    const y = 0;
+    const y = margin;
 
     const rectangles = Array.from({length: cols}, (_, i) => {
         const x = i * (w + margin);

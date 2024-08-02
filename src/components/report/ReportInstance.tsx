@@ -47,7 +47,6 @@ import TDataViewInstance                                                        
 import { defaultDataViewInstance }                                                                       from "../../contexts/report/store/reducer";
 import { context as authContext }                                                                        from "../../contexts/auth/store/context";
 import { useMobileLayout }                                                                               from "../../utils/windowResize";
-import AncestorSizeProvider                                                                              from "../common/size/AncestorSizeProvider";
 import { EReportViewMode }                                                                               from "../../types/EReportViewMode";
 import { generateGridBackground }                                                                        from "../../utils/grid";
 
@@ -55,10 +54,12 @@ const ReportInstance: React.FC<{
     report: TReport,
     reportInstance: TReportInstance,
     publicMode?: boolean,
+    width?: number | undefined
 }> = ({
           report,
           reportInstance,
           publicMode,
+          width = window.innerWidth
       }): React.ReactElement => {
 
     const reportDispatch = RTReport.useDispatch();
@@ -154,21 +155,21 @@ const ReportInstance: React.FC<{
 
     const background = React.useMemo(() => {
         if (colorGiverElement) {
-            return generateGridBackground(colsMap[currentBreakpoint], window.innerWidth);
+            return generateGridBackground(colsMap[currentBreakpoint], width);
         }
         return "";
-    }, [colsMap, currentBreakpoint, colorGiverElement]);
+    }, [colsMap, currentBreakpoint, colorGiverElement, width]);
 
     const style = React.useMemo(
         () => ({
-            width: window.innerWidth,
+            width: width,
             background: dragging ? background : "",
         }),
-        [background, dragging],
+        [background, dragging, width],
     );
 
     const handleLayoutChange = React.useCallback((currentLayout: Layout[]) => {
-        setDragging(false);
+        // setDragging(false);
         const transformedLayout = currentLayout.map(
             (layout: Layout) => {
                 return {
@@ -353,31 +354,31 @@ const ReportInstance: React.FC<{
                 />
             </div>
 
-            <div id="color-giver" className="react-grid-item react-grid-placeholder hidden" ref={(ref) => setColorGiverElement(ref)} />
+            <div id="color-giver" className="react-grid-item react-grid-placeholder hidden" ref={(ref) => setColorGiverElement(ref)}/>
 
-            <AncestorSizeProvider widthPropName="width">
-                <ResponsiveGridLayout
-                    className={`layout grid-report-area-data-views ${!!reportInstance.expandedDataViewId ? 'expanded-data-view' : ''}`}
-                    breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
-                    cols={colsMap}
-                    layouts={{lg: layouts}}
-                    compactType='vertical'
-                    preventCollision={false}
-                    onBreakpointChange={(newBreakpoint) => setCurrentBreakpoint(newBreakpoint)}
-                    onDragStart={() => setDragging(true)}
-                    onResizeStart={() => setDragging(true)}
-                    onDragStop={handleLayoutChange}
-                    onResizeStop={handleLayoutChange}
-                    // measureBeforeMount={true}
-                    // useCSSTransforms={false}
-                    draggableHandle='.react-grid-layout-draggable-handle'
-                    width={window.innerWidth}
-                    style={style}
-                >
-                    {report.dataViews
-                        ?.map((dataView) => (
-                            <div
-                                className={`
+            <ResponsiveGridLayout
+                className={`layout grid-report-area-data-views ${!!reportInstance.expandedDataViewId ? 'expanded-data-view' : ''}`}
+                breakpoints={{lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
+                cols={colsMap}
+                layouts={{lg: layouts}}
+                compactType='vertical'
+                preventCollision={false}
+                onBreakpointChange={(newBreakpoint) => setCurrentBreakpoint(newBreakpoint)}
+                onDragStart={() => setDragging(true)}
+                onResizeStart={() => setDragging(true)}
+                onDragStop={handleLayoutChange}
+                onResizeStop={handleLayoutChange}
+                // measureBeforeMount={true}
+                // useCSSTransforms={false}
+                draggableHandle='.react-grid-layout-draggable-handle'
+                width={width}
+                style={style}
+                margin={[10, 10]}
+            >
+                {report.dataViews
+                    ?.map((dataView) => (
+                        <div
+                            className={`
                                     data-view-container 
                                     ${reportInstance.viewMode === EReportViewMode.CLIENT ? 'client' : ''} 
                                     ${getDataViewTypeText(dataView.type)}
@@ -399,7 +400,6 @@ const ReportInstance: React.FC<{
                     ))
                 }
             </ResponsiveGridLayout>
-            </AncestorSizeProvider>
 
             <div
                 className={isPanelDisplayable(EReportPanel.QUERY_CLEANUP) ? 'grid-report-area-query-cleanup' : 'hidden grid-report-area-query-cleanup'}
