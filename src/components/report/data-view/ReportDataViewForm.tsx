@@ -381,8 +381,13 @@ const ReportDataViewForm: React.FC<{
 
                                         // formik.values.report_data_view_lib_type_id = 8; // from bdd
                                         formik.setFieldValue('report_data_view_lib_type_id', 29)
-                                    } // For ChartJS, default to Bar, because why not.
-                                    else {
+                                    }
+                                    // Apache ECharts, default.
+                                    else if (event.value === 9) {
+                                        formik.setFieldValue('report_data_view_lib_type_id', 38)
+                                    }
+                                    // For ChartJS, default to Bar, because why not.
+                                    else  {
                                         formik.setFieldValue('report_data_view_lib_type_id', 22)
                                     }
                                 }}
