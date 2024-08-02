@@ -4,7 +4,7 @@ export function generateGridBackground(cols: number, gridWidth: number): string 
     const XMLNS = "http://www.w3.org/2000/svg";
     const margin = 10; // default grid layout margin
 
-    const totalHorizontalMargin = cols * margin;
+    const totalHorizontalMargin = (cols + 1) * margin;
     const freeSpace = gridWidth - totalHorizontalMargin;
 
     const w = freeSpace / cols;
@@ -19,7 +19,8 @@ export function generateGridBackground(cols: number, gridWidth: number): string 
     const y = margin;
 
     const rectangles = Array.from({length: cols}, (_, i) => {
-        const x = i * (w + margin);
+
+        const x = i * (w + margin) + margin;
         return `<rect stroke='${cellStrokeColor}' stroke-width='1' fill='none' x='${x}' y='${y}' width='${w}' height='${h}'/>`;
     })
 
