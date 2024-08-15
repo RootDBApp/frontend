@@ -35,6 +35,11 @@ const Credits: React.FC = (): React.ReactElement => {
 
     const [projects,] = React.useState([
         {
+            'name': 'Apache ECharts',
+            'website': <a href="https://echarts.apache.org/" rel="noreferrer" target="_blank"><Button
+                label={t('common:link').toString()} link/></a>
+        },
+        {
             'name': 'Axios',
             'website': <a href="https://axios-http.com/docs/intro" rel="noreferrer" target="_blank"><Button
                 label={t('common:link').toString()} link/></a>
