@@ -24,7 +24,7 @@ import { AsyncActionHandlers } from 'use-reducer-async';
 import { t }                   from "i18next";
 
 import { IReportState }                         from "./initialState";
-import { EReportDevBarMessageType }             from "../../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }             from "../../../types/application-event/EReportDevBarMessageType";
 import TReportAndDataViewEvent                  from "../../../types/TReportAndDataViewEvent";
 import EchoClient                               from "../../../services/EchoClient";
 import { notificationEvent, reportDevBarEvent } from "../../../utils/events";
@@ -58,9 +58,9 @@ import { EAPIEndPoint }                         from "../../../types/EAPIEndPoin
 import TReport                                  from "../../../types/TReport";
 import TReportDataView                          from "../../../types/TReportDataView";
 import { ECallbackStatus }                      from "../../../types/ECallbackStatus";
-import TReportDataViewJs                        from "../../../types/TReportDataViewJs";
-import { TAPIResponse }                         from "../../../types/TAPIResponsed";
-import { TReportCacheStatus }                   from "../../../types/TReportCacheStatus";
+import TReportDataViewJs      from "../../../types/TReportDataViewJs";
+import { TAPIResponse }       from "../../../types/TAPIResponse";
+import { TReportCacheStatus } from "../../../types/TReportCacheStatus";
 
 const getReportDataViews = (
     dispatch: { (value: TReportAction): void },

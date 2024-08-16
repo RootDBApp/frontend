@@ -26,11 +26,13 @@ import {
     CATEGORIES_LOADING,
     DIRECTORIES_LOADING,
     DIRECTORIES_TREE_LOADING,
+    GOT_ASSETS,
     GOT_CATEGORIES,
     GOT_DATA_VIEW_LIB_TYPES,
     GOT_DATA_VIEW_LIB_VERSIONS,
     GOT_DIRECTORIES,
-    GOT_DIRECTORIES_TREE, GOT_PARAMETER_INPUTS,
+    GOT_DIRECTORIES_TREE,
+    GOT_PARAMETER_INPUTS,
     GOT_REPORTS,
     GOT_ROLES,
     GOT_SERVICE_MESSAGES,
@@ -56,6 +58,7 @@ const getCachePromise = (): Promise<TCache> => {
             },
             callbackError: () => {
                 resolve({
+                    assets: [],
                     directoriesPrimeReactTree: [],
                     directories: [],
                     categories: [],
@@ -81,6 +84,7 @@ const apiDataCacheRefresh = async (organizationId: number, dispatch: React.Dispa
 
     const cache = await getCachePromise();
 
+    dispatch({type: GOT_ASSETS, payload: cache.assets});
     dispatch({type: GOT_PARAMETER_INPUTS, payload: cache.parameterInputs});
     dispatch({type: GOT_REPORTS, payload: cache.reports});
     dispatch({type: GOT_CATEGORIES, payload: cache.categories});

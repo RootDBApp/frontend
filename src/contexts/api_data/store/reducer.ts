@@ -96,6 +96,13 @@ const reducer = (state: IAPIDataState, action: TAPIDataAction): IAPIDataState =>
 
             return {...state, directories: [], directoriesTree: [], reports: []}
 
+        case types.ASSETS_LOADING:
+            return {...state, assetsLoading: true};
+
+        case types.GOT_ASSETS:
+            localStorage.setItem('assets', JSON.stringify(payload));
+            return {...state, assets: payload, assetsLoading: false} as IAPIDataState;
+
         case types.GET_CONNECTORS:
             return {...state, connectorsLoading: true};
 
@@ -147,7 +154,6 @@ const reducer = (state: IAPIDataState, action: TAPIDataAction): IAPIDataState =>
             localStorage.setItem('connectorSchemasTree', JSON.stringify(newConnectorSchemasTree));
             return {...state, connectorSchemasTree: newConnectorSchemasTree, connectorSchemasTreeLoading: false};
 
-        case types.GET_CATEGORIES:
         case types.CATEGORIES_LOADING:
             return {...state, categoriesLoading: true};
 

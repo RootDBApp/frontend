@@ -36,10 +36,10 @@ import * as RTReport                                from "../../contexts/report/
 import { apiSendRequest }                           from "../../services/api";
 import { EAPIEndPoint }                             from "../../types/EAPIEndPoint";
 import { updateReportParameterInputValue }          from "../../contexts/report/store/actions";
-import ReportParameter                              from "./reportParameters/ReportParameter";
+import ReportParameter                              from "./report-Parameters/ReportParameter";
 import { useReportStateFromReportIdAndInstanceId }  from "../../contexts/report/ReportContextProvider";
 import { handleUseCacheReportInstanceChange }       from "../../utils/headerMenu/reportMenu";
-import ParametersSetsInCache                        from "./reportParameters/ParametersSetsInCache";
+import ParametersSetsInCache                        from "./report-Parameters/ParametersSetsInCache";
 import { Badge }                                    from "primereact/badge";
 
 const ReportParameters: React.FC<{

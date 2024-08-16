@@ -27,7 +27,7 @@ import { IPDTabRoute }     from "../types/pdt/IPDTabRoute";
 import Home                from "../components/home/Home";
 import Report              from "../components/report/Report";
 import ReportParameters
-                           from "../components/settings/ReportParameters";
+                           from "../components/parameters-input/ReportParameters";
 import SQLConsole
                            from "../components/sqlconsole/SQLConsole";
 import Help                from "../components/help/Help";
@@ -36,6 +36,7 @@ import {
     extractReportInstanceIddFromOtherKeyContainingAReportUniqId,
 }                          from "../utils/tools";
 import Debug               from "../components/debug/Debug";
+import Assets              from "../components/asset/Assets";
 
 export function getPTabRouteComponent(tab: IPDTabRoute): React.ReactElement {
 
@@ -51,6 +52,9 @@ export function getPTabRouteComponent(tab: IPDTabRoute): React.ReactElement {
         case EPDTTabType.INPUT_PARAMETERS:
             return <ReportParameters/>;
 
+        case EPDTTabType.ASSETS:
+            return <Assets/>;
+
         case EPDTTabType.SQL_CONSOLE:
             return <SQLConsole/>;
 
@@ -58,7 +62,7 @@ export function getPTabRouteComponent(tab: IPDTabRoute): React.ReactElement {
             return <Help/>;
 
         case EPDTTabType.DEBUG:
-            return <Debug />;
+            return <Debug/>;
 
         default:
             console.debug('-- [pathDrivenTabService] getComponent: unknown tab type ' + tab.type);
@@ -92,6 +96,10 @@ export const allTabRouteSettings: Array<TPDTabRouteSettings> = [
     {
         path: '/input-parameters',
         type: EPDTTabType.INPUT_PARAMETERS,
+    },
+    {
+        path: '/assets',
+        type: EPDTTabType.ASSETS,
     },
     {
         path: '/sql-console',

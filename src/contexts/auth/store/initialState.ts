@@ -20,7 +20,7 @@
  */
 
 import TUser            from "../../../types/TUser";
-import { TAPIResponse } from "../../../types/TAPIResponsed";
+import { TAPIResponse } from "../../../types/TAPIResponse";
 
 export interface IAuthState {
     isLoggedIn: boolean;
@@ -53,6 +53,7 @@ export const dummyUser = {
         roles: [],
         role_ids: [],
         ui_grants: {
+            asset: {edit: false},
             cache: {edit: false},
             category: {edit: false},
             conf_connector: {edit: false},

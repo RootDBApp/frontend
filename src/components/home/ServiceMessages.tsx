@@ -24,9 +24,9 @@ import * as React from "react";
 import TServiceMessage              from "../../types/TServiceMessage";
 import apiDataContext               from "../../contexts/api_data/store/context";
 import { context as authContext }   from "../../contexts/auth/store/context";
-import IServiceMessage              from "../../types/applicationEvent/IServiceMessage";
+import IServiceMessage              from "../../types/application-event/IServiceMessage";
 import Notification                 from "../common/notifications/Notification";
-import { EReportDevBarMessageType } from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType } from "../../types/application-event/EReportDevBarMessageType";
 import { Messages }                 from "primereact/messages";
 
 const ServiceMessages: React.FC = (): React.ReactElement => {

@@ -45,12 +45,12 @@ import apiDataContext                                               from "../../
 import { refreshConnectorCompletions, refreshConnectorSchemasTree } from "../../contexts/api_data/store/actions";
 import CenteredLoading                                              from "../common/loading/CenteredLoading";
 import SchemaTree                                                   from "./SchemaTree";
-import { EReportDevBarMessageType }                                 from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                                 from "../../types/application-event/EReportDevBarMessageType";
 import { context as authContext }                                   from "../../contexts/auth/store/context";
 import TSQLConsoleQueryResult                                       from "../../types/TSQLConsoleQueryResut";
 import CenteredError                                                from "../common/loading/CenteredError";
 import TConnector                                                   from "../../types/TConnector";
-import { TAPIResponse }                                             from "../../types/TAPIResponsed";
+import { TAPIResponse }                                             from "../../types/TAPIResponse";
 
 const CustomEditor = React.lazy(() => import('../common/CustomEditor'));
 

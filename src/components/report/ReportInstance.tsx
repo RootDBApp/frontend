@@ -35,9 +35,9 @@ import { EAceEditorButton }                                                     
 import CustomEditor                                                                                      from "../common/CustomEditor";
 import { apiSendRequest }                                                                                from "../../services/api";
 import { EAPIEndPoint }                                                                                  from "../../types/EAPIEndPoint";
-import { TAPIResponse }                                                                                  from "../../types/TAPIResponsed";
+import { TAPIResponse }                                                                                  from "../../types/TAPIResponse";
 import { notificationEvent }                                                                             from "../../utils/events";
-import { EReportDevBarMessageType }                                                                      from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                                                                      from "../../types/application-event/EReportDevBarMessageType";
 import DataViewClient                                                                                    from "./data-view/DataViewClient";
 import { getDataViewsPositions, getDataViewTypeText }                                                    from "../../utils/dataView";
 import { shallowEqual }                                                                                  from "../../utils/commonJs";

@@ -20,11 +20,12 @@
  */
 
 export enum EAPIEndPoint {
-    CONF_CONNECTOR = '/api/conf-connector',
-    CONNECTOR_DATABASE = '/api/connector-database',
+    ASSET = '/api/asset',
     CACHE = '/api/cache',
     CACHE_JOB = '/api/cache-job',
     CATEGORY = '/api/category',
+    CONF_CONNECTOR = '/api/conf-connector',
+    CONNECTOR_DATABASE = '/api/connector-database',
     DIRECTORY = '/api/directory',
     DRAFT = '/api/draft',
     DRAFT_QUERIES = '/api/draft-queries',

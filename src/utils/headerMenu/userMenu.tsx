@@ -335,7 +335,7 @@ export const useDebugTabIconButton = (): MenuItem | undefined => {
     return item;
 }
 
-export const useInputParametersIconButton = (): MenuItem | undefined => {
+export const useInputParametersTabIconButton = (): MenuItem | undefined => {
 
     const currentLocation = useLocation();
     const {state: apiDataState} = React.useContext(apiDataContext);
@@ -350,6 +350,7 @@ export const useInputParametersIconButton = (): MenuItem | undefined => {
     React.useEffect(() => {
 
         let disableConfConnectorRelatedOptions: boolean = !apiDataState.connectors.some((connector: TConnector) => {
+
             return connector.organization_id === authState.user.organization_user.organization_id
         })
         // if no connector in apiDataState for the current organization we search into organization?.conf_connectors
@@ -394,9 +395,65 @@ export const useInputParametersIconButton = (): MenuItem | undefined => {
         authState.user.organization_user.organization,
         authState.user.organization_user.organization_id,
         authState.user.organization_user.ui_grants.report_data_view.edit,
-        //currentLocation.pathname,
         navigate,
-        t]);
+        t
+    ]);
+
+    return item;
+}
+
+export const useAssetTabIconButton = (): MenuItem | undefined => {
+
+    const currentLocation = useLocation();
+    const {state: authState} = React.useContext(authContext);
+
+    const {t} = useTranslation(['common', 'settings']);
+    const navigate = useNavigate();
+    const isMobile = useMobileLayout();
+
+    const [item, setItem] = React.useState<MenuItem>();
+
+    React.useEffect(() => {
+
+        if (authState.user.is_super_admin || authState.user.organization_user.ui_grants.asset.edit) {
+
+            setItem({
+                    label: t('common:assets').toString(),
+                    icon: PrimeIcons.BOX,
+                    className: `mobile-only-label ${currentLocation.pathname === '/assets' ? 'active' : ''}`,
+                    command: () => navigate('/assets'),
+                    template: (item, options) => (
+                        <>
+                            <Tooltip
+                                target="#show-assets"
+                                position={"bottom"}
+                                content={item.label}
+                                showDelay={env.tooltipShowDelay}
+                                hideDelay={env.tooltipHideDelay}
+                            />
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
+                                id="show-assets"
+                                style={{width: '100%'}}
+                                className={`${options.className} p-button-link rdb-menu-icon-link`}
+                                onClick={() => navigate('/assets')}
+                            >
+                                <span id="show-assets" className={options.iconClassName}/>
+                                <span className={options.labelClassName}>{item.label}</span>
+                            </a>
+                        </>
+                    )
+                },
+            );
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        authState.user.is_super_admin,
+        authState.user.organization_user.ui_grants.asset.edit,
+        isMobile,
+        navigate,
+        t
+    ]);
 
     return item;
 }

@@ -39,8 +39,13 @@ import TConnectorSchemasTree     from "../../../types/TConnectorSchemasTree";
 import TRole                     from "../../../types/TRole";
 import TOrganization             from "../../../types/TOrganization";
 import TServiceMessage           from "../../../types/TServiceMessage";
+import TAsset                    from "../../../types/TAsset";
 
 export interface IAPIDataState {
+
+    assets: Array<TAsset>;
+    assetsLoading: boolean;
+
     categories: Array<TCategory>;
     categoriesLoading: boolean;
 
@@ -99,6 +104,9 @@ export interface IAPIDataState {
 }
 
 export const initialState: IAPIDataState = {
+    assets: JSON.parse(String(localStorage.getItem('assets'))) || [],
+    assetsLoading: false,
+
     categories: JSON.parse(String(localStorage.getItem('categories'))) || [],
     categoriesLoading: false,
 

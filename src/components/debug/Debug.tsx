@@ -29,8 +29,8 @@ import TextareaLog                  from "../common/TextareaLog";
 import { useOpenedReports }         from "../../utils/hooks";
 import { sortAndFormatLogEntries }  from "../../report-tools";
 import { isReportDevBar }           from "../../utils/applicationMessage";
-import IReportDevBarMessage         from "../../types/applicationEvent/IReportDevBarMessage";
-import { EReportDevBarMessageType } from "../../types/applicationEvent/EReportDevBarMessageType";
+import IReportDevBarMessage         from "../../types/application-event/IReportDevBarMessage";
+import { EReportDevBarMessageType } from "../../types/application-event/EReportDevBarMessageType";
 import { Message }                  from "primereact/message";
 
 const Debug: React.FC = (): React.ReactElement => {

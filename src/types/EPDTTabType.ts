@@ -20,10 +20,11 @@
  */
 
 export enum EPDTTabType {
-    REPORT,
+    ASSETS,
+    DEBUG,
+    HELP,
+    HOME,
     INPUT_PARAMETERS,
     SQL_CONSOLE,
-    HOME,
-    HELP,
-    DEBUG
+    REPORT
 }

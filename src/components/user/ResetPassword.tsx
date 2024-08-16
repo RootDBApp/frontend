@@ -40,7 +40,7 @@ import * as types                                from "../../contexts/auth/store
 import { leaveWSOrganizationChannel }            from "../../contexts/api_data/store/actions";
 import { logout }                                from "../../contexts/auth/store/actions";
 import { notificationEvent }                     from "../../utils/events";
-import { EReportDevBarMessageType }              from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }              from "../../types/application-event/EReportDevBarMessageType";
 
 type TPasswords = {
     password: string,

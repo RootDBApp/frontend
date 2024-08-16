@@ -34,7 +34,7 @@ import {notificationEvent} from "./events";
 import TOrganization from "../types/TOrganization";
 import {apiSendRequest} from "../services/api";
 import {EAPIEndPoint} from "../types/EAPIEndPoint";
-import {EReportDevBarMessageType} from "../types/applicationEvent/EReportDevBarMessageType";
+import {EReportDevBarMessageType} from "../types/application-event/EReportDevBarMessageType";
 import TParameterInputDataType from "../types/TParameterInputDataType";
 import TConnector from "../types/TConnector";
 

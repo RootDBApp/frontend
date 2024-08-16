@@ -29,7 +29,7 @@ import { EAPIEndPoint }             from "../../types/EAPIEndPoint";
 import { notificationEvent }        from "../../utils/events";
 import { userUpdated }              from "../../contexts/auth/store/actions";
 import TUser                        from "../../types/TUser";
-import { EReportDevBarMessageType } from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType } from "../../types/application-event/EReportDevBarMessageType";
 import { context as authContext }   from "../../contexts/auth/store/context";
 import env                          from "../../envVariables";
 import TRole                        from "../../types/TRole";

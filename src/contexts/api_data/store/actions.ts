@@ -43,6 +43,12 @@ import TRole                     from "../../../types/TRole";
 import TOrganization             from "../../../types/TOrganization";
 import TServiceMessage           from "../../../types/TServiceMessage";
 import { TReportCacheStatus }    from "../../../types/TReportCacheStatus";
+import TAsset                    from "../../../types/TAsset";
+
+export interface IAssetsLoading {
+    type: types.TAssetsLoading;
+    payload: boolean;
+}
 
 export interface ICategoriesLoading {
     type: types.TCategoriesLoading;
@@ -67,6 +73,16 @@ export interface IDirectoriesLoading {
 export interface IDirectoriesTreeLoading {
     type: types.TDirectoriesTreeLoading;
     payload: boolean;
+}
+
+export interface IGetAssets {
+    type: types.TGetAssets;
+    payload: undefined;
+}
+
+export interface IGotAssets {
+    type: types.TGotAssets;
+    payload: Array<TAsset>;
 }
 
 export interface IGetCategories {
@@ -349,6 +365,11 @@ export interface IUpdateReportCacheStatus {
     payload: Array<TReportCacheStatus>;
 }
 
+export const assetsLoading = (payload: boolean): IAssetsLoading => ({
+    type: types.ASSETS_LOADING,
+    payload,
+});
+
 export const categoriesLoading = (payload: boolean): ICategoriesLoading => ({
     type: types.CATEGORIES_LOADING,
     payload,
@@ -364,6 +385,10 @@ export const directoriesTreeLoading = (payload: boolean): IDirectoriesTreeLoadin
     payload,
 });
 
+export const getAssets = (): IGetAssets => ({
+    type: types.GET_ASSETS,
+    payload: undefined
+})
 
 export const getCategories = (): IGetCategories => ({
     type: types.GET_CATEGORIES,
@@ -498,10 +523,13 @@ export const reportsLoading = (payload: boolean): IReportsLoading => ({
 
 export type TAPIDataAction =
     ICleanLocalCache
+    | IAssetsLoading
     | ICategoriesLoading
     | IDirectoriesLoading
     | IDirectoriesTreeLoading
     | ICleanReportsDirectoriesTree
+    | IGetAssets
+    | IGotAssets
     | IGetCategories
     | IGotCategories
     | IGetConnectors

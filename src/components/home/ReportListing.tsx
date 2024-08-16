@@ -44,7 +44,7 @@ import { apiSendRequest }                                   from "../../services
 import { EAPIEndPoint }                                     from "../../types/EAPIEndPoint";
 import TReportDataView                                      from "../../types/TReportDataView";
 import { reportDevBarEvent }                                from "../../utils/events";
-import { EReportDevBarMessageType }                         from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                         from "../../types/application-event/EReportDevBarMessageType";
 import DropdownDataViewSelector                             from "../common/form/DropdownDataViewSelector";
 import CenteredLoading                                      from "../common/loading/CenteredLoading";
 import { getDirectoryFamilyReportsCount }                   from "../../utils/report";

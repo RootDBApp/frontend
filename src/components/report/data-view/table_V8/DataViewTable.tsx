@@ -29,7 +29,7 @@ import DataViewTableView                             from "../table_V8/DataViewT
 import TDataViewTableColumnParameter                 from "../../../../types/TDataViewTableColumnParameter";
 import { columnsV8FormToJS, paginationInitialState } from "../../../../utils/tableView";
 import TDataViewTablePagination                      from "../../../../types/TDataViewTablePagination";
-import { EReportDevBarMessageType }                  from "../../../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                  from "../../../../types/application-event/EReportDevBarMessageType";
 import { reportDevBarEvent }                         from "../../../../utils/events";
 import TDataViewTableForm                            from "../../../../types/TDataViewTableForm";
 import { uncompress }                                from "../../../../utils/tools";
@@ -79,7 +79,7 @@ const DataViewTable: React.FC<{
     const [expanded_paginate, setExpandedPaginate] = React.useState<boolean>(true);
     const [adjustWidth, setAdjustWidth] = React.useState<boolean>(false);
 
-    const resetColumns = (columns: TDataViewTableColumnParameter[]):void => {
+    const resetColumns = (columns: TDataViewTableColumnParameter[]): void => {
 
         onChangeCallback({
             // exclude removed columns and remove new flag on new columns
@@ -88,7 +88,7 @@ const DataViewTable: React.FC<{
         });
     }
 
-    const handleOnChange = (jsonForm: TDataViewTableForm):void => {
+    const handleOnChange = (jsonForm: TDataViewTableForm): void => {
 
         onChangeCallback(jsonForm);
 
@@ -111,7 +111,7 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(():void => {
+    React.useEffect((): void => {
 
         if (dataView.report_data_view_js.json_form) {
             try {
@@ -142,7 +142,7 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(():void => {
+    React.useEffect((): void => {
 
         if (dbColumnsParameters.length === 0 && results && results.length > 0) {
 
@@ -215,7 +215,7 @@ const DataViewTable: React.FC<{
 
     //
     //
-    React.useEffect(():void => {
+    React.useEffect((): void => {
 
         if (errorEmptyColumnId) {
 

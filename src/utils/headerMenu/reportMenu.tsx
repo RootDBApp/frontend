@@ -20,6 +20,7 @@
  */
 
 import { t }                         from "i18next";
+import { confirmDialog }             from "primereact/confirmdialog";
 import { MenuItem, MenuItemOptions } from "primereact/menuitem";
 import { OverlayPanel }              from "primereact/overlaypanel";
 import { Tooltip }                   from "primereact/tooltip";
@@ -46,10 +47,9 @@ import { reportChangeVisibility, reportFavoriteAdd, reportFavoriteRemove, TAPIDa
 import { TReportAsyncAction }                                                                                                       from "../../contexts/report/store/asyncAction";
 import env                                                                                                                          from "../../envVariables";
 import TDataViewInstance                                                                                                            from "../../types/TDataViewInstance";
-import { EReportDevBarMessageType }                                                                                                 from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                                                                                                 from "../../types/application-event/EReportDevBarMessageType";
 import { notificationEvent, reportDevBarEvent }                                                                                     from "../events";
 import TTTL                                                                                                                         from "../../types/TTTL";
-import { confirmDialog }                                                                                                            from "primereact/confirmdialog";
 
 export const handleFavoriteReportChange = (
     report: TReport | null,

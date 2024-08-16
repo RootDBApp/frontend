@@ -19,27 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import TUIGrantOptions from "./TUIGrantOptions";
-
-type TUIGrants = {
-    asset: TUIGrantOptions,
-    cache: TUIGrantOptions,
-    category: TUIGrantOptions,
-    conf_connector: TUIGrantOptions,
-    directory: TUIGrantOptions,
-    draft: TUIGrantOptions,
-    draft_queries: TUIGrantOptions,
-    group: TUIGrantOptions,
-    organization: TUIGrantOptions,
-    report: TUIGrantOptions,
-    report_data_view: TUIGrantOptions,
-    report_data_view_js: TUIGrantOptions,
-    report_parameter: TUIGrantOptions,
-    report_parameter_input: TUIGrantOptions,
-    service_message: TUIGrantOptions,
-    system_info: TUIGrantOptions,
-    user: TUIGrantOptions,
-    user_preferences: TUIGrantOptions,
+export enum EAssetStorageDataType {
+    FILE = 'file',
+    STRING = 'string',
 }
-
-export = TUIGrants;

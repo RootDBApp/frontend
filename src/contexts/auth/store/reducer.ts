@@ -23,7 +23,7 @@ import { TAuthAction }                         from './actions';
 import { dummyUser, IAuthState }               from './initialState';
 import * as types                              from './types';
 import TUser                                   from "../../../types/TUser";
-import { TAPIResponse }                        from "../../../types/TAPIResponsed";
+import { TAPIResponse }                        from "../../../types/TAPIResponse";
 import TOrganizationUser                       from "../../../types/TOrganizationUser";
 import { isThereConnectorConfiguredWithNotif } from "../../../utils/tools";
 

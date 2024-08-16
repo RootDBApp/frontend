@@ -24,7 +24,7 @@
 import TURLParameter                                  from "../types/common/TURLParameter";
 import { generateReportUniqId, URLParameterToString } from "./tools";
 import { reportDevBarEvent }                          from "./events";
-import { EReportDevBarMessageType }                   from "../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }                   from "../types/application-event/EReportDevBarMessageType";
 
 export const getDocumentStyle = (): CSSStyleDeclaration => {
 

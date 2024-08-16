@@ -67,7 +67,6 @@ const PathDrivenTabs: React.FC<{
     const contextMenuRef = React.useRef<ContextMenu>(null);
     const [contextualMenuItems, setContextualMenuItems] = React.useState<MenuItem[]>([]);
 
-
     // Handle report's shortcuts, to go on left or right tab.
     //
     React.useEffect(() => {

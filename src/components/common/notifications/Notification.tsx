@@ -24,7 +24,7 @@ import { Button }      from "primereact/button";
 import * as React      from 'react';
 import { useNavigate } from "react-router-dom";
 
-import INotificationMessage   from "../../../types/applicationEvent/INotificationMessage";
+import INotificationMessage   from "../../../types/application-event/INotificationMessage";
 import { TSeverity }          from "../../../types/common/TSeverity";
 import { TBadgeSeverityType } from "../../../types/primereact/TBadgeSeverityType";
 

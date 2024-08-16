@@ -28,8 +28,10 @@ import TReportDataViewLibType    from "./TReportDataViewLibType";
 import TReportDataViewLibVersion from "./TReportDataViewLibVersion";
 import TServiceMessage           from "./TServiceMessage";
 import TParameterInput           from "./TParameterInput";
+import TAsset                    from "./TAsset";
 
 type TCache = {
+    assets: Array<TAsset>,
     directories: Array<TDirectory>,
     directoriesPrimeReactTree: Array<TreeNode>,
     categories: Array<TCategory>,

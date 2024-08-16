@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import IApplicationMessage from "./types/applicationEvent/IApplicationMessage";
+import IApplicationMessage from "./types/application-event/IApplicationMessage";
 
 const formatDateTime = (date: Date) => {
     return (

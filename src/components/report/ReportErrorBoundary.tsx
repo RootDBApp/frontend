@@ -23,7 +23,7 @@ import React, { ErrorInfo } from 'react';
 
 import CenteredError                            from "../common/loading/CenteredError";
 import { notificationEvent, reportDevBarEvent } from "../../utils/events";
-import { EReportDevBarMessageType }             from "../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }             from "../../types/application-event/EReportDevBarMessageType";
 import TUIGrants                                from "../../types/TUIGrants";
 
 interface Props {

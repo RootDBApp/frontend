@@ -23,10 +23,12 @@ import { Dialog }                                           from "primereact/dia
 import * as React                                           from "react";
 import { useTranslation }                                   from "react-i18next";
 import { matchRoutes, useLocation, useNavigate, useRoutes } from "react-router-dom";
-import { dialogTitleFromPathNames, globalDialogRoutes }     from "../../services/globalDialogService";
-import { RouterContext }                                    from "../../contexts/RouterContext";
-import TDialogTitle                                         from "../../types/TDialogTitle";
-import { context as authContext }                           from "../../contexts/auth/store/context";
+
+
+import { dialogTitleFromPathNames, globalDialogRoutes } from "../../services/globalDialogService";
+import { RouterContext }                                from "../../contexts/RouterContext";
+import TDialogTitle                                     from "../../types/TDialogTitle";
+import { context as authContext }                       from "../../contexts/auth/store/context";
 
 const GlobalDialog = () => {
     const [visible, setVisible] = React.useState(false);

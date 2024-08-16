@@ -26,7 +26,7 @@ import { useTranslation } from "react-i18next";
 import TReport                 from "../../types/TReport";
 import { TNameValue }          from "../../types/TNameValue";
 import TReportParameter        from "../../types/TReportParameter";
-import ReportCacheJobParameter from "./reportParameters/ReportCacheJobParameter";
+import ReportCacheJobParameter from "./report-Parameters/ReportCacheJobParameter";
 import env                     from "../../envVariables";
 
 const ReportCacheJobParameters: React.FC<{

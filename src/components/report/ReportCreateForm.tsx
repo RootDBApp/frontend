@@ -40,7 +40,7 @@ import { ICallbackOnReportCreateSuccess }        from "../../types/ICallBacks";
 import { context as authContext }                from "../../contexts/auth/store/context";
 import env                                       from "../../envVariables";
 import TConnector                                from "../../types/TConnector";
-import { TAPIResponse }                          from "../../types/TAPIResponsed";
+import { TAPIResponse }                          from "../../types/TAPIResponse";
 import { Message }                               from "primereact/message";
 
 

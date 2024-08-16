@@ -23,7 +23,7 @@ import axios, { AxiosError, AxiosResponse } from 'axios';
 import { t }                                from "i18next";
 
 import { notificationEvent }        from "../utils/events";
-import { EReportDevBarMessageType } from "../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType } from "../types/application-event/EReportDevBarMessageType";
 import { TAPIDefaultParams }        from "../types/TAPIDefaultParams";
 import TAxiosRequest                from "../types/TAxiosRequest";
 import { URLParameterToString }     from "../utils/tools";

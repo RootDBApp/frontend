@@ -26,6 +26,7 @@ import * as React from "react";
 
 import { TAPIDataAction }           from "./actions";
 import {
+    GET_ASSETS,
     GET_CATEGORIES,
     GET_CONNECTOR_COMPLETIONS,
     GET_CONNECTOR_DATABASES,
@@ -42,6 +43,7 @@ import {
     GET_PARAMETER_INPUTS,
     GET_REPORTS,
     GET_USERS,
+    GOT_ASSETS,
     GOT_CATEGORIES,
     GOT_CONNECTOR_COMPLETIONS,
     GOT_CONNECTOR_DATABASES,
@@ -56,20 +58,24 @@ import {
     GOT_PARAMETER_INPUT_DATA_TYPES,
     GOT_PARAMETER_INPUT_TYPES,
     GOT_PARAMETER_INPUTS,
-    GOT_REPORTS, GOT_SERVICE_MESSAGES,
+    GOT_REPORTS,
+    GOT_SERVICE_MESSAGES,
     GOT_USERS,
     GOT_VERSIONS_INFO,
     LEAVE_WS_ORGANIZATION_CHANNEL,
-    LISTEN_WS_ORGANIZATION_CHANNEL, REPORT_CHANGE_VISIBILITY,
+    LISTEN_WS_ORGANIZATION_CHANNEL,
+    REPORT_CHANGE_VISIBILITY,
     REPORT_CREATED,
     REPORT_DELETED,
     REPORT_FAVORITE_ADD,
     REPORT_FAVORITE_ADDED,
     REPORT_FAVORITE_DELETE,
     REPORT_FAVORITE_DELETED,
-    REPORT_UPDATED, REPORT_VISIBILITY_CHANGED,
-    UPDATE_DIRECTORIES_TREE_NUM_REPORTS, UPDATE_REPORT_CACHE_STATUS
-}                                   from "./types";
+    REPORT_UPDATED,
+    REPORT_VISIBILITY_CHANGED,
+    UPDATE_DIRECTORIES_TREE_NUM_REPORTS,
+    UPDATE_REPORT_CACHE_STATUS
+} from "./types";
 import EchoClient                   from "../../../services/EchoClient";
 import TConnector                   from "../../../types/TConnector";
 import TGroup                       from "../../../types/TGroup";
@@ -89,12 +95,13 @@ import { EAPIEndPoint }             from "../../../types/EAPIEndPoint";
 import TConnectorDatabase           from "../../../types/TConnectorDatabase";
 import TVersionInfo                 from "../../../types/TVersionsInfo";
 import { notificationEvent }        from "../../../utils/events";
-import { TAPIResponse }             from "../../../types/TAPIResponsed";
+import { TAPIResponse }             from "../../../types/TAPIResponse";
 import IRootDBTreeNode              from "../../../types/IRootDBTreeNode";
-import { EReportDevBarMessageType } from "../../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType } from "../../../types/application-event/EReportDevBarMessageType";
 import TServiceMessage              from "../../../types/TServiceMessage";
 import TException                   from "../../../types/TException";
 import { TReportCacheStatus }       from "../../../types/TReportCacheStatus";
+import TAsset                       from "../../../types/TAsset";
 
 const middleware = (dispatch: React.Dispatch<TAPIDataAction>) => (action: TAPIDataAction) => {
     dispatch(action);
@@ -104,6 +111,21 @@ const middleware = (dispatch: React.Dispatch<TAPIDataAction>) => (action: TAPIDa
     //console.debug('middleware api_data', type, payload);
 
     switch (type) {
+
+        case GET_ASSETS:
+            apiSendRequest({
+                method: 'GET',
+                endPoint: EAPIEndPoint.ASSET,
+                callbackSuccess: (response: Array<TAsset>) => {
+
+                    dispatch({type: GOT_ASSETS, payload: response});
+                },
+                callbackError: () => {
+                    dispatch({type: GOT_ASSETS, payload: []});
+                }
+            });
+
+            break;
 
         case GET_CATEGORIES:
             apiSendRequest({

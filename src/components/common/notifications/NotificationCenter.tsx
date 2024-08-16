@@ -27,7 +27,7 @@ import { useNavigate }    from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 
-import INotificationMessage                               from "../../../types/applicationEvent/INotificationMessage";
+import INotificationMessage                               from "../../../types/application-event/INotificationMessage";
 import Notification, { getIcon }                          from "./Notification";
 import { reportDevBarEvent }                              from "../../../utils/events";
 import { context as authContext }                         from "../../../contexts/auth/store/context";

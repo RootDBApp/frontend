@@ -24,7 +24,7 @@ import * as React                  from "react";
 import { useTranslation }          from "react-i18next";
 
 import TReportParameter    from "../../types/TReportParameter";
-import ReportParameterForm from "./reportParameters/ReportParameterForm";
+import ReportParameterForm from "./report-Parameters/ReportParameterForm";
 import { useDispatch }     from "../../contexts/report/ReportContextProvider";
 import * as RTReport       from "../../contexts/report/ReportContextProvider";
 import { getReport }       from "../../contexts/report/store/asyncAction";

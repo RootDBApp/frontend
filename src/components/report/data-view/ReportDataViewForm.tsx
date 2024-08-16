@@ -50,7 +50,7 @@ import { getNewDataViewPosition }                from "../../../utils/dataView";
 import { context as authContext }                from "../../../contexts/auth/store/context";
 import { defaultDataView }                       from "../../../contexts/report/store/reducer";
 import env                                       from "../../../envVariables";
-import { TAPIResponse }                          from "../../../types/TAPIResponsed";
+import { TAPIResponse }                          from "../../../types/TAPIResponse";
 import TReportDataViewState                      from "../../../types/TReportDataViewState";
 
 const ReportDataViewForm: React.FC<{

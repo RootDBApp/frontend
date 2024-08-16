@@ -31,7 +31,7 @@ import { notificationEvent }         from "../../../utils/events";
 import i18n, { t }                   from "i18next";
 import { fetchLatestVersion }        from "../../../utils/tools";
 import TUserLogin                    from "../../../types/TUserLogin";
-import { EReportDevBarMessageType }  from "../../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType }  from "../../../types/application-event/EReportDevBarMessageType";
 import Cookies                       from "js-cookie";
 
 const middleware = (dispatch: React.Dispatch<TAuthAction>) => (action: TAuthAction) => {

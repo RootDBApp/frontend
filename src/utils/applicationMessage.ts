@@ -19,9 +19,9 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import INotificationMessage from "../types/applicationEvent/INotificationMessage";
-import IReportDevBarMessage from "../types/applicationEvent/IReportDevBarMessage";
-import IApplicationMessage  from "../types/applicationEvent/IApplicationMessage";
+import INotificationMessage from "../types/application-event/INotificationMessage";
+import IReportDevBarMessage from "../types/application-event/IReportDevBarMessage";
+import IApplicationMessage  from "../types/application-event/IApplicationMessage";
 
 export function isNotification(message: IApplicationMessage): message is INotificationMessage {
 

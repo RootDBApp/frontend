@@ -278,6 +278,8 @@ const PathDrivenTab: React.FC<{
 
                         {tab.type === EPDTTabType.INPUT_PARAMETERS && <><i className="pi pi-sliders-h mr-2"></i>{t('settings:menu.input_parameters').toString()}</>}
 
+                        {tab.type === EPDTTabType.ASSETS && <><i className="pi pi-box mr-2"></i>{t('common:assets').toString()}</>}
+
                         {tab.type === EPDTTabType.SQL_CONSOLE && <><i className="pi pi-desktop mr-2"></i>{t('common:sql_console').toString()}</>}
 
                         {tab.type === EPDTTabType.DEBUG && debugTabTitle}

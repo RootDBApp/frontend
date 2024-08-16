@@ -19,21 +19,22 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Menubar }                   from 'primereact/menubar';
+import { Menubar }  from 'primereact/menubar';
 import { MenuItem } from "primereact/menuitem";
-import React                         from 'react';
+import React        from 'react';
 
-import NotificationCenter  from "../common/notifications/NotificationCenter";
+import NotificationCenter        from "../common/notifications/NotificationCenter";
 import {
+    useAssetTabIconButton,
     useDebugTabIconButton,
     useHeaderLogo, useHelpIconButton,
     useHomeIconButton,
-    useInputParametersIconButton,
+    useInputParametersTabIconButton,
     useOrganisationSelect,
     useSQLConsoleIconButton,
     useUserMenu
-}                          from "../../utils/headerMenu/userMenu";
-import ReportSearchInplace from "./ReportSearchInplace";
+}                                from "../../utils/headerMenu/userMenu";
+import ReportSearchInplace       from "./ReportSearchInplace";
 import {
     useCreateReportIconButton,
     useReportFavoriteIconButton,
@@ -54,15 +55,14 @@ export const HeaderMenuBar = () => {
     const reportVisibilityIconButton = useReportVisibilityButton();
     const runReportWithDefaultParamsIconButton = useRunReportWithDefaultParamsIconButton();
     const setupInputParamsAndExecuteIconButton = useSetupInputParamsAndExecuteIconButton();
-    //const reportDataViewSelect = useReportDataViewSelect();
-    //const createReportDataViewIconButton = useCreateReportDataViewIconButton();
     const reportDataViewMenu = useReportDataViewMenu();
     const isMobile = useMobileLayout();
     const homeIconButton = useHomeIconButton();
     const helpIconButton = useHelpIconButton();
     const sqlConsoleIconButton = useSQLConsoleIconButton();
     const debugTabIconButton = useDebugTabIconButton();
-    const inputParametersIconButton = useInputParametersIconButton();
+    const inputParametersIconButton = useInputParametersTabIconButton();
+    const assetTabIconButton = useAssetTabIconButton();
 
     const burgerMenuItems = React.useMemo(() => {
         const items: MenuItem[] = [];
@@ -86,6 +86,10 @@ export const HeaderMenuBar = () => {
             items.push(inputParametersIconButton);
         }
 
+        if (assetTabIconButton) {
+            items.push(assetTabIconButton as MenuItem);
+        }
+
         if (createReportIconButton) {
             items.push(createReportIconButton);
         }
@@ -97,6 +101,7 @@ export const HeaderMenuBar = () => {
         helpIconButton,
         homeIconButton,
         inputParametersIconButton,
+        assetTabIconButton,
         organisationMenu,
         sqlConsoleIconButton,
         userMenu
@@ -126,14 +131,6 @@ export const HeaderMenuBar = () => {
             items.push(setupInputParamsAndExecuteIconButton);
         }
 
-        // if (reportDataViewSelect) {
-        //     items.push(reportDataViewSelect)
-        // }
-
-        //if (createReportDataViewIconButton) {
-        //    items.push(createReportDataViewIconButton)
-        //}
-
         if (reportDataViewMenu) {
             items.push(reportDataViewMenu)
         }
@@ -156,7 +153,7 @@ export const HeaderMenuBar = () => {
                 start={headerLogo}
                 end={
                     <div className="flex align-items-center justify-content-end">
-                        <ReportSearchInplace alwaysOpen={isMobile} />
+                        <ReportSearchInplace alwaysOpen={isMobile}/>
                         <NotificationCenter/>
                     </div>
                 }

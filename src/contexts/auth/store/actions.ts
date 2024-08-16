@@ -22,7 +22,7 @@
 import * as types        from './types';
 import TUser             from "../../../types/TUser";
 import { TLogin }        from "../../../types/TLogin";
-import { TAPIResponse }  from "../../../types/TAPIResponsed";
+import { TAPIResponse }  from "../../../types/TAPIResponse";
 import TOrganizationUser from "../../../types/TOrganizationUser";
 import TUserLogin        from "../../../types/TUserLogin";
 

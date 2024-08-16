@@ -19,6 +19,9 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+export const ASSETS_LOADING = 'ASSETS_LOADING';
+export type TAssetsLoading = typeof ASSETS_LOADING;
+
 export const CATEGORIES_LOADING = 'CATEGORIES_LOADING';
 export type TCategoriesLoading = typeof CATEGORIES_LOADING;
 
@@ -33,6 +36,12 @@ export type TDirectoriesLoading = typeof DIRECTORIES_LOADING;
 
 export const DIRECTORIES_TREE_LOADING = 'DIRECTORIES_TREE_LOADING';
 export type TDirectoriesTreeLoading = typeof DIRECTORIES_TREE_LOADING;
+
+export const GET_ASSETS = 'GET_ASSETS';
+export type TGetAssets = typeof GET_ASSETS;
+
+export const GOT_ASSETS = 'GOT_ASSETS';
+export type TGotAssets = typeof GOT_ASSETS;
 
 export const GET_CATEGORIES = 'GET_CATEGORIES';
 export type TGetCategories = typeof GET_CATEGORIES;

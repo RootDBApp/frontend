@@ -39,7 +39,7 @@ import TDataViewMetricForm          from "../../../types/TDataViewMetricForm";
 import DataViewText                 from "./text/DataViewText";
 import TDataViewTextForm            from "../../../types/TDataViewTextForm";
 import { notificationEvent }        from "../../../utils/events";
-import { EReportDevBarMessageType } from "../../../types/applicationEvent/EReportDevBarMessageType";
+import { EReportDevBarMessageType } from "../../../types/application-event/EReportDevBarMessageType";
 import { useTranslation }           from "react-i18next";
 
 const DataViewTable = React.lazy(() => import('./table_V8/DataViewTable'));
