@@ -25,6 +25,10 @@ import TURLParameter                                  from "../types/common/TURL
 import { generateReportUniqId, URLParameterToString } from "./tools";
 import { reportDevBarEvent }                          from "./events";
 import { EReportDevBarMessageType }                   from "../types/application-event/EReportDevBarMessageType";
+import { apiClient, apiSendRequest }                  from "../services/api";
+import { EAPIEndPoint }                               from "../types/EAPIEndPoint";
+import { AxiosResponse }                              from "axios";
+import TAssetResponse                                 from "../types/TAssetResponse";
 
 export const getDocumentStyle = (): CSSStyleDeclaration => {
 
@@ -162,4 +166,20 @@ export const shallowEqual = (object1: any, object2: any): boolean => {
     }
 
     return true;
+}
+
+export const getJSON = async (resourceId: number): Promise<JSON> => {
+
+    return new Promise<JSON>((resolve, reject) => {
+
+        apiSendRequest({
+            method: 'GET',
+            endPoint: EAPIEndPoint.ASSET,
+            resourceId: resourceId,
+            callbackSuccess: (asset_response: TAssetResponse) => {
+
+                resolve(JSON.parse(asset_response.data_content))
+            }
+        });
+    });
 }

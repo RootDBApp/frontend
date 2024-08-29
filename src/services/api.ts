@@ -52,7 +52,7 @@ const authorizedAPIEndPoint = [
 ];
 
 
-const apiClient = axios.create({
+export const apiClient = axios.create({
         baseURL: env.REACT_APP_API_URL,
         withCredentials: true,
         validateStatus: function (status) {
