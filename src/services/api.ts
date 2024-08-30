@@ -346,15 +346,40 @@ export function apiSendRequest(
             }
 
             case 'POST': {
-                apiClient.post(axiosRequest.endPoint + urlPath + urlParameters, axiosRequest.formValues ?? {})
-                    .then((response: AxiosResponse) => {
 
+                if (axiosRequest.files && axiosRequest.files.length > 0) {
 
-                        handleResponse(axiosRequest, response);
-                    }).catch((error: any) => {
+                    const file = axiosRequest.files[0];
+                    console.log('=================================================================');
+                    console.log('=== file', file);
 
-                    console.warn(error);
-                });
+                    var formData = new FormData();
+                    formData.append("image", axiosRequest.files[0]);
+
+                    apiClient.post(axiosRequest.endPoint + urlPath + urlParameters, formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    })
+                        .then((response: AxiosResponse) => {
+
+                            handleResponse(axiosRequest, response);
+                        }).catch((error: any) => {
+
+                        console.warn(error);
+                    });
+
+                } else {
+
+                    apiClient.post(axiosRequest.endPoint + urlPath + urlParameters, axiosRequest.formValues ?? {})
+                        .then((response: AxiosResponse) => {
+
+                            handleResponse(axiosRequest, response);
+                        }).catch((error: any) => {
+
+                        console.warn(error);
+                    });
+                }
                 break;
             }
 

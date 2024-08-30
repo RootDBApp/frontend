@@ -32,6 +32,7 @@ type TAxiosRequest = {
     callbackError?: ICallbackAxiosError
     expectedHttpCode?: number,
     extraUrlPath?: string, // Will be added after the end point and the resource ID. (ex: /api/report/{resourceId}/{extraUrlPath})
+    files?: Array<File>,
     formValues?: object,
     noDataExpected?: boolean, // If true, we won't check if reponse contains any data.
     resourceId?: number | string, // Will be added just after the end point. (ex: /api/report/{resourceId}

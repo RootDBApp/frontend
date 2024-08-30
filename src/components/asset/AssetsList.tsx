@@ -30,7 +30,7 @@ import { EAssetStorageType }      from "../../types/EAssetStorageType";
 import { context as authContext } from "../../contexts/auth/store/context";
 import apiDataContext             from "../../contexts/api_data/store/context";
 import TAsset                     from "../../types/TAsset";
-import { EAssetStorageDataType }  from "../../types/EAssetStorageDataType";
+import { EAssetSource }           from "../../types/EAssetSource";
 
 const AssetsList = (): React.ReactElement => {
 
@@ -69,8 +69,9 @@ const AssetsList = (): React.ReactElement => {
                     activeIndex={0}>
                     {assets.map(
                         (asset: TAsset) => (
-                            <AccordionTab key={asset.id} tabIndex={asset.id}
-                                          header={asset.name}>
+                            <AccordionTab key={asset.id}
+                                          tabIndex={asset.id}
+                                          header={`#${asset.id} - ${asset.name}`}>
                                 <AssetForm asset={asset}/>
                             </AccordionTab>
                         )
@@ -82,7 +83,7 @@ const AssetsList = (): React.ReactElement => {
                                   header={
                                       <span>
                                    <i className="pi pi-plus mr-3"/>
-                                          {t('report:form.new_input_parameter').toString()}
+                                          {t('report:asset.new_asset').toString()}
                                </span>
                                   }
                                   headerClassName="accordion-new-param"
@@ -96,7 +97,7 @@ const AssetsList = (): React.ReactElement => {
                                 storage_type: EAssetStorageType.DATABASE,
                                 name: '',
                                 data_content: '',
-                                data_type: EAssetStorageDataType.STRING,
+                                asset_source: EAssetSource.STRING,
                                 url: '',
                                 pathname: '',
                             }}

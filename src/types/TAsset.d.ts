@@ -19,8 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { EAssetStorageType }     from "./EAssetStorageType";
-import { EAssetStorageDataType } from "./EAssetStorageDataType";
+import { EAssetStorageType } from "./EAssetStorageType";
+import { EAssetSource }      from "./EAssetSource";
 
 type TAsset = {
     id: number,
@@ -30,7 +30,7 @@ type TAsset = {
     pathname: string,
     url: string,
     data_content: string,
-    data_type: EAssetStorageDataType
+    asset_source: EAssetSource
 }
 
 export default TAsset;

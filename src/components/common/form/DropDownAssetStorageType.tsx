@@ -35,7 +35,7 @@ const DropDownAssetStorageType: React.FC<{
     const storage_types = [
         {name: 'Filesystem', code: EAssetStorageType.FILESYSTEM},
         {name: 'Database', code: EAssetStorageType.DATABASE},
-        {name: 'Online', code: EAssetStorageType.ONLINE},
+        // {name: 'Online', code: EAssetStorageType.ONLINE},
     ];
 
     return (

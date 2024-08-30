@@ -35,8 +35,11 @@ import CenteredLoading                           from "../common/loading/Centere
 import apiDataContext                            from "../../contexts/api_data/store/context";
 import { TAPIResponse }                          from "../../types/TAPIResponse";
 import DropDownAssetStorageType                  from "../common/form/DropDownAssetStorageType";
-import { EAssetStorageDataType }                 from "../../types/EAssetStorageDataType";
+import { EAssetSource }                          from "../../types/EAssetSource";
 import { EAssetStorageType }                     from "../../types/EAssetStorageType";
+import { Toast }                              from "primereact/toast";
+import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
+import env                                    from "../../envVariables";
 
 const CustomEditor = React.lazy(() => import('../common/CustomEditor'));
 
@@ -130,6 +133,32 @@ const AssetForm: React.FC<{
         });
     };
 
+    const toast = React.useRef(null);
+
+    const onUpload = () => {
+        // @ts-ignore
+        toast.current && toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
+    };
+
+    const uploadHandler = async (event: FileUploadHandlerEvent) => {
+
+        apiSendRequest({
+            method: 'POST',
+            endPoint: EAPIEndPoint.ASSET,
+            extraUrlPath: 'upload',
+            files: event.files,
+            resourceId: asset.id,
+            callbackSuccess: (response: TAsset) => {
+
+                // setCompleteAsset(response);
+            },
+            callbackError: (error: TAPIResponse) => {
+                setDisplayError(true);
+                setErrorMessage(error.message);
+            }
+        });
+    };
+
     // Get all asset content.
     React.useEffect(() => {
 
@@ -141,6 +170,7 @@ const AssetForm: React.FC<{
                 resourceId: asset.id,
                 callbackSuccess: (response: TAsset) => {
 
+                    response.asset_source = EAssetSource.STRING;
                     setCompleteAsset(response);
                 },
                 callbackError: (error: TAPIResponse) => {
@@ -149,6 +179,7 @@ const AssetForm: React.FC<{
                 }
             });
         } else {
+
             setCompleteAsset(asset);
         }
 
@@ -168,16 +199,16 @@ const AssetForm: React.FC<{
                             id: !isNewAsset ? Yup.number().required() : Yup.number().nullable(),
                             name: Yup.string().required().min(1),
                             storage_type: Yup.string().required().min(1),
-                            data_type: Yup.string().required().when('storage_type', {
+                            // data_type: Yup.string().required().when('storage_type', {
+                            //     is: (value: string) => {
+                            //         return value === EAssetStorageType.DATABASE
+                            //     },
+                            //     then: () => Yup.string().required().min(1),
+                            //     otherwise: () => Yup.string().nullable(),
+                            // }),
+                            data_content: Yup.string().required().when('asset_source', {
                                 is: (value: string) => {
-                                    return value === EAssetStorageType.DATABASE
-                                },
-                                then: () => Yup.string().required().min(1),
-                                otherwise: () => Yup.string().nullable(),
-                            }),
-                            data_content: Yup.string().required().when('data_type', {
-                                is: (value: string) => {
-                                    return value === EAssetStorageDataType.STRING
+                                    return value === EAssetSource.STRING
                                 },
                                 then: () => Yup.string().required().min(1),
                                 otherwise: () => Yup.string().nullable(),
@@ -194,7 +225,7 @@ const AssetForm: React.FC<{
 
                                     <div className="field col-12 md:col-6">
                                         <label htmlFor={'name_' + completeAsset.id}>
-                                            {t('report:form.report_parameter_input_name').toString()}
+                                            {t('report:asset.name').toString()}
                                         </label>
                                         <InputText
                                             id={'name_' + completeAsset.id}
@@ -207,7 +238,7 @@ const AssetForm: React.FC<{
 
                                     <div className="field col-12 md:col-3">
                                         <label htmlFor={'storage_type_' + completeAsset.id}>
-                                            {t('report:input_parameter_data_type').toString()}
+                                            {t('report:asset.storage_type').toString()}
                                         </label>
                                         <DropDownAssetStorageType
                                             onChange={(event) => {
@@ -224,34 +255,34 @@ const AssetForm: React.FC<{
                                     {formik.values.storage_type === EAssetStorageType.DATABASE &&
                                         <div className="field col-12 md:col-3">
                                             <label htmlFor={'storage_type_' + completeAsset.id}>
-                                                {t('report:input_parameter_data_type').toString()}
+                                                {t('report:asset.asset_source').toString()}
                                             </label>
                                             <div className="flex flex-wrap gap-3">
                                                 <div className="flex align-items-center">
                                                     <RadioButton
-                                                        inputId={'data_type_file_' + completeAsset.id}
-                                                        {...formik.getFieldProps('data_type')}
-                                                        className={!!formik.errors.data_type ? 'p-invalid w-full' : 'w-full'}
-                                                        value={EAssetStorageDataType.FILE}
-                                                        checked={formik.values.data_type === EAssetStorageDataType.FILE}
+                                                        inputId={'asset_source_file_' + completeAsset.id}
+                                                        {...formik.getFieldProps('asset_source')}
+                                                        className={!!formik.errors.asset_source ? 'p-invalid w-full' : 'w-full'}
+                                                        value={EAssetSource.FILE}
+                                                        checked={formik.values.asset_source === EAssetSource.FILE}
                                                     />
-                                                    <label htmlFor={'data_type_file_' + completeAsset.id} className="ml-2">File</label>
+                                                    <label htmlFor={'asset_source_file_' + completeAsset.id} className="ml-2">File</label>
                                                 </div>
                                                 <div className="flex align-items-center">
                                                     <RadioButton
-                                                        inputId={'data_type_string_' + completeAsset.id}
-                                                        {...formik.getFieldProps('data_type')}
-                                                        className={!!formik.errors.data_type ? 'p-invalid w-full' : 'w-full'}
-                                                        value={EAssetStorageDataType.STRING}
-                                                        checked={formik.values.data_type === EAssetStorageDataType.STRING}
+                                                        inputId={'asset_source_string_' + completeAsset.id}
+                                                        {...formik.getFieldProps('asset_source')}
+                                                        className={!!formik.errors.asset_source ? 'p-invalid w-full' : 'w-full'}
+                                                        value={EAssetSource.STRING}
+                                                        checked={formik.values.asset_source === EAssetSource.STRING}
                                                     />
-                                                    <label htmlFor={'data_type_string_' + completeAsset.id} className="ml-2">String</label>
+                                                    <label htmlFor={'asset_source_string_' + completeAsset.id} className="ml-2">String</label>
                                                 </div>
                                             </div>
                                         </div>
                                     }
 
-                                    {formik.values.data_type === EAssetStorageDataType.STRING &&
+                                    {(formik.values.storage_type === EAssetStorageType.DATABASE && formik.values.asset_source === EAssetSource.STRING) &&
                                         <div className="field col-12 md:col-12">
                                             <label htmlFor={'data_content_' + completeAsset.id}>
                                                 {t('report:form.query').toString()}
@@ -279,6 +310,34 @@ const AssetForm: React.FC<{
                                         </div>
                                     }
 
+
+                                    {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id > 0) &&
+                                        <div className="field col-12 md:col-12">
+                                            <label htmlFor={'data_content_' + completeAsset.id}>
+                                                {t('report:form.query').toString()}
+                                            </label>
+                                            <div>
+                                                <Toast ref={toast}></Toast>
+                                                <FileUpload
+                                                    mode="basic"
+                                                    name="demo[]"
+                                                    withCredentials={true}
+                                                    accept="text/*"
+                                                    maxFileSize={1000000}
+                                                    onUpload={onUpload}
+                                                    customUpload
+                                                    uploadHandler={uploadHandler}
+                                                />
+
+                                            </div>
+                                        </div>
+                                    }
+
+                                    {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id === 0) &&
+                                        <div className="field col-12 md:col-12">
+                                            <Message text={t('report:asset.create_to_upload')}/>
+                                        </div>
+                                    }
                                 </div>
 
                                 <div className="flex justify-content-end">

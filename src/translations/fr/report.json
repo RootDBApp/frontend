@@ -39,6 +39,14 @@
     "this_report_does_not_exists" : "Ce rapport n'existe pas.",
     "this_report_does_not_provide_any_parameter" : "Ce rapport ne dispose pas de paramètre.",
     "view" : "Vue",
+    "asset" : {
+        "asset_source" : "Source de l'élément",
+        "create_to_upload" : "Créer cet élément pour pouvoir téléverser le contenu.",
+        "name" : "Nom de l'élément",
+        "new_asset" : "Nouvel élement",
+        "storage_location" : "Emplacement de stockage",
+        "storage_type" : "Type de stockage"
+    },
     "cache" : {
         "ttl_15_m" : "pour 15 minutes",
         "ttl_1_h" : "pour 1 heure",

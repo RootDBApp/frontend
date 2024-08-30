@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-export enum EAssetStorageDataType {
+export enum EAssetSource {
     FILE = 'file',
     STRING = 'string',
 }

@@ -25,10 +25,9 @@ import TURLParameter                                  from "../types/common/TURL
 import { generateReportUniqId, URLParameterToString } from "./tools";
 import { reportDevBarEvent }                          from "./events";
 import { EReportDevBarMessageType }                   from "../types/application-event/EReportDevBarMessageType";
-import { apiClient, apiSendRequest }                  from "../services/api";
+import { apiSendRequest }                             from "../services/api";
 import { EAPIEndPoint }                               from "../types/EAPIEndPoint";
-import { AxiosResponse }                              from "axios";
-import TAssetResponse                                 from "../types/TAssetResponse";
+import TAsset                                         from "../types/TAsset";
 
 export const getDocumentStyle = (): CSSStyleDeclaration => {
 
@@ -176,9 +175,9 @@ export const getJSON = async (resourceId: number): Promise<JSON> => {
             method: 'GET',
             endPoint: EAPIEndPoint.ASSET,
             resourceId: resourceId,
-            callbackSuccess: (asset_response: TAssetResponse) => {
+            callbackSuccess: (asset: TAsset) => {
 
-                resolve(JSON.parse(asset_response.data_content))
+                resolve(JSON.parse(asset.data_content))
             }
         });
     });
