@@ -41,11 +41,15 @@
     "view" : "View",
     "asset" : {
         "asset_source" : "Asset source",
+        "asset_uploaded" : "Asset uploaded.",
         "create_to_upload" : "Create the asset in order to upload asset content.",
+        "current_asset_file" : "Current asset file :",
         "name" : "Asset name",
         "new_asset" : "New asset",
         "storage_location" : "Storage location",
-        "storage_type" : "Storage type"
+        "storage_type" : "Storage type",
+        "upload_asset" : "Upload asset",
+        "upload_in_progress": "Upload in progress..."
     },
     "cache" : {
         "ttl_15_m" : "for 15 minutes",

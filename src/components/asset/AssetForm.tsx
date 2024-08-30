@@ -19,27 +19,27 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Formik }         from "formik";
-import { InputText }      from "primereact/inputtext";
-import { Message }        from "primereact/message";
-import { RadioButton }    from "primereact/radiobutton";
-import * as React         from "react";
-import { useTranslation } from "react-i18next";
-import * as Yup           from "yup";
+import { Formik }                             from "formik";
+import { Button }                             from "primereact/button";
+import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
+import { InputText }                          from "primereact/inputtext";
+import { Message }                            from "primereact/message";
+import { RadioButton }                        from "primereact/radiobutton";
+import * as React                             from "react";
+import { useTranslation }                     from "react-i18next";
+import * as Yup                               from "yup";
 
 import TAsset                                    from "../../types/TAsset";
 import ButtonWithSpinner, { SubmitButtonStatus } from "../common/form/ButtonWithSpinner";
 import { apiSendRequest }                        from "../../services/api";
 import { EAPIEndPoint }                          from "../../types/EAPIEndPoint";
 import CenteredLoading                           from "../common/loading/CenteredLoading";
-import apiDataContext                            from "../../contexts/api_data/store/context";
 import { TAPIResponse }                          from "../../types/TAPIResponse";
 import DropDownAssetStorageType                  from "../common/form/DropDownAssetStorageType";
 import { EAssetSource }                          from "../../types/EAssetSource";
 import { EAssetStorageType }                     from "../../types/EAssetStorageType";
-import { Toast }                              from "primereact/toast";
-import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
-import env                                    from "../../envVariables";
+import { notificationEvent }                     from "../../utils/events";
+import { EReportDevBarMessageType }              from "../../types/application-event/EReportDevBarMessageType";
 
 const CustomEditor = React.lazy(() => import('../common/CustomEditor'));
 
@@ -53,7 +53,6 @@ const AssetForm: React.FC<{
 
     const {t} = useTranslation(['common', 'report']);
 
-    const {state: apiDataState} = React.useContext(apiDataContext);
     const [completeAsset, setCompleteAsset] = React.useState<TAsset | undefined>();
 
     const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
@@ -133,14 +132,19 @@ const AssetForm: React.FC<{
         });
     };
 
-    const toast = React.useRef(null);
-
-    const onUpload = () => {
-        // @ts-ignore
-        toast.current && toast.current.show({severity: 'info', summary: 'Success', detail: 'File Uploaded'});
-    };
-
     const uploadHandler = async (event: FileUploadHandlerEvent) => {
+
+        document.dispatchEvent(
+            notificationEvent({
+                message: t('common:please_wait').toString(),
+                timestamp: Date.now(),
+                title: t('report:asset.upload_in_progress').toString(),
+                type: EReportDevBarMessageType.LOG,
+                severity: 'info',
+                toast: true,
+                forceInNotificationCenter: false
+            })
+        );
 
         apiSendRequest({
             method: 'POST',
@@ -148,9 +152,20 @@ const AssetForm: React.FC<{
             extraUrlPath: 'upload',
             files: event.files,
             resourceId: asset.id,
-            callbackSuccess: (response: TAsset) => {
+            callbackSuccess: (asset: TAsset) => {
 
-                // setCompleteAsset(response);
+                setCompleteAsset(asset);
+                document.dispatchEvent(
+                    notificationEvent({
+                        message: t('report:asset.asset_uploaded').toString(),
+                        timestamp: Date.now(),
+                        title: t('common:uploaded').toString(),
+                        type: EReportDevBarMessageType.LOG,
+                        severity: 'success',
+                        toast: true,
+                        forceInNotificationCenter: false
+                    })
+                );
             },
             callbackError: (error: TAPIResponse) => {
                 setDisplayError(true);
@@ -312,19 +327,16 @@ const AssetForm: React.FC<{
 
 
                                     {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id > 0) &&
-                                        <div className="field col-12 md:col-12">
-                                            <label htmlFor={'data_content_' + completeAsset.id}>
-                                                {t('report:form.query').toString()}
+                                        <div className="field col-12 md:col-3">
+                                            <label htmlFor={'asset_file_' + completeAsset.id}>
+                                                {t('report:asset.upload_asset').toString()}
                                             </label>
                                             <div>
-                                                <Toast ref={toast}></Toast>
                                                 <FileUpload
                                                     mode="basic"
-                                                    name="demo[]"
-                                                    withCredentials={true}
+                                                    name="asset_file[]"
                                                     accept="text/*"
                                                     maxFileSize={1000000}
-                                                    onUpload={onUpload}
                                                     customUpload
                                                     uploadHandler={uploadHandler}
                                                 />
@@ -333,9 +345,18 @@ const AssetForm: React.FC<{
                                         </div>
                                     }
 
+                                    {(asset.id > 0 && completeAsset.pathname != null) &&
+                                        <div className="field col-12 md:col-12">
+                                            <Message text={`${t('report:asset.current_asset_file')} ${completeAsset.pathname}`} className="col-6 p-2"/>
+                                            <Button label={t('common:download')} icon="pi pi-file" className="ml-2">
+                                                <a target="_blank" href="https://www.duckduckgo.com" />
+                                            </Button>
+                                        </div>
+                                    }
+
                                     {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id === 0) &&
                                         <div className="field col-12 md:col-12">
-                                            <Message text={t('report:asset.create_to_upload')}/>
+                                            <Message text={t('report:asset.create_to_upload')} className="col-12 p-2"/>
                                         </div>
                                     }
                                 </div>

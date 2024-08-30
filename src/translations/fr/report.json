@@ -41,11 +41,15 @@
     "view" : "Vue",
     "asset" : {
         "asset_source" : "Source de l'élément",
+        "asset_uploaded" : "Fichier téléversé.",
         "create_to_upload" : "Créer cet élément pour pouvoir téléverser le contenu.",
+        "current_asset_file" : "Fichier associé à cet élement :",
         "name" : "Nom de l'élément",
         "new_asset" : "Nouvel élement",
         "storage_location" : "Emplacement de stockage",
-        "storage_type" : "Type de stockage"
+        "storage_type" : "Type de stockage",
+        "upload_asset" : "Téléverser un fichier",
+        "upload_in_progress" : "Téléversementen cours..."
     },
     "cache" : {
         "ttl_15_m" : "pour 15 minutes",

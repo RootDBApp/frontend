@@ -349,12 +349,8 @@ export function apiSendRequest(
 
                 if (axiosRequest.files && axiosRequest.files.length > 0) {
 
-                    const file = axiosRequest.files[0];
-                    console.log('=================================================================');
-                    console.log('=== file', file);
-
                     var formData = new FormData();
-                    formData.append("image", axiosRequest.files[0]);
+                    formData.append("asset_file", axiosRequest.files[0]);
 
                     apiClient.post(axiosRequest.endPoint + urlPath + urlParameters, formData, {
                         headers: {
