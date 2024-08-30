@@ -273,6 +273,7 @@ const AssetForm: React.FC<{
                                                     // height="160px"
                                                     displayButtons={false}
                                                     isInvalid={!!formik.errors.data_content}
+                                                    enableAutoComplete={false}
                                                 />
                                             </div>
                                         </div>

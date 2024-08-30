@@ -88,6 +88,7 @@ const CustomEditor: React.FC<{
     value: string | undefined,
     width?: string,
     notification?: React.ReactNode,
+    enableAutoComplete?: boolean
 }> = ({
           runCallbackResponse,
           saveCallbackResponse,
@@ -112,6 +113,7 @@ const CustomEditor: React.FC<{
           value,
           width = "",
           notification,
+          enableAutoComplete = true
       }): React.ReactElement => {
 
     const {t} = useTranslation('common');
@@ -536,6 +538,8 @@ const CustomEditor: React.FC<{
                 )}
 
                 <AceEditor
+                    enableBasicAutocompletion={false}
+                    enableLiveAutocompletion={false}
                     className={`custom-editor flex-grow-1 ${classNameAce || ''}`}
                     commands={
                         [
@@ -621,9 +625,9 @@ const CustomEditor: React.FC<{
                     ref={textareaRef}
                     setOptions={{
                         autoScrollEditorIntoView: true,
-                        enableBasicAutocompletion: true,
-                        enableLiveAutocompletion: true,
-                        enableSnippets: true,
+                        enableBasicAutocompletion: enableAutoComplete,
+                        enableLiveAutocompletion: enableAutoComplete,
+                        enableSnippets: enableAutoComplete,
                         showLineNumbers: Boolean(preferencesState.editorPreferences.showLineNumbers),
                     }}
                     showPrintMargin={Boolean(preferencesState.editorPreferences.showPrintMargin)}
