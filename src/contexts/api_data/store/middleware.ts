@@ -75,7 +75,7 @@ import {
     REPORT_VISIBILITY_CHANGED,
     UPDATE_DIRECTORIES_TREE_NUM_REPORTS,
     UPDATE_REPORT_CACHE_STATUS
-} from "./types";
+}                                   from "./types";
 import EchoClient                   from "../../../services/EchoClient";
 import TConnector                   from "../../../types/TConnector";
 import TGroup                       from "../../../types/TGroup";
@@ -553,6 +553,12 @@ const middleware = (dispatch: React.Dispatch<TAPIDataAction>) => (action: TAPIDa
             console.debug('ws - listen channel: organization.' + payload);
             EchoClient
                 .channel('organization.' + payload)
+                .listen('APICacheAssetsUpdated', (assets: Array<TAsset>) => {
+
+                        console.debug('ws - APICacheAssetsUpdated', assets);
+                        dispatch({type: GOT_ASSETS, payload: assets});
+                    }
+                )
                 .listen('APICacheCategoriesUpdated', (categories: Array<TCategory>) => {
 
                         console.debug('ws - APICategoriesUpdated', categories);
