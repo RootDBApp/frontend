@@ -12769,9 +12769,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"primereact@npm:^10.8.0":
-  version: 10.8.0
-  resolution: "primereact@npm:10.8.0"
+"primereact@npm:^10.8.2":
+  version: 10.8.2
+  resolution: "primereact@npm:10.8.2"
   dependencies:
     "@types/react-transition-group": "npm:^4.4.1"
     react-transition-group: "npm:^4.4.1"
@@ -12782,7 +12782,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10/3fcd1be17f077e602c0f3c20e147063b35bb5fd998a0895cd3da33fda54f77c67c188e3d0d3a7582934f7d98268f99aafa10d483d08947b662b6570ec5ebc5ca
+  checksum: 10/cf35450715ae24b11ac4cb9dcb11604b287a441f438aafae4be18ef196a6339809c512ecbd71cda25e2533043c222fa85fa81036194202fc7b96d9ba24e6542f
   languageName: node
   linkType: hard
 
@@ -13972,7 +13972,7 @@ __metadata:
     pako: "npm:^2.1.0"
     primeflex: "npm:^3.3.1"
     primeicons: "npm:^7.0.0"
-    primereact: "npm:^10.8.0"
+    primereact: "npm:^10.8.2"
     prop-types: "npm:^15.8.1"
     pusher-js: "npm:^8.4.0-rc2"
     quill: "npm:^2.0.2"
