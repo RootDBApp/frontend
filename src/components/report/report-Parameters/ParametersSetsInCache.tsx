@@ -31,30 +31,30 @@ import ReportParameters     from "../ReportParameters";
 import CenteredLoading      from "../../common/loading/CenteredLoading";
 import { useMobileLayout }  from "../../../utils/windowResize";
 import TReportParameterSets from "../../../types/TReportParameterSets";
+import { useParams }        from "react-router-dom";
 
 
 const ParametersSetsInCache: React.FC<{
     onSubmit: CallableFunction,
     report: TReport,
     reportIsEmbedded: boolean,
-    reportId?: number,
-    reportInstanceId?: number,
     securityHash?: string,
     webSocketPublicUserId?: string,
 }> = ({
           onSubmit,
           report,
           reportIsEmbedded,
-          reportId,
-          reportInstanceId,
           securityHash,
           webSocketPublicUserId,
       }): React.ReactElement => {
+
+    const {reportId, reportInstanceId} = useParams();
 
     const [allCacheJobParametersSets, setAllCacheJobParametersSets] = React.useState<Array<TReportParameterSets>>([]);
     const [allUserJobParametersSets, setAllUserJobParametersSets] = React.useState<Array<TReportParameterSets>>([]);
     // const [cardIdx, setCardIdx] = React.useState<number>(0);
     const isMobile = useMobileLayout();
+
     let cardId = 0;
 
     const getCacheJobParametersSets = (): void => {
@@ -127,8 +127,6 @@ const ParametersSetsInCache: React.FC<{
                                                 report={report}
                                                 onSubmit={onSubmit}
                                                 reportIsEmbedded
-                                                reportId={reportId}
-                                                reportInstanceId={reportInstanceId}
                                                 securityHash={securityHash}
                                                 webSocketPublicUserId={webSocketPublicUserId}
                                             />
@@ -156,8 +154,6 @@ const ParametersSetsInCache: React.FC<{
                                                 report={report}
                                                 onSubmit={onSubmit}
                                                 reportIsEmbedded
-                                                reportId={reportId}
-                                                reportInstanceId={reportInstanceId}
                                                 securityHash={securityHash}
                                                 webSocketPublicUserId={webSocketPublicUserId}
                                             />

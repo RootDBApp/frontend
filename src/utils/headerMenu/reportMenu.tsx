@@ -346,45 +346,40 @@ export const useSetupInputParamsAndExecuteIconButton = (): MenuItem | undefined 
 
     const {t} = useTranslation();
     const isMobile = useMobileLayout();
+    const navigate = useNavigate();
 
     const reportState = RTReport.useReportStateReportInstanceDataViewInstanceFromLocation(useLocation().pathname);
 
     const [runReportMenu, setRunReportMenu] = React.useState<MenuItem | undefined>(undefined);
-    const reportParameterFormOverlayRef = React.useRef<OverlayPanel>(null);
 
     React.useEffect(() => {
 
 
-        if (reportState.report && reportState.report.has_parameters) {
+        if (reportState?.report && reportState?.report.has_parameters) {
 
             setRunReportMenu({
                 label: t('report:input_parameters').toString(),
                 icon: 'icon-play-parameters',
                 className: `mobile-only-label ${!isMobile ? 'active' : ''} ${!isMobile ? 'rdb-menu-icon-link-with-overlay' : ''}`,
-                template: (item: MenuItem, options: MenuItemOptions) => (
-                    <OverlayButton
-                        overlayId="overlay-report-parameter-form"
-                        overlayContent={(
-                            <ReportParameters
-                                reportId={reportState.report.id}
-                                reportInstanceId={reportState.instance?.id}
-                                onSubmit={() => {
-                                    reportParameterFormOverlayRef?.current?.hide();
-                                }}
-                            />
-                        )}
-                        title={t('report:input_parameters').toString()}
-                        asMenuItem
-                        menuOptions={options}
-                        menuItem={item}
-                        tooltip={!isMobile ? t('report:input_parameters').toString() : undefined}
-                        tooltipOptions={{
-                            position: "bottom",
-                            showDelay: env.tooltipShowDelay,
-                            hideDelay: env.tooltipHideDelay
-                        }}
-                    />
-                )
+                template: (item, options) => (
+                    <>
+                        <Tooltip target={`#report-run-button-with-parameters-${reportState.report.id}`}
+                                 position={"bottom"}
+                                 content={!isMobile ? item.label : undefined}
+                                 showDelay={env.tooltipShowDelay}
+                                 hideDelay={env.tooltipHideDelay}
+                        />
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a style={{width: '100%'}}
+                           className={`rdb-menu-icon-link ${options.className} p-button-link`}
+                           onClick={() => navigate(`/report-run/with-input-parameters/${reportState.report.id}/${reportState.instance?.id}`)}
+                        >
+                                <span id={`report-run-button-with-parameters-${reportState.report.id}`}
+                                      className={options.iconClassName}/>
+                            <span className={options.labelClassName}>{item.label}</span>
+                        </a>
+                    </>
+                ),
             })
         } else {
 
@@ -396,7 +391,8 @@ export const useSetupInputParamsAndExecuteIconButton = (): MenuItem | undefined 
         reportState?.report,
         reportState?.report?.id,
         reportState?.report?.has_parameters,
-        t
+        t,
+        navigate
     ]);
 
     return runReportMenu;

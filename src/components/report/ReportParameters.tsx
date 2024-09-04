@@ -19,13 +19,13 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Button }         from "primereact/button";
-import { Dialog }         from "primereact/dialog";
-import { InputSwitch }    from "primereact/inputswitch";
-import { OverlayPanel }   from "primereact/overlaypanel";
-import * as React         from "react";
-import { useTranslation } from "react-i18next";
-import { useNavigate }    from "react-router-dom";
+import { Button }                 from "primereact/button";
+import { Dialog }                 from "primereact/dialog";
+import { InputSwitch }            from "primereact/inputswitch";
+import { OverlayPanel }           from "primereact/overlaypanel";
+import * as React                 from "react";
+import { useTranslation }         from "react-i18next";
+import { useNavigate, useParams } from "react-router-dom";
 
 import TReport                                      from "../../types/TReport";
 import { TNameValue }                               from "../../types/TNameValue";
@@ -46,8 +46,6 @@ const ReportParameters: React.FC<{
     onSubmit?: CallableFunction    // If report parameters are embedded inside an overlay, you will be able to properly close the overlay in the parent component
     overlayPanelRef?: React.RefObject<OverlayPanel>,
     report?: TReport,
-    reportId?: number,
-    reportInstanceId?: number,
     reportIsEmbedded?: boolean,
     securityHash?: string,
     webSocketPublicUserId?: string,
@@ -56,8 +54,6 @@ const ReportParameters: React.FC<{
 }> = ({
           onSubmit,
           report,
-          reportId,
-          reportInstanceId,
           reportIsEmbedded,
           securityHash,
           webSocketPublicUserId,
@@ -68,6 +64,7 @@ const ReportParameters: React.FC<{
 
     const {t} = useTranslation(['common', 'report']);
     const navigate = useNavigate();
+    const {reportId, reportInstanceId} = useParams();
 
     const reportState = useReportStateFromReportIdAndInstanceId(Number(reportId), Number(reportInstanceId));
 
@@ -376,9 +373,7 @@ const ReportParameters: React.FC<{
                                 onSubmit();
                             }
                         }}
-                        reportIsEmbedded
-                        reportId={reportId}
-                        reportInstanceId={reportInstanceId}
+                        reportIsEmbedded={true}
                         securityHash={securityHash}
                         webSocketPublicUserId={webSocketPublicUserId}
                     />

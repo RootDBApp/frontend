@@ -25,10 +25,12 @@ import * as React      from "react";
 
 import TDialogTitle       from "../types/TDialogTitle";
 import ReportCreateWizard from "../components/report/ReportCreateWizard";
+import ParametersSetsInCache from "../components/report/report-Parameters/ParametersSetsInCache";
 
 
 const ReportRouteForms = React.lazy(() => import('../components/report/ReportRouteForms'));
 const Settings = React.lazy(() => import('../components/settings/Settings'));
+const ReportParameters = React.lazy(() => import('../components/report/ReportParameters'));
 
 export const dialogTitleFromPathNames = (t: TFunction): Array<TDialogTitle> => [
     {pathname: '/create-report-data-view', title: t('report:form.data_view_configuration')},
@@ -38,6 +40,7 @@ export const dialogTitleFromPathNames = (t: TFunction): Array<TDialogTitle> => [
     {pathname: '/report-configuration/edit-data-view-js-init-code', title: t('report:dataview.edit_init_js_code')},
     {pathname: '/report-configuration/input-parameters-configuration', title: t('report:form.report_input_parameters_configuration')},
     {pathname: '/report-configuration', title: t('report:form.data_view_configuration')},
+    {pathname: '/report-run/with-input-parameters', title: t('report:input_parameters')},
     {pathname: '/settings/admin/categories', title: t('settings:menu.categories_administration')},
     {pathname: '/settings/admin/connectors', title: t('settings:menu.connector_administration')},
     {pathname: '/settings/admin/directories', title: t('settings:menu.directories_administration')},
@@ -75,6 +78,14 @@ export const globalDialogRoutes: RouteObject[] = [
         path: '/report-configuration/:configurationReportId',
         element: <ReportRouteForms/>,
     },
+    {
+        path: '/report-run/with-input-parameters/:reportId/:reportInstanceId',
+        element: <ReportParameters/>,
+    },
+    // {
+    //     path: '/report-run/from-cache/:reportId/:reportInstanceId',
+    //     element: <ParametersSetsInCache />,
+    // },
     {
         path: '/settings/*',
         element: <Settings/>,

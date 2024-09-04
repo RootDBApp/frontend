@@ -84,7 +84,7 @@ const GlobalDialog = () => {
                         setVisible(false);
                         navigate(redirectUrl, {replace: true})
                     }}
-                    header={`${authState.user.organization_user?.organization.name} | ${dialogTitle}`}
+                    header={dialogTitle}
                     draggable={false}
                     visible
                     maximized={maximized}

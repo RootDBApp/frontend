@@ -79,8 +79,6 @@ const PublicReportRunReport: React.FC<{
                         reportParameterFormOverlayRef?.current?.hide();
                     }}
                     securityHash={securityHash}
-                    reportId={reportId}
-                    reportInstanceId={instanceId}
                     reportIsEmbedded
                     webSocketPublicUserId={webSocketPublicUserId}
                 />
