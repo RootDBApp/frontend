@@ -61,7 +61,6 @@ const AssetForm: React.FC<{
     const [displayError, setDisplayError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
 
-
     const resetStates = (): void => {
 
         setDisplayError(false);
@@ -185,7 +184,11 @@ const AssetForm: React.FC<{
                 resourceId: asset.id,
                 callbackSuccess: (response: TAsset) => {
 
-                    response.asset_source = EAssetSource.STRING;
+                    if (response.storage_type === EAssetStorageType.DATABASE) {
+
+                        response.asset_source = EAssetSource.STRING;
+                    }
+
                     setCompleteAsset(response);
                 },
                 callbackError: (error: TAPIResponse) => {
@@ -214,20 +217,11 @@ const AssetForm: React.FC<{
                             id: !isNewAsset ? Yup.number().required() : Yup.number().nullable(),
                             name: Yup.string().required().min(1),
                             storage_type: Yup.string().required().min(1),
-                            // data_type: Yup.string().required().when('storage_type', {
-                            //     is: (value: string) => {
-                            //         return value === EAssetStorageType.DATABASE
-                            //     },
-                            //     then: () => Yup.string().required().min(1),
-                            //     otherwise: () => Yup.string().nullable(),
-                            // }),
-                            data_content: Yup.string().required().when('asset_source', {
-                                is: (value: string) => {
-                                    return value === EAssetSource.STRING
-                                },
+                            data_content: Yup.string().when(['storage_type', 'asset_source'], {
+                                is: (storage_type: EAssetStorageType, asset_source: EAssetSource) => storage_type === EAssetStorageType.DATABASE && asset_source === EAssetSource.STRING,
                                 then: () => Yup.string().required().min(1),
-                                otherwise: () => Yup.string().nullable(),
-                            }),
+                                otherwise: () => Yup.string(),
+                            })
                         })}
                         onSubmit={values => handleOnUpdate(values)}
                         initialValues={{
@@ -349,7 +343,7 @@ const AssetForm: React.FC<{
                                         <div className="field col-12 md:col-12">
                                             <Message text={`${t('report:asset.current_asset_file')} ${completeAsset.pathname}`} className="col-6 p-2"/>
                                             <Button label={t('common:download')} icon="pi pi-file" className="ml-2">
-                                                <a target="_blank" href="https://www.duckduckgo.com" />
+                                                <a target="_blank" href="https://www.duckduckgo.com"/>
                                             </Button>
                                         </div>
                                     }
