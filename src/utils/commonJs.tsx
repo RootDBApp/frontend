@@ -27,7 +27,6 @@ import { reportDevBarEvent }                          from "./events";
 import { EReportDevBarMessageType }                   from "../types/application-event/EReportDevBarMessageType";
 import { apiSendRequest }                             from "../services/api";
 import { EAPIEndPoint }                               from "../types/EAPIEndPoint";
-import TAsset                                         from "../types/TAsset";
 
 export const getDocumentStyle = (): CSSStyleDeclaration => {
 

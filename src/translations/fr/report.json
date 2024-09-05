@@ -40,8 +40,10 @@
     "this_report_does_not_provide_any_parameter" : "Ce rapport ne dispose pas de paramètre.",
     "view" : "Vue",
     "asset" : {
+        "asset_filter_by_storage": "Filtrer par type de stockage",
         "asset_source" : "Source de l'élément",
         "asset_uploaded" : "Fichier téléversé.",
+        "choose_storage": "Choisissez un type de stockage",
         "create_to_upload" : "Créer cet élément pour pouvoir téléverser le contenu.",
         "current_asset_file" : "Fichier associé à cet élement :",
         "name" : "Nom de l'élément",

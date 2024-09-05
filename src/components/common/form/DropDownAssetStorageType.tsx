@@ -19,36 +19,59 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Dropdown, DropdownProps } from "primereact/dropdown";
-import * as React                  from "react";
-import { useTranslation }          from "react-i18next";
+import { Dropdown, DropdownProps }       from "primereact/dropdown";
+import { MultiSelect, MultiSelectProps } from "primereact/multiselect";
+import * as React                        from "react";
+import { useTranslation }                from "react-i18next";
 
 import { EAssetStorageType } from "../../../types/EAssetStorageType";
 
 const DropDownAssetStorageType: React.FC<{
     id: string
-    isInvalid: boolean
-} & DropdownProps> = ({id, isInvalid, ...props}): React.ReactElement => {
+    isInvalid: boolean,
+    fullWidth?: boolean,
+    multiSelect?: boolean
+} & DropdownProps> = ({
+                          id,
+                          isInvalid,
+                          fullWidth = true,
+                          multiSelect = false, ...props
+                      }): React.ReactElement => {
 
     const {t} = useTranslation(['report']);
 
     const storage_types = [
         {name: 'Filesystem', code: EAssetStorageType.FILESYSTEM},
         {name: 'Database', code: EAssetStorageType.DATABASE},
-        // {name: 'Online', code: EAssetStorageType.ONLINE},
     ];
 
     return (
-        <Dropdown
-            {...props}
-            name={id}
-            optionLabel="name"
-            optionValue="code"
-            options={storage_types}
-            placeholder={t('report:form.choose_chart_model').toString()}
-            className={`flex ${isInvalid ? 'p-invalid w-full' : 'w-full'}`}
-        />
+        <>
+            {multiSelect ? (
+                <MultiSelect
+                    {...props as MultiSelectProps}
+                    name={id}
+                    optionLabel="name"
+                    optionValue="code"
+                    options={storage_types}
+                    placeholder={t('report:asset.choose_storage').toString()}
+                    filter
+                    className={`${fullWidth ? 'w-full' : ''} ${isInvalid ? 'p-invalid' : ''}`}
+                    virtualScrollerOptions={{itemSize: 36}}
+                />
+            ) : (
+                <Dropdown
+                    {...props}
+                    name={id}
+                    optionLabel="name"
+                    optionValue="code"
+                    options={storage_types}
+                    placeholder={t('report:asset.choose_storage').toString()}
+                    className={`flex ${isInvalid ? 'p-invalid w-full' : 'w-full'}`}
+                />
+            )
+            }
+        </>
     )
-};
-
+}
 export default DropDownAssetStorageType;
