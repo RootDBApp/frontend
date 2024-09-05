@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Formik }                             from "formik";
+import { Formik, FormikProps }                from "formik";
 import { Button }                             from "primereact/button";
 import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
 import { InputText }                          from "primereact/inputtext";
@@ -54,7 +54,6 @@ const AssetForm: React.FC<{
     const {t} = useTranslation(['common', 'report']);
 
     const [completeAsset, setCompleteAsset] = React.useState<TAsset | undefined>();
-
     const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonDelete, setSubmitButtonDelete] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
@@ -131,7 +130,9 @@ const AssetForm: React.FC<{
         });
     };
 
-    const uploadHandler = async (event: FileUploadHandlerEvent) => {
+    const uploadHandler = async (event: FileUploadHandlerEvent, formikProps: FormikProps<TAsset>) => {
+
+        resetStates();
 
         document.dispatchEvent(
             notificationEvent({
@@ -151,9 +152,34 @@ const AssetForm: React.FC<{
             extraUrlPath: 'upload',
             files: event.files,
             resourceId: asset.id,
-            callbackSuccess: (asset: TAsset) => {
+            callbackSuccess: (response_asset: TAsset) => {
 
-                setCompleteAsset(asset);
+                if(response_asset.storage_type === EAssetStorageType.DATABASE) {
+
+                    setCompleteAsset(response_asset);
+                    formikProps.handleChange({
+                        target: {
+                            value: 'string',
+                            name: 'asset_source'
+                        }
+                    });
+
+                    formikProps.handleChange({
+                        target: {
+                            value: response_asset.data_content,
+                            name: 'data_content'
+                        }
+                    });
+                } else {
+
+                    formikProps.handleChange({
+                        target: {
+                            value: response_asset.pathname,
+                            name: 'pathname'
+                        }
+                    });
+                }
+
                 document.dispatchEvent(
                     notificationEvent({
                         message: t('report:asset.asset_uploaded').toString(),
@@ -173,15 +199,17 @@ const AssetForm: React.FC<{
         });
     };
 
-    const downloaddHandler = (asset: TAsset) => {
+    const downloaddHandler = (response_asset: TAsset) => {
+
+        resetStates();
 
         apiSendRequest({
             method: 'GET',
             endPoint: EAPIEndPoint.ASSET,
             extraUrlPath: 'download',
-            resourceId: asset.id,
+            resourceId: response_asset.id,
             downloadFile: true,
-            downloadFileName: asset.pathname.replace('assets/', ''),
+            downloadFileName: response_asset.pathname.replace('assets/', ''),
             callbackSuccess: () => {
             },
             callbackError: (error: TAPIResponse) => {
@@ -201,14 +229,17 @@ const AssetForm: React.FC<{
                 method: 'GET',
                 endPoint: EAPIEndPoint.ASSET,
                 resourceId: asset.id,
-                callbackSuccess: (response: TAsset) => {
+                callbackSuccess: (response_asset: TAsset) => {
 
-                    if (response.storage_type === EAssetStorageType.DATABASE) {
+                    if (response_asset.storage_type === EAssetStorageType.DATABASE && response_asset.data_content !== null) {
 
-                        response.asset_source = EAssetSource.STRING;
+                        response_asset.asset_source = EAssetSource.STRING;
+                    } else {
+
+                        response_asset.asset_source = EAssetSource.FILE;
                     }
 
-                    setCompleteAsset(response);
+                    setCompleteAsset(response_asset);
                 },
                 callbackError: (error: TAPIResponse) => {
                     setDisplayError(true);
@@ -239,7 +270,7 @@ const AssetForm: React.FC<{
                             data_content: Yup.string().when(['storage_type', 'asset_source'], {
                                 is: (storage_type: EAssetStorageType, asset_source: EAssetSource) => storage_type === EAssetStorageType.DATABASE && asset_source === EAssetSource.STRING,
                                 then: () => Yup.string().required().min(1),
-                                otherwise: () => Yup.string(),
+                                otherwise: () => Yup.string().nullable(),
                             })
                         })}
                         onSubmit={values => handleOnUpdate(values)}
@@ -337,7 +368,6 @@ const AssetForm: React.FC<{
                                         </div>
                                     }
 
-
                                     {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id > 0) &&
                                         <div className="field col-12 md:col-3">
                                             <label htmlFor={'asset_file_' + completeAsset.id}>
@@ -350,7 +380,9 @@ const AssetForm: React.FC<{
                                                     accept="text/*"
                                                     maxFileSize={1000000}
                                                     customUpload
-                                                    uploadHandler={uploadHandler}
+                                                    uploadHandler={(event: FileUploadHandlerEvent) => {
+                                                        uploadHandler(event, formik);
+                                                    }}
                                                 />
 
                                             </div>

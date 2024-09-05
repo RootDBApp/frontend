@@ -175,9 +175,10 @@ export const getJSON = async (resourceId: number): Promise<JSON> => {
             method: 'GET',
             endPoint: EAPIEndPoint.ASSET,
             resourceId: resourceId,
-            callbackSuccess: (asset: TAsset) => {
+            extraUrlPath: 'get-json',
+            callbackSuccess: (json: string) => {
 
-                resolve(JSON.parse(asset.data_content))
+                resolve(JSON.parse(json))
             }
         });
     });
