@@ -173,6 +173,25 @@ const AssetForm: React.FC<{
         });
     };
 
+    const downloaddHandler = (asset: TAsset) => {
+
+        apiSendRequest({
+            method: 'GET',
+            endPoint: EAPIEndPoint.ASSET,
+            extraUrlPath: 'download',
+            resourceId: asset.id,
+            downloadFile: true,
+            downloadFileName: asset.pathname.replace('assets/', ''),
+            callbackSuccess: () => {
+            },
+            callbackError: (error: TAPIResponse) => {
+                setDisplayError(true);
+                setErrorMessage(error.message);
+            }
+        });
+    };
+
+
     // Get all asset content.
     React.useEffect(() => {
 
@@ -310,7 +329,6 @@ const AssetForm: React.FC<{
                                                         });
                                                     }}
                                                     resize="vertical"
-                                                    // height="160px"
                                                     displayButtons={false}
                                                     isInvalid={!!formik.errors.data_content}
                                                     enableAutoComplete={false}
@@ -342,9 +360,14 @@ const AssetForm: React.FC<{
                                     {(asset.id > 0 && completeAsset.pathname != null) &&
                                         <div className="field col-12 md:col-12">
                                             <Message text={`${t('report:asset.current_asset_file')} ${completeAsset.pathname}`} className="col-6 p-2"/>
-                                            <Button label={t('common:download')} icon="pi pi-file" className="ml-2">
-                                                <a target="_blank" href="https://www.duckduckgo.com"/>
-                                            </Button>
+                                            <Button
+                                                label={t('common:download')}
+                                                icon="pi pi-file"
+                                                className="ml-2"
+                                                onClick={() => {
+                                                    downloaddHandler(completeAsset)
+                                                }}
+                                            />
                                         </div>
                                     }
 

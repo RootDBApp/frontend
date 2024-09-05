@@ -334,14 +334,41 @@ export function apiSendRequest(
             }
 
             case 'GET': {
-                apiClient.get(axiosRequest.endPoint + urlPath + urlParameters)
-                    .then((response: AxiosResponse) => {
 
-                        handleResponse(axiosRequest, response);
-                    }).catch((error: any) => {
 
-                    console.warn(error);
-                });
+                if (axiosRequest.downloadFile === true && axiosRequest.downloadFileName) {
+
+                    apiClient.get(axiosRequest.endPoint + urlPath + urlParameters,
+                        {responseType: 'blob'})
+                        .then((response: AxiosResponse) => {
+
+                            const href = URL.createObjectURL(response.data);
+                            const link = document.createElement('a');
+                            link.href = href;
+                            // @ts-ignore - axiosRequest.downloadFileName checked above
+                            link.setAttribute('download', axiosRequest.downloadFileName);
+                            document.body.appendChild(link);
+                            link.click();
+
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(href);
+
+                        }).catch((error: any) => {
+
+                        console.warn(error);
+                    });
+                } else {
+
+                    apiClient.get(axiosRequest.endPoint + urlPath + urlParameters)
+                        .then((response: AxiosResponse) => {
+
+                            handleResponse(axiosRequest, response);
+                        }).catch((error: any) => {
+
+                        console.warn(error);
+                    });
+                }
+
                 break;
             }
 
