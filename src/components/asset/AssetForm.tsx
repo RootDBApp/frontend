@@ -378,7 +378,7 @@ const AssetForm: React.FC<{
                                                     mode="basic"
                                                     name="asset_file[]"
                                                     accept="text/*"
-                                                    maxFileSize={1000000}
+                                                    maxFileSize={100000000}
                                                     customUpload
                                                     uploadHandler={(event: FileUploadHandlerEvent) => {
                                                         uploadHandler(event, formik);

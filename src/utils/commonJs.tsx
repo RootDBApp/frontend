@@ -176,8 +176,23 @@ export const getJSON = async (resourceId: number): Promise<JSON> => {
             resourceId: resourceId,
             extraUrlPath: 'get-json',
             callbackSuccess: (json: string) => {
-
                 resolve(JSON.parse(json))
+            }
+        });
+    });
+}
+
+export const getCSV= async (resourceId: number): Promise<string> => {
+
+    return new Promise<string>((resolve, reject) => {
+
+        apiSendRequest({
+            method: 'GET',
+            endPoint: EAPIEndPoint.ASSET,
+            resourceId: resourceId,
+            extraUrlPath: 'get-csv',
+            callbackSuccess: (csv: string) => {
+                resolve(JSON.parse(csv))
             }
         });
     });
