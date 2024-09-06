@@ -31,7 +31,6 @@ import ReportParameters     from "../ReportParameters";
 import CenteredLoading      from "../../common/loading/CenteredLoading";
 import { useMobileLayout }  from "../../../utils/windowResize";
 import TReportParameterSets from "../../../types/TReportParameterSets";
-import { useParams }        from "react-router-dom";
 
 
 const ParametersSetsInCache: React.FC<{
@@ -47,8 +46,6 @@ const ParametersSetsInCache: React.FC<{
           securityHash,
           webSocketPublicUserId,
       }): React.ReactElement => {
-
-    const {reportId, reportInstanceId} = useParams();
 
     const [allCacheJobParametersSets, setAllCacheJobParametersSets] = React.useState<Array<TReportParameterSets>>([]);
     const [allUserJobParametersSets, setAllUserJobParametersSets] = React.useState<Array<TReportParameterSets>>([]);
@@ -126,7 +123,7 @@ const ParametersSetsInCache: React.FC<{
                                                 reportParametersOverride={reportParameterSets.report_parameters}
                                                 report={report}
                                                 onSubmit={onSubmit}
-                                                reportIsEmbedded
+                                                reportIsEmbedded={reportIsEmbedded}
                                                 securityHash={securityHash}
                                                 webSocketPublicUserId={webSocketPublicUserId}
                                             />

@@ -24,8 +24,8 @@ import { Dialog }                 from "primereact/dialog";
 import { InputSwitch }            from "primereact/inputswitch";
 import { OverlayPanel }           from "primereact/overlaypanel";
 import * as React                 from "react";
-import { useTranslation }         from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation }                      from "react-i18next";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import TReport                                      from "../../types/TReport";
 import { TNameValue }                               from "../../types/TNameValue";
@@ -64,7 +64,13 @@ const ReportParameters: React.FC<{
 
     const {t} = useTranslation(['common', 'report']);
     const navigate = useNavigate();
-    const {reportId, reportInstanceId} = useParams();
+    const location = useLocation();
+    const {reportId, reportInstanceId: pathnameInstanceId} = useParams();
+    const search = new URLSearchParams(location.search);
+    const queryStringInstanceId = search.get('instanceId');
+
+    const reportInstanceId = pathnameInstanceId || queryStringInstanceId;
+
 
     const reportState = useReportStateFromReportIdAndInstanceId(Number(reportId), Number(reportInstanceId));
 
@@ -265,33 +271,33 @@ const ReportParameters: React.FC<{
                 setReportParameters(reportParametersOverride);
                 setIsReportParametersLoading(false);
             } else {
-                // When we are in the reports listing.
-                if (report) {
-
-                    apiSendRequest({
-                        method: 'GET',
-                        endPoint: EAPIEndPoint.REPORT_PARAMETER,
-                        urlParameters: [
-                            {key: 'report-id', value: report.id},
-                            {key: 'parameter-values', value: 1}
-                        ],
-                        callbackSuccess: (reportParameters: Array<TReportParameter>) => {
-
-                            setReportParameters(reportParameters);
-                            setIsReportParametersLoading(false);
-                        }
-                    });
-
-                    // If we have parameters here, it's because we loaded a report. (so we have all data we need)...
-                    // ... and parameters should already be available in a form of an Array<TFormValue> from ReportState.
-                } else if (reportState.report?.parameters) {
+                // When we are in the reports listing or in an embedded report
+                 if (reportState.report?.parameters) {
 
                     // setReportParameters(
                     //     reportState?.report?.parameters.filter((parameter: TReportParameter) => !(reportIsEmbedded && !parameter.available_public_access))
                     // );
                     setReportParameters(reportState?.report?.parameters);
                     setIsReportParametersLoading(false);
-                }
+                } else if (report) {
+
+                     apiSendRequest({
+                         method: 'GET',
+                         endPoint: EAPIEndPoint.REPORT_PARAMETER,
+                         urlParameters: [
+                             {key: 'report-id', value: report.id},
+                             {key: 'parameter-values', value: 1}
+                         ],
+                         callbackSuccess: (reportParameters: Array<TReportParameter>) => {
+
+                             setReportParameters(reportParameters);
+                             setIsReportParametersLoading(false);
+                         }
+                     });
+
+                     // If we have parameters here, it's because we loaded a report. (so we have all data we need)...
+                     // ... and parameters should already be available in a form of an Array<TFormValue> from ReportState.
+                 }
             }
         },
 
@@ -312,8 +318,12 @@ const ReportParameters: React.FC<{
             reportId = report.id
         }
 
+        console.debug(' reportState.instance', reportState.instance);
+        console.debug('securityHash', securityHash);
+        console.debug('webSocketPublicUserId', webSocketPublicUserId);
+
         // Public report.
-        if (reportState.instance && securityHash && webSocketPublicUserId) {
+        if (securityHash && webSocketPublicUserId) {
 
             apiSendRequest({
                 method: 'POST',
@@ -373,7 +383,7 @@ const ReportParameters: React.FC<{
                                 onSubmit();
                             }
                         }}
-                        reportIsEmbedded={true}
+                        reportIsEmbedded={!!reportIsEmbedded}
                         securityHash={securityHash}
                         webSocketPublicUserId={webSocketPublicUserId}
                     />

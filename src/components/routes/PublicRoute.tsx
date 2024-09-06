@@ -19,45 +19,50 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React      from 'react';
-import { useLocation } from "react-router-dom";
+import * as React                   from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
 
 import PublicReport                                                      from "../report/PublicReport";
 import { extractReportInstanceIdFromReportUniqId, generateReportUniqId } from "../../utils/tools";
+import CenteredLoading                                                   from "../common/loading/CenteredLoading";
 
 export default function PublicRoute(): React.ReactElement {
 
-    let location = useLocation();
+    const location = useLocation();
+    const navigate = useNavigate();
     const [reportId, setReportId] = React.useState<number>(0);
     const [securityHash, setSecurityHash] = React.useState<string>('');
-
-    const locationMatches = React.useMemo(() => {
-
-        return new RegExp('report/([0-9]{1,10})').exec(location.pathname);
-    }, [location.pathname]);
-
-    const locationSearch = React.useMemo(() => {
-
-        return new URLSearchParams(location.search);
-    }, [location.search]);
+    const [instanceId, setInstanceId] = React.useState<number>();
 
     React.useEffect(() => {
-
+        let reportId;
+        const locationMatches = new RegExp('report/([0-9]{1,10})').exec(location.pathname);
+        const locationSearch = new URLSearchParams(location.search);
         if (locationMatches) {
+            reportId = Number(locationMatches[1]);
+            setReportId(reportId);
 
-            setReportId(Number(locationMatches[1]));
+            if (locationSearch) {
+
+                setSecurityHash(String(locationSearch.get('sh')));
+
+                const urlInstanceId = Number(locationSearch.get('instanceId'));
+                if (urlInstanceId) {
+                    setInstanceId(urlInstanceId);
+                } else {
+                    navigate(`${location.pathname}?${locationSearch}&instanceId=${extractReportInstanceIdFromReportUniqId(generateReportUniqId(reportId))}`);
+                }
+            }
         }
+    }, [location, navigate]);
 
-        if (locationSearch) {
-
-            setSecurityHash(String(locationSearch.get('sh')));
-        }
-
-    }, [setReportId, setSecurityHash, locationSearch, locationMatches]);
+    if (!reportId || !instanceId) {
+        return <CenteredLoading />
+    }
 
     return <PublicReport
         reportId={reportId}
-        instanceId={extractReportInstanceIdFromReportUniqId(generateReportUniqId(reportId))}
+        instanceId={instanceId}
         securityHash={securityHash}
     />
 }
