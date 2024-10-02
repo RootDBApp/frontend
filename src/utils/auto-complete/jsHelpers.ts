@@ -38,6 +38,20 @@ export const jsHelpers: Array<TAceCompletion> = [
     },
     {
         name: 'jsHelper',
+        value: 'rdb.getCSV();',
+        score: 100,
+        caption: '',
+        meta: '(assetId: number): Promise<string>.'
+    },
+    {
+        name: 'jsHelper',
+        value: 'rdb.getJSON();',
+        score: 100,
+        caption: '',
+        meta: '(assetId: number): Promise<JSON>.'
+    },
+    {
+        name: 'jsHelper',
         value: 'rdb.getReportPathWithParams();',
         score: 100,
         caption: '',

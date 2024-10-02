@@ -25,12 +25,12 @@ import * as React                  from "react";
 import { useTranslation }          from "react-i18next";
 
 import AssetForm                  from "./AssetForm";
-import DropdownParameterInputType from "../common/form/DropdownParameterInputType";
 import { EAssetStorageType }      from "../../types/EAssetStorageType";
 import { context as authContext } from "../../contexts/auth/store/context";
 import apiDataContext             from "../../contexts/api_data/store/context";
 import TAsset                     from "../../types/TAsset";
 import { EAssetSource }           from "../../types/EAssetSource";
+import DropDownAssetStorageType   from "../common/form/DropDownAssetStorageType";
 
 const AssetsList = (): React.ReactElement => {
 
@@ -40,18 +40,19 @@ const AssetsList = (): React.ReactElement => {
     const {state: {assets}} = React.useContext(apiDataContext);
 
     const [nameFilter, setNameFilter] = React.useState<string>('');
-    const [storageTypeFilter, setStorageTypeFilter] = React.useState<number[]>([]);
+    const [storageTypeFilter, setStorageTypeFilter] = React.useState<Array<EAssetStorageType>>([]);
 
     return (
         <>
             <div id="parameter-inputs-filters">
-                <DropdownParameterInputType
+                <DropDownAssetStorageType
                     id="parameter-inputs-filters-input-type-id"
-                    fullWidth={false}
-                    placeholder={t('settings:input_parameters.filter_by_parameter_input_type').toString()}
+                    placeholder={t('report:asset.asset_filter_by_storage').toString()}
                     value={storageTypeFilter}
-                    onChange={(e: { value: React.SetStateAction<number[]>; }) => setStorageTypeFilter(e.value)}
+                    onChange={(e: { value: React.SetStateAction<Array<EAssetStorageType>>; }) => setStorageTypeFilter(e.value)}
+                    isInvalid={false}
                     multiSelect
+                    fullWidth={false}
                 />
                 <div className="p-input-icon-left" id="name-filter">
                     <i className="pi pi-search"/>
@@ -67,24 +68,34 @@ const AssetsList = (): React.ReactElement => {
                 <Accordion
                     style={{width: '100%'}}
                     activeIndex={0}>
-                    {assets.map(
-                        (asset: TAsset) => (
-                            <AccordionTab key={asset.id}
-                                          tabIndex={asset.id}
-                                          header={`#${asset.id} - ${asset.name}`}>
-                                <AssetForm asset={asset}/>
-                            </AccordionTab>
-                        )
-                    )}
+                    {assets
+                        .filter((asset: TAsset) => (
+                            (storageTypeFilter.length === 0 || storageTypeFilter.includes(asset.storage_type))
+                            && (!nameFilter || asset.name.toLowerCase().includes(nameFilter.toLowerCase()))
+                        ))
+                        .map(
+                            (asset: TAsset) => (
+                                <AccordionTab key={asset.id}
+                                              tabIndex={asset.id}
+                                              header={
+                                                  <span>
+                                                    <i className={`pi pi-${asset.storage_type === EAssetStorageType.DATABASE ? 'database' : 'file'} mr-3`}/>
+                                                      {`#${asset.id} - ${asset.name}`}
+                                                  </span>
+                                              }>
+                                    <AssetForm asset={asset}/>
+                                </AccordionTab>
+                            )
+                        )}
 
                     {/*I doubt someone will create one day 9999 assets.*/}
                     <AccordionTab key={9999}
                                   tabIndex={9999}
                                   header={
                                       <span>
-                                   <i className="pi pi-plus mr-3"/>
+                                        <i className="pi pi-plus mr-3"/>
                                           {t('report:asset.new_asset').toString()}
-                               </span>
+                                      </span>
                                   }
                                   headerClassName="accordion-new-param"
                                   contentClassName="accordion-new-param-content"

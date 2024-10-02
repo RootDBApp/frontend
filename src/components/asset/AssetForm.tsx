@@ -19,7 +19,7 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { Formik }                             from "formik";
+import { Formik, FormikProps }                from "formik";
 import { Button }                             from "primereact/button";
 import { FileUpload, FileUploadHandlerEvent } from "primereact/fileupload";
 import { InputText }                          from "primereact/inputtext";
@@ -54,13 +54,11 @@ const AssetForm: React.FC<{
     const {t} = useTranslation(['common', 'report']);
 
     const [completeAsset, setCompleteAsset] = React.useState<TAsset | undefined>();
-
     const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonDelete, setSubmitButtonDelete] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [displayError, setDisplayError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
-
 
     const resetStates = (): void => {
 
@@ -132,7 +130,9 @@ const AssetForm: React.FC<{
         });
     };
 
-    const uploadHandler = async (event: FileUploadHandlerEvent) => {
+    const uploadHandler = async (event: FileUploadHandlerEvent, formikProps: FormikProps<TAsset>) => {
+
+        resetStates();
 
         document.dispatchEvent(
             notificationEvent({
@@ -152,9 +152,34 @@ const AssetForm: React.FC<{
             extraUrlPath: 'upload',
             files: event.files,
             resourceId: asset.id,
-            callbackSuccess: (asset: TAsset) => {
+            callbackSuccess: (response_asset: TAsset) => {
 
-                setCompleteAsset(asset);
+                if(response_asset.storage_type === EAssetStorageType.DATABASE) {
+
+                    setCompleteAsset(response_asset);
+                    formikProps.handleChange({
+                        target: {
+                            value: 'string',
+                            name: 'asset_source'
+                        }
+                    });
+
+                    formikProps.handleChange({
+                        target: {
+                            value: response_asset.data_content,
+                            name: 'data_content'
+                        }
+                    });
+                } else {
+
+                    formikProps.handleChange({
+                        target: {
+                            value: response_asset.pathname,
+                            name: 'pathname'
+                        }
+                    });
+                }
+
                 document.dispatchEvent(
                     notificationEvent({
                         message: t('report:asset.asset_uploaded').toString(),
@@ -174,6 +199,27 @@ const AssetForm: React.FC<{
         });
     };
 
+    const downloaddHandler = (response_asset: TAsset) => {
+
+        resetStates();
+
+        apiSendRequest({
+            method: 'GET',
+            endPoint: EAPIEndPoint.ASSET,
+            extraUrlPath: 'download',
+            resourceId: response_asset.id,
+            downloadFile: true,
+            downloadFileName: response_asset.pathname.replace('assets/', ''),
+            callbackSuccess: () => {
+            },
+            callbackError: (error: TAPIResponse) => {
+                setDisplayError(true);
+                setErrorMessage(error.message);
+            }
+        });
+    };
+
+
     // Get all asset content.
     React.useEffect(() => {
 
@@ -183,10 +229,17 @@ const AssetForm: React.FC<{
                 method: 'GET',
                 endPoint: EAPIEndPoint.ASSET,
                 resourceId: asset.id,
-                callbackSuccess: (response: TAsset) => {
+                callbackSuccess: (response_asset: TAsset) => {
 
-                    response.asset_source = EAssetSource.STRING;
-                    setCompleteAsset(response);
+                    if (response_asset.storage_type === EAssetStorageType.DATABASE && response_asset.data_content !== null) {
+
+                        response_asset.asset_source = EAssetSource.STRING;
+                    } else {
+
+                        response_asset.asset_source = EAssetSource.FILE;
+                    }
+
+                    setCompleteAsset(response_asset);
                 },
                 callbackError: (error: TAPIResponse) => {
                     setDisplayError(true);
@@ -214,20 +267,11 @@ const AssetForm: React.FC<{
                             id: !isNewAsset ? Yup.number().required() : Yup.number().nullable(),
                             name: Yup.string().required().min(1),
                             storage_type: Yup.string().required().min(1),
-                            // data_type: Yup.string().required().when('storage_type', {
-                            //     is: (value: string) => {
-                            //         return value === EAssetStorageType.DATABASE
-                            //     },
-                            //     then: () => Yup.string().required().min(1),
-                            //     otherwise: () => Yup.string().nullable(),
-                            // }),
-                            data_content: Yup.string().required().when('asset_source', {
-                                is: (value: string) => {
-                                    return value === EAssetSource.STRING
-                                },
+                            data_content: Yup.string().when(['storage_type', 'asset_source'], {
+                                is: (storage_type: EAssetStorageType, asset_source: EAssetSource) => storage_type === EAssetStorageType.DATABASE && asset_source === EAssetSource.STRING,
                                 then: () => Yup.string().required().min(1),
                                 otherwise: () => Yup.string().nullable(),
-                            }),
+                            })
                         })}
                         onSubmit={values => handleOnUpdate(values)}
                         initialValues={{
@@ -316,7 +360,6 @@ const AssetForm: React.FC<{
                                                         });
                                                     }}
                                                     resize="vertical"
-                                                    // height="160px"
                                                     displayButtons={false}
                                                     isInvalid={!!formik.errors.data_content}
                                                     enableAutoComplete={false}
@@ -324,7 +367,6 @@ const AssetForm: React.FC<{
                                             </div>
                                         </div>
                                     }
-
 
                                     {((formik.values.asset_source === EAssetSource.FILE || formik.values.storage_type === EAssetStorageType.FILESYSTEM) && asset.id > 0) &&
                                         <div className="field col-12 md:col-3">
@@ -336,9 +378,11 @@ const AssetForm: React.FC<{
                                                     mode="basic"
                                                     name="asset_file[]"
                                                     accept="text/*"
-                                                    maxFileSize={1000000}
+                                                    maxFileSize={100000000}
                                                     customUpload
-                                                    uploadHandler={uploadHandler}
+                                                    uploadHandler={(event: FileUploadHandlerEvent) => {
+                                                        uploadHandler(event, formik);
+                                                    }}
                                                 />
 
                                             </div>
@@ -348,9 +392,14 @@ const AssetForm: React.FC<{
                                     {(asset.id > 0 && completeAsset.pathname != null) &&
                                         <div className="field col-12 md:col-12">
                                             <Message text={`${t('report:asset.current_asset_file')} ${completeAsset.pathname}`} className="col-6 p-2"/>
-                                            <Button label={t('common:download')} icon="pi pi-file" className="ml-2">
-                                                <a target="_blank" href="https://www.duckduckgo.com" />
-                                            </Button>
+                                            <Button
+                                                label={t('common:download')}
+                                                icon="pi pi-file"
+                                                className="ml-2"
+                                                onClick={() => {
+                                                    downloaddHandler(completeAsset)
+                                                }}
+                                            />
                                         </div>
                                     }
 

@@ -70,7 +70,6 @@ const DropdownParameterInputType: React.FC<{
                     options={apiDataState.parameterInputTypes.filter((parameterInput: TParameterInputType) => parameterInput.name !== 'auto-complete')}
                     placeholder={placeholder || t('report:form.choose_parameter_input_type').toString()}
                     filter
-                    // isLoading={apiDataState.formParameterInputTypesLoading}
                     className={`${fullWidth ? 'w-full' : ''} ${isInvalid ? 'p-invalid' : ''}`}
                     virtualScrollerOptions={{ itemSize: 36 }}
                 />
@@ -83,7 +82,6 @@ const DropdownParameterInputType: React.FC<{
                     options={apiDataState.parameterInputTypes.filter((parameterInput: TParameterInputType) => parameterInput.name !== 'auto-complete')}
                     placeholder={placeholder || t('report:form.choose_parameter_input_type').toString()}
                     filter
-                    // isLoading={apiDataState.formParameterInputTypesLoading}
                     className={`${fullWidth ? 'w-full' : ''} ${isInvalid ? 'p-invalid' : ''}`}
                     virtualScrollerOptions={{ itemSize: 35.2 }}
                 />

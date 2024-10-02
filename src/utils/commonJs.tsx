@@ -27,7 +27,6 @@ import { reportDevBarEvent }                          from "./events";
 import { EReportDevBarMessageType }                   from "../types/application-event/EReportDevBarMessageType";
 import { apiSendRequest }                             from "../services/api";
 import { EAPIEndPoint }                               from "../types/EAPIEndPoint";
-import TAsset                                         from "../types/TAsset";
 
 export const getDocumentStyle = (): CSSStyleDeclaration => {
 
@@ -175,9 +174,25 @@ export const getJSON = async (resourceId: number): Promise<JSON> => {
             method: 'GET',
             endPoint: EAPIEndPoint.ASSET,
             resourceId: resourceId,
-            callbackSuccess: (asset: TAsset) => {
+            extraUrlPath: 'get-json',
+            callbackSuccess: (json: string) => {
+                resolve(JSON.parse(json))
+            }
+        });
+    });
+}
 
-                resolve(JSON.parse(asset.data_content))
+export const getCSV= async (resourceId: number): Promise<string> => {
+
+    return new Promise<string>((resolve, reject) => {
+
+        apiSendRequest({
+            method: 'GET',
+            endPoint: EAPIEndPoint.ASSET,
+            resourceId: resourceId,
+            extraUrlPath: 'get-csv',
+            callbackSuccess: (csv: string) => {
+                resolve(JSON.parse(csv))
             }
         });
     });

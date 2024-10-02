@@ -40,8 +40,10 @@
     "this_report_does_not_provide_any_parameter" : "This report does not provide any parameter.",
     "view" : "View",
     "asset" : {
+        "asset_filter_by_storage" : "Filter by storage type",
         "asset_source" : "Asset source",
         "asset_uploaded" : "Asset uploaded.",
+        "choose_storage" : "Choose a storage type",
         "create_to_upload" : "Create the asset in order to upload asset content.",
         "current_asset_file" : "Current asset file :",
         "name" : "Asset name",
@@ -49,7 +51,7 @@
         "storage_location" : "Storage location",
         "storage_type" : "Storage type",
         "upload_asset" : "Upload asset",
-        "upload_in_progress": "Upload in progress..."
+        "upload_in_progress" : "Upload in progress..."
     },
     "cache" : {
         "ttl_15_m" : "for 15 minutes",

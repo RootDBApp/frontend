@@ -108,7 +108,7 @@ const DataViewGraphView: React.FC<{
                     refDiv.current
                 )) {
             }
-                const containerElement = document.getElementById(parentElementId)?.closest('.data-view-card');
+            const containerElement = document.getElementById(parentElementId)?.closest('.data-view-card');
             // const containerSize = getElementContentSize((refCanvas.current || refDiv.current)?.closest('.data-view-card'));
             const headerSize = getElementContentSize(containerElement?.querySelector('.p-card-header'));
             const bodySize = getElementContentSize(containerElement?.querySelector('.p-card-body'));
@@ -151,23 +151,97 @@ const DataViewGraphView: React.FC<{
             }
         }
 
+        const modulesToImport: Array<{ url: string, as: string }> = [
+            // {url: "https://cdn.skypack.dev/topojson@3.0.2", as: "topojson"},
+        ];
+
+        const load = async () => {
+
+            let modules = {};
+
+            if(modulesToImport.length === 0) {
+                return modules;
+            }
+
+
+            for (let i = 0; i < modulesToImport.length; i++) {
+
+                modules = {...modules, [modulesToImport[i].as]: await import(/* webpackIgnore: true */ modulesToImport[i].url)};
+            }
+
+            return modules
+        }
+
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {
-
-            // console.debug('======> [useEffect 1] dataViewJs', dataViewJs);
 
             try {
                 if ((refCanvas.current || refDiv.current) && jsonResults && jsonResults.length >= 1) {
 
-                    switch (dataViewJs.report_data_view_lib_version_id) {
+                    load().then((modules) => {
 
-                        case 3: { // ChartJS
+                            switch (dataViewJs.report_data_view_lib_version_id) {
 
-                            import('chart.js')
-                                .then((cjs) => {
+                                case 3: { // ChartJS
 
-                                    import('chart.js/helpers')
-                                        .then((cjsh) => {
+                                    import('chart.js')
+                                        .then((cjs) => {
+
+                                            import('chart.js/helpers')
+                                                .then((cjsh) => {
+
+                                                    import('../../../../utils/commonJs')
+                                                        .then((rdb) => {
+
+                                                            try {
+
+                                                                // eslint-disable-next-line no-eval
+                                                                eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
+                                                                    + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
+                                                                    + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
+                                                                );
+
+                                                            } catch (error: any) {
+
+                                                                handleError(error);
+                                                            }
+                                                        })
+                                                })
+                                        });
+                                    break;
+                                }
+                                case 4: { // D3.js
+
+                                    // @ts-ignore
+                                    import('d3')
+                                        .then((d3) => {
+
+                                            import('../../../../utils/commonJs')
+                                                .then((rdb) => {
+
+                                                    try {
+                                                        // eslint-disable-next-line no-eval
+                                                        eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
+                                                            + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
+                                                            + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
+                                                        );
+
+                                                        sleep(100).then(() => {
+                                                            updateCanvasContainer();
+                                                        });
+                                                    } catch (error: any) {
+
+                                                        handleError(error);
+                                                    }
+                                                })
+                                            // })
+                                        });
+                                    break;
+                                }
+                                case 9: { // Apache ECharts
+
+                                    import('echarts')
+                                        .then((ec) => {
 
                                             import('../../../../utils/commonJs')
                                                 .then((rdb) => {
@@ -185,62 +259,12 @@ const DataViewGraphView: React.FC<{
                                                         handleError(error);
                                                     }
                                                 })
-                                        })
-                                });
-                            break;
+                                        });
+                                    break;
+                                }
+                            }
                         }
-                        case 4: { // D3.js
-
-                            // @ts-ignore
-                            import('d3')
-                                .then((d3) => {
-
-                                    import('../../../../utils/commonJs')
-                                        .then((rdb) => {
-
-                                            try {
-                                                // eslint-disable-next-line no-eval
-                                                eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
-                                                    + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
-                                                    + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
-                                                );
-
-                                                sleep(100).then(() => {
-                                                    updateCanvasContainer();
-                                                });
-                                            } catch (error: any) {
-
-                                                handleError(error);
-                                            }
-                                        })
-                                });
-                            break;
-                        }
-                        case 9: { // Apache ECharts
-
-                            import('echarts')
-                                .then((ec) => {
-
-                                    import('../../../../utils/commonJs')
-                                        .then((rdb) => {
-
-                                            try {
-
-                                                // eslint-disable-next-line no-eval
-                                                eval((dataViewJs.js_register_minified ? uncompress(dataViewJs.js_register) : dataViewJs.js_register)
-                                                    + (dataViewJs.js_code_minified ? uncompress(dataViewJs.js_code) : dataViewJs.js_code)
-                                                    + (dataViewJs.js_init_minified ? uncompress(dataViewJs.js_init) : dataViewJs.js_init)
-                                                );
-
-                                            } catch (error: any) {
-
-                                                handleError(error);
-                                            }
-                                        })
-                                });
-                            break;
-                        }
-                    }
+                    );
                 }
 
             } catch (error: any) {
