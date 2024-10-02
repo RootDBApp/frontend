@@ -25,7 +25,6 @@ import * as React      from "react";
 
 import TDialogTitle       from "../types/TDialogTitle";
 import ReportCreateWizard from "../components/report/ReportCreateWizard";
-import ParametersSetsInCache from "../components/report/report-Parameters/ParametersSetsInCache";
 
 
 const ReportRouteForms = React.lazy(() => import('../components/report/ReportRouteForms'));

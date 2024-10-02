@@ -21,8 +21,7 @@
 
 import { t }                         from "i18next";
 import { confirmDialog }             from "primereact/confirmdialog";
-import { MenuItem, MenuItemOptions } from "primereact/menuitem";
-import { OverlayPanel }              from "primereact/overlaypanel";
+import { MenuItem } from "primereact/menuitem";
 import { Tooltip }                   from "primereact/tooltip";
 import * as React                    from "react";
 import { useTranslation }            from "react-i18next";
@@ -37,8 +36,6 @@ import { EReportViewMode }                                                      
 import { apiSendRequest }                                                                                                           from "../../services/api";
 import { EAPIEndPoint }                                                                                                             from "../../types/EAPIEndPoint";
 import { context as apiDataContext }                                                                                                from "../../contexts/api_data/store/context";
-import ReportParameters                                                                                                             from "../../components/report/ReportParameters";
-import OverlayButton                                                                                                                from "../../components/common/OverlayButton";
 import { context as authContext }                                                                                                   from "../../contexts/auth/store/context";
 import TReportDataView                                                                                                              from "../../types/TReportDataView";
 import { useMobileLayout }                                                                                                          from "../windowResize";
