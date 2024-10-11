@@ -19,30 +19,33 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { EDataViewType }         from "./EDataViewType";
-import TReportDataViewJs         from "./TReportDataViewJs";
-import TReportDataViewLibVersion from "./TReportDataViewLibVersion";
+import { EDataViewType }                   from "./EDataViewType";
+import TReportDataViewJs                   from "./TReportDataViewJs";
+import TReportDataViewLibVersion           from "./TReportDataViewLibVersion";
+import TReportDataViewRunTimeConfiguration from "./TReportDataViewRuntimeConfiguration";
 
 type TReportDataView = {
     id: number,
     by_chunk: boolean,
     chunk_size: number,
-    created_at?: Date,
-    description?: string,
     description_display_type?: number,
     is_visible: boolean,
+    json_runtime_configuration?: TReportDataViewRunTimeConfiguration,
+    json_runtime_configuration_minified?: boolean,
     on_queue: boolean,
     max_width: number | undefined,
     name: string,
     position: string,
     query: string,
-    report_data_view_lib_type_id?: number,
-    report_data_view_lib_version?: TReportDataViewLibVersion,
     report_data_view_lib_version_id: number,
     report_data_view_js: TReportDataViewJs,
     report_data_view_js_id: number,
-    title?: string,
     type: EDataViewType,
+    created_at?: Date,
+    description?: string,
+    report_data_view_lib_type_id?: number,
+    report_data_view_lib_version?: TReportDataViewLibVersion,
+    title?: string,
     updated_at?: Date | null,
 }
 

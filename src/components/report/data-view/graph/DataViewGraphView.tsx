@@ -152,7 +152,7 @@ const DataViewGraphView: React.FC<{
         }
 
         const modulesToImport: Array<{ url: string, as: string }> = [
-            // {url: "https://cdn.skypack.dev/topojson@3.0.2", as: "topojson"},
+            {url: "https://cdn.skypack.dev/topojson@3.0.2", as: "topojson"},
         ];
 
         const load = async () => {

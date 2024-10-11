@@ -51,8 +51,8 @@ const AssetsList = (): React.ReactElement => {
                     value={storageTypeFilter}
                     onChange={(e: { value: React.SetStateAction<Array<EAssetStorageType>>; }) => setStorageTypeFilter(e.value)}
                     isInvalid={false}
-                    multiSelect
                     fullWidth={false}
+                    multiSelect
                 />
                 <div className="p-input-icon-left" id="name-filter">
                     <i className="pi pi-search"/>

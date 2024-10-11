@@ -52,6 +52,7 @@ import { defaultDataView }                       from "../../../contexts/report/
 import env                                       from "../../../envVariables";
 import { TAPIResponse }                          from "../../../types/TAPIResponse";
 import TReportDataViewState                      from "../../../types/TReportDataViewState";
+import ReportDataViewFormModuleImports           from "./ReportDataViewFormModuleImports";
 
 const ReportDataViewForm: React.FC<{
     dataViewId: number,
@@ -65,7 +66,7 @@ const ReportDataViewForm: React.FC<{
 
     const {t} = useTranslation(['common', 'report']);
     const {state: authState} = React.useContext(authContext);
-    const reportDataView: TReportDataViewState = useReportDataViewStateFromReportIdAndDataViewId(reportId, dataViewId);
+    const reportDataViewState: TReportDataViewState = useReportDataViewStateFromReportIdAndDataViewId(reportId, dataViewId);
 
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const reportState = useReportState(reportId);
@@ -78,7 +79,7 @@ const ReportDataViewForm: React.FC<{
         setErrorMessage('');
         setSubmitButtonUpdate(SubmitButtonStatus.Validating);
 
-        if (reportDataView.dataView && reportDataView.dataView.id > 0) {
+        if (reportDataViewState.dataView && reportDataViewState.dataView.id > 0) {
 
             apiSendRequest({
                 method: 'PUT',
@@ -165,7 +166,7 @@ const ReportDataViewForm: React.FC<{
     return (
         <Formik
             validateOnMount
-            initialValues={reportDataView.dataView ?? defaultDataView}
+            initialValues={reportDataViewState.dataView ?? defaultDataView}
             validationSchema={Yup.object({
                 name: Yup.string().required(),
                 title: Yup.string().nullable(''),
@@ -298,7 +299,7 @@ const ReportDataViewForm: React.FC<{
                         </div>
 
                         <div className={`field col-12 ${formik.values.type === EDataViewType.GRAPH ? 'md:col-3' : ''}`}
-                             style={{display: `${(!reportDataView.dataView?.id) ? 'block' : 'none'}`}}
+                             style={{display: `${(!reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
                         >
                             <label htmlFor="type" className="block">{t('common:form.type')}</label>
                             <Dropdown
@@ -366,7 +367,7 @@ const ReportDataViewForm: React.FC<{
                         </div>
 
                         <div className="field col-12 md:col-4"
-                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id) ? 'block' : 'none'}`}}
+                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
                         >
                             <label htmlFor="report_data_view_lib_version_id"
                                    className="block">{t('report:form.library')}</label>
@@ -387,7 +388,7 @@ const ReportDataViewForm: React.FC<{
                                         formik.setFieldValue('report_data_view_lib_type_id', 38)
                                     }
                                     // For ChartJS, default to Bar, because why not.
-                                    else  {
+                                    else {
                                         formik.setFieldValue('report_data_view_lib_type_id', 22)
                                     }
                                 }}
@@ -399,7 +400,7 @@ const ReportDataViewForm: React.FC<{
                         </div>
 
                         <div className="field col-12 md:col-5"
-                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataView.dataView?.id) ? 'block' : 'none'}`}}
+                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
                         >
                             <label htmlFor="report_data_view_lib_type_id"
                                    className="block">{t('report:form.chart_model')}</label>
@@ -413,6 +414,10 @@ const ReportDataViewForm: React.FC<{
                                 isInvalid={!!formik.errors.report_data_view_lib_type_id}
                                 value={formik.values.report_data_view_lib_type_id}
                             />
+                        </div>
+
+                        <div className="field col-12">
+                            <ReportDataViewFormModuleImports reportDataViewState={reportDataViewState}/>
                         </div>
 
                         {/*{formik.values.type === EDataViewType.GRAPH && (*/}
@@ -464,7 +469,7 @@ const ReportDataViewForm: React.FC<{
                                 buttonStatus={submitButtonUpdate}
                                 disabled={!formik.isValid}
                                 labels={
-                                    (reportDataView.dataView && reportDataView.dataView.id > 0)
+                                    (reportDataViewState.dataView && reportDataViewState.dataView.id > 0)
                                         ? {
                                             default: t('common:form.update').toString(),
                                             validating: t('common:form.updating').toString(),
