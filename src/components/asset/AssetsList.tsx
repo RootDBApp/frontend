@@ -31,6 +31,8 @@ import apiDataContext             from "../../contexts/api_data/store/context";
 import TAsset                     from "../../types/TAsset";
 import { EAssetSource }           from "../../types/EAssetSource";
 import DropDownAssetStorageType   from "../common/form/DropDownAssetStorageType";
+import { IconField }              from "primereact/iconfield";
+import { InputIcon }              from "primereact/inputicon";
 
 const AssetsList = (): React.ReactElement => {
 
@@ -54,15 +56,15 @@ const AssetsList = (): React.ReactElement => {
                     multiSelect
                     fullWidth={false}
                 />
-                <div className="p-input-icon-left" id="name-filter">
-                    <i className="pi pi-search"/>
+                <IconField iconPosition="left" className="w-full" id="name-filter">
+                    <InputIcon className="pi pi-search"> </InputIcon>
                     <InputText
                         value={nameFilter}
                         onChange={(e) => setNameFilter(e.target.value)}
                         placeholder={t('settings:input_parameters.filter_by_name').toString()}
                         className="w-full"
                     />
-                </div>
+                </IconField>
             </div>
             <div id="parameter-inputs">
                 <Accordion

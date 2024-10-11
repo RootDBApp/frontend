@@ -28,6 +28,8 @@ import { getParameterInputs }     from "../../contexts/api_data/store/actions";
 import ParameterInputForm         from "./ParameterInputForm";
 import DropdownParameterInputType from "../common/form/DropdownParameterInputType";
 import { InputText }              from "primereact/inputtext";
+import { IconField }              from "primereact/iconfield";
+import { InputIcon }              from "primereact/inputicon";
 // import { sortArrayByKeyStringASC } from "../../utils/commonJs";
 
 const ParameterInputsList = (): React.ReactElement => {
@@ -63,15 +65,15 @@ const ParameterInputsList = (): React.ReactElement => {
                     onChange={(e: { value: React.SetStateAction<number[]>; }) => setInputTypesFilter(e.value)}
                     multiSelect
                 />
-                <div className="p-input-icon-left" id="name-filter">
-                    <i className="pi pi-search"/>
+                <IconField iconPosition="left" className="w-full" id="name-filter">
+                    <InputIcon className="pi pi-search"> </InputIcon>
                     <InputText
                         value={nameFilter}
                         onChange={(e) => setNameFilter(e.target.value)}
                         placeholder={t('settings:input_parameters.filter_by_name').toString()}
                         className="w-full"
                     />
-                </div>
+                </IconField>
             </div>
             <div id="parameter-inputs">
                 <Accordion

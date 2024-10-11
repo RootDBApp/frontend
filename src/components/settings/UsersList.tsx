@@ -30,6 +30,8 @@ import TUser              from "../../types/TUser";
 import LaravelPaginator   from "../common/LaravelPaginator";
 import { getUsers }       from "../../services/apiCommon";
 import { dummyUser }      from "../../contexts/auth/store/initialState";
+import { IconField }      from "primereact/iconfield";
+import { InputIcon }      from "primereact/inputicon";
 
 
 const UsersList: React.FC = (): React.ReactElement => {
@@ -67,21 +69,24 @@ const UsersList: React.FC = (): React.ReactElement => {
                 </div>
 
                 <div className="col" style={{textAlign: 'center', padding: '1rem'}}>
-                    <InputText
-                        style={{width: '100%'}}
-                        placeholder={t('settings:user.search_user').toString()}
-                        onKeyUp={(event) => {
-                            if (event.key.length > 0) {
-                                setFilteredUsers(
-                                    users.filter((user: TUser) => {
-                                        return user.name.toLowerCase().search(event.currentTarget.value) !== -1;
-                                    }));
-                            } else {
+                    <IconField iconPosition="left" className="w-full">
+                        <InputIcon className="pi pi-search"> </InputIcon>
+                        <InputText
+                            style={{width: '100%'}}
+                            placeholder={t('settings:user.search_user').toString()}
+                            onKeyUp={(event) => {
+                                if (event.key.length > 0) {
+                                    setFilteredUsers(
+                                        users.filter((user: TUser) => {
+                                            return user.name.toLowerCase().search(event.currentTarget.value) !== -1;
+                                        }));
+                                } else {
 
-                                setFilteredUsers(users);
-                            }
-                        }}
-                    />
+                                    setFilteredUsers(users);
+                                }
+                            }}
+                        />
+                    </IconField>
                 </div>
             </div>
 
