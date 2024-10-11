@@ -1,0 +1,24 @@
+.input-date-selector {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  .p-button-group {
+    .p-button:not(:last-child) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .p-splitbutton:last-child {
+      .p-button {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+  .p-button.calendar {
+    margin-left: 1rem;
+  }
+}

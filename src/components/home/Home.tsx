@@ -22,10 +22,29 @@
 import * as React from 'react';
 
 import DirectoriesListing from "./DirectoriesListing";
+import InputDateSelector  from "../common/form/InputDateSelector";
 
 const Home: React.FC = (): React.ReactElement => {
-
-    return <div id="home" className="expand-vertically"><DirectoriesListing/></div>
+    const [date, setDate] = React.useState(new Date().toString());
+    return (
+        <>
+            <InputDateSelector
+                value={date}
+                options={[
+                    {id: "-2", label: "-2", value: "2024-10-09"},
+                    {id: "-1", label: "-1", value: "2024-10-10"},
+                    {id: "now", label: "now", value: "2024-10-11"},
+                    {id: "+1", label: "+1", value: "2024-10-12"},
+                    {id: "+2", label: "+2", value: "2024-10-13"},
+                    {id: "+3", label: "+3", value: "2024-10-14", subMenu: true},
+                    {id: "+4", label: "+4", value: "2024-10-15", subMenu: true},
+                    {id: "+5", label: "+5", value: "2024-10-16", subMenu: true},
+                ]}
+                setValueCallBack={setDate}
+            />
+            <div id="home" className="expand-vertically"><DirectoriesListing/></div>
+        </>
+    )
 }
 
 export default Home;
