@@ -417,6 +417,8 @@ const ReportDataViewForm: React.FC<{
                         </div>
 
                         <div className="field col-12">
+                            {/*<label htmlFor="report_data_view_lib_type_id" className="block">{t('report:form.chart_model')}</label>*/}
+                            <label htmlFor="report_data_view_lib_type_id" className="block">Modules imports</label>
                             <ReportDataViewFormModuleImports reportDataViewState={reportDataViewState}/>
                         </div>
 

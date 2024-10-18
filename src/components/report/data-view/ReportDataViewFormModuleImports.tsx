@@ -19,23 +19,28 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React           from 'react';
-import TJSModuleImport      from "../../../types/TJSmoduleImport";
-import TReportDataViewState from "../../../types/TReportDataViewState";
+import { t }                               from "i18next";
+import { DataView }                        from 'primereact/dataview';
+import { InputText }                       from "primereact/inputtext";
+import * as React                          from 'react';
+import TJSModuleImport                     from "../../../types/TJSmoduleImport";
+import TReportDataViewState                from "../../../types/TReportDataViewState";
+import ReportDataViewFormModuleImportsForm from "./ReportDataViewFormModuleImportsForm";
 
 const ReportDataViewFormModuleImports: React.FC<{ reportDataViewState: TReportDataViewState }> = ({reportDataViewState}) => {
 
     const [jsModuleImports, setJsModuleImports] = React.useState<Array<TJSModuleImport>>([]);
 
     React.useEffect(() => {
-
-        if(reportDataViewState.dataView?.json_runtime_configuration_minified) {
-
-        }
-
+        // setJsModuleImports([{url: 'https://cdn.skypack.dev/topojson@3.0.2', as: 'topojson'}]);
     }, []);
 
-    return (<></>);
+    return (<>
+        {jsModuleImports.map((jsModuleImport: TJSModuleImport) => (
+            <ReportDataViewFormModuleImportsForm jsModuleImport={jsModuleImport}/>
+        ))}
+        <ReportDataViewFormModuleImportsForm jsModuleImport={{url: '', as: ''}}/>
+    </>);
 }
 
 export default ReportDataViewFormModuleImports;
