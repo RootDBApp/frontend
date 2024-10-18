@@ -35,6 +35,7 @@ import ReportParameterDropdown    from "./ReportParameterDropdown";
 import { TNameValue }             from "../../../types/TNameValue";
 import apiDataContext             from "../../../contexts/api_data/store/context";
 import ReportParameterCheckboxes  from "./ReportParameterCheckboxes";
+import ReportParameterDateSelector from "./ReportParameterDateSelector";
 
 const ReportParameter: React.FC<{
     index: number,
@@ -80,6 +81,27 @@ const ReportParameter: React.FC<{
 
         case 'date':
             return <ReportParameterCalendar
+                parameter={parameter}
+                index={index}
+                parameterId={paramId}
+                onChange={(event: CalendarViewChangeEvent) => {
+
+                    if (event.value instanceof Date) {
+
+                        if (onChange) {
+
+                            onChange({
+                                name: parameter.variable_name,
+                                value: formatDateYYYYMMDD(event.value),
+                            });
+                        }
+                    }
+                }}
+                formValue={value}
+            />
+
+        case 'date-selector':
+            return <ReportParameterDateSelector
                 parameter={parameter}
                 index={index}
                 parameterId={paramId}

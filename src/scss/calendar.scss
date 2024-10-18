@@ -1,8 +1,9 @@
 .input-date-selector {
   display: flex;
   flex-flow: column;
-  align-items: center;
-  justify-content: flex-start;
+  align-items: safe flex-start;
+  justify-content: safe center;
+  gap: .25rem;
 
   .p-button-group {
     .p-button:not(:last-child) {
