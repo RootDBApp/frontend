@@ -80,12 +80,12 @@ const DataView: React.FC<{
                     dataViewId: dataView.id,
                     dataViewJs,
                     reportId: report.id,
-                    callback: (reportId, callbackResponse) => {
+                    callback: (reportId: number, callbackResponse: TCallbackResponse) => {
                         setStateJsCodeCallbackResponseQuery(callbackResponse);
                         document.dispatchEvent(
                             notificationEvent({
                                 message: t('report:dataview.notification_updated_dataview_config'),
-                                reportId: report.id,
+                                reportId: reportId,
                                 timestamp: Date.now(),
                                 title: dataView.name,
                                 type: EReportDevBarMessageType.LOG,

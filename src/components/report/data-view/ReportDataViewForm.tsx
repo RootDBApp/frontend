@@ -20,6 +20,7 @@
  */
 
 import { Formik }         from "formik";
+import { Divider }        from "primereact/divider";
 import { Dropdown }       from "primereact/dropdown";
 import { InputSwitch }    from "primereact/inputswitch";
 import { InputText }      from "primereact/inputtext";
@@ -52,7 +53,7 @@ import { defaultDataView }                       from "../../../contexts/report/
 import env                                       from "../../../envVariables";
 import { TAPIResponse }                          from "../../../types/TAPIResponse";
 import TReportDataViewState                      from "../../../types/TReportDataViewState";
-import ReportDataViewFormModuleImports           from "./ReportDataViewFormModuleImports";
+import ReportDataViewFormModuleImportsList       from "./ReportDataViewFormModuleImportsList";
 
 const ReportDataViewForm: React.FC<{
     dataViewId: number,
@@ -164,338 +165,346 @@ const ReportDataViewForm: React.FC<{
     }
 
     return (
-        <Formik
-            validateOnMount
-            initialValues={reportDataViewState.dataView ?? defaultDataView}
-            validationSchema={Yup.object({
-                name: Yup.string().required(),
-                title: Yup.string().nullable(''),
-                description: Yup.string().nullable(''),
-                description_display_type: Yup.number().oneOf([EReportDataViewDescriptionDisplayType.OVERLAY, EReportDataViewDescriptionDisplayType.SUBTITLE]).nullable(),
-                type: Yup.number().required(),
-                report_data_view_lib_version_id: Yup.number().required(),
-                report_data_view_lib_type_id: Yup.number(),
-                by_chunk: Yup.boolean(),
-                chunk_size: Yup.number(),
-                max_width: Yup.number().nullable(),
-                is_visible: Yup.boolean(),
-                on_queue: Yup.boolean()
-            })}
-            onSubmit={handleOnSubmit}
-        >
-            {formik => (
-                <form onSubmit={formik.handleSubmit}>
-                    <div className="formgrid grid">
+        <>
+            <Formik
+                validateOnMount
+                initialValues={reportDataViewState.dataView ?? defaultDataView}
+                validationSchema={Yup.object({
+                    name: Yup.string().required(),
+                    title: Yup.string().nullable(''),
+                    description: Yup.string().nullable(''),
+                    description_display_type: Yup.number().oneOf([EReportDataViewDescriptionDisplayType.OVERLAY, EReportDataViewDescriptionDisplayType.SUBTITLE]).nullable(),
+                    type: Yup.number().required(),
+                    report_data_view_lib_version_id: Yup.number().required(),
+                    report_data_view_lib_type_id: Yup.number(),
+                    by_chunk: Yup.boolean(),
+                    chunk_size: Yup.number(),
+                    max_width: Yup.number().nullable(),
+                    is_visible: Yup.boolean(),
+                    on_queue: Yup.boolean()
+                })}
+                onSubmit={handleOnSubmit}
+            >
+                {formik => (
+                    <form onSubmit={formik.handleSubmit}>
+                        <div className="formgrid grid">
 
-                        <div className="field col-3">
-                            <label htmlFor="is_visible">{t('report:form.data_view_is_visible')}</label><br/>
-                            <InputSwitch
-                                id="is_visible"
-                                checked={formik.values.is_visible}
-                                {...formik.getFieldProps('is_visible')}
-                            />
-                        </div>
+                            <div className="field col-3">
+                                <label htmlFor="is_visible">{t('report:form.data_view_is_visible')}</label><br/>
+                                <InputSwitch
+                                    id="is_visible"
+                                    checked={formik.values.is_visible}
+                                    {...formik.getFieldProps('is_visible')}
+                                />
+                            </div>
 
-                        {/*<div className="field col-2 ">*/}
-                        {/*    <label htmlFor="on_queue">{t('report:form.data_view_on_queue')}</label><br/>*/}
-                        {/*    <InputSwitch*/}
-                        {/*        id="on_queue"*/}
-                        {/*        checked={formik.values.on_queue}*/}
-                        {/*        {...formik.getFieldProps('on_queue')}*/}
-                        {/*    />*/}
-                        {/*</div>*/}
+                            {/*<div className="field col-2 ">*/}
+                            {/*    <label htmlFor="on_queue">{t('report:form.data_view_on_queue')}</label><br/>*/}
+                            {/*    <InputSwitch*/}
+                            {/*        id="on_queue"*/}
+                            {/*        checked={formik.values.on_queue}*/}
+                            {/*        {...formik.getFieldProps('on_queue')}*/}
+                            {/*    />*/}
+                            {/*</div>*/}
 
-                        <div className="field col-9">
-                            <label htmlFor="name">{t('common:form.name')}</label>
-                            <InputText
-                                id="name"
-                                type="text"
-                                placeholder={t('report:dataview.name_placeholder').toString()}
-                                {...formik.getFieldProps('name')}
-                                className={!!formik.errors.name ? 'p-invalid w-full' : 'w-full'}
-                                autoFocus
-                            />
-                        </div>
+                            <div className="field col-9">
+                                <label htmlFor="name">{t('common:form.name')}</label>
+                                <InputText
+                                    id="name"
+                                    type="text"
+                                    placeholder={t('report:dataview.name_placeholder').toString()}
+                                    {...formik.getFieldProps('name')}
+                                    className={!!formik.errors.name ? 'p-invalid w-full' : 'w-full'}
+                                    autoFocus
+                                />
+                            </div>
 
-                        {(reportState.report?.parameters || []).length > 0 && (
-                            <Tooltip
-                                target=".parameter-placeholder-tooltip"
-                                position="bottom"
-                                content={t('report:form.help_parameter_placeholder').toString()}
-                                showDelay={env.tooltipShowDelay}
-                                hideDelay={env.tooltipHideDelay}
-                            />
-                        )}
-                        <div className="field col-12">
-                            <label htmlFor="title">{t('common:form.title')}</label>
                             {(reportState.report?.parameters || []).length > 0 && (
-                                <>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <i className="pi pi-question-circle parameter-placeholder-tooltip"/>
-                                </>
+                                <Tooltip
+                                    target=".parameter-placeholder-tooltip"
+                                    position="bottom"
+                                    content={t('report:form.help_parameter_placeholder').toString()}
+                                    showDelay={env.tooltipShowDelay}
+                                    hideDelay={env.tooltipHideDelay}
+                                />
                             )}
-                            <ReportParameterPlaceholderAutocomplete
-                                parameters={reportState.report?.parameters || []}
-                                inputId="title"
-                                id="title"
-                                {...formik.getFieldProps('title')}
-                                value={formik.values.title || ''}
-                                inputClassName={!!formik.errors.title ? 'p-invalid w-full' : 'w-full'}
-                                placeholder={t('report:dataview.title_placeholder').toString()}
-                                // @ts-ignore
-                                rows={1}
-                                autoResize
-                            />
-                        </div>
+                            <div className="field col-12">
+                                <label htmlFor="title">{t('common:form.title')}</label>
+                                {(reportState.report?.parameters || []).length > 0 && (
+                                    <>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <i className="pi pi-question-circle parameter-placeholder-tooltip"/>
+                                    </>
+                                )}
+                                <ReportParameterPlaceholderAutocomplete
+                                    parameters={reportState.report?.parameters || []}
+                                    inputId="title"
+                                    id="title"
+                                    {...formik.getFieldProps('title')}
+                                    value={formik.values.title || ''}
+                                    inputClassName={!!formik.errors.title ? 'p-invalid w-full' : 'w-full'}
+                                    placeholder={t('report:dataview.title_placeholder').toString()}
+                                    // @ts-ignore
+                                    rows={1}
+                                    autoResize
+                                />
+                            </div>
 
-                        <div className="field col-12">
-                            <label htmlFor="description">Description</label>
-                            {(reportState.report?.parameters || []).length > 0 && (
-                                <>
-                                    &nbsp;&nbsp;&nbsp;
-                                    <i className="pi pi-question-circle parameter-placeholder-tooltip"/>
-                                </>
-                            )}
-                            <ReportParameterPlaceholderAutocomplete
-                                parameters={reportState.report?.parameters || []}
-                                inputId="description"
-                                id="description"
-                                {...formik.getFieldProps('description')}
-                                value={formik.values.description || ''}
-                                inputClassName={!!formik.errors.description ? 'p-invalid w-full' : 'w-full'}
-                                placeholder="Description"
-                                autoResize
-                            />
-                        </div>
+                            <div className="field col-12">
+                                <label htmlFor="description">Description</label>
+                                {(reportState.report?.parameters || []).length > 0 && (
+                                    <>
+                                        &nbsp;&nbsp;&nbsp;
+                                        <i className="pi pi-question-circle parameter-placeholder-tooltip"/>
+                                    </>
+                                )}
+                                <ReportParameterPlaceholderAutocomplete
+                                    parameters={reportState.report?.parameters || []}
+                                    inputId="description"
+                                    id="description"
+                                    {...formik.getFieldProps('description')}
+                                    value={formik.values.description || ''}
+                                    inputClassName={!!formik.errors.description ? 'p-invalid w-full' : 'w-full'}
+                                    placeholder="Description"
+                                    autoResize
+                                />
+                            </div>
 
-                        <div className="field col-12">
-                            <label htmlFor="description_display_type">
-                                {t('report:dataview.description_display_type').toString()}
-                            </label>
-                            <div className="flex align-items-center">
-                                <SelectButton
-                                    disabled={!formik.values.description}
+                            <div className="field col-12">
+                                <label htmlFor="description_display_type">
+                                    {t('report:dataview.description_display_type').toString()}
+                                </label>
+                                <div className="flex align-items-center">
+                                    <SelectButton
+                                        disabled={!formik.values.description}
+                                        options={[
+                                            {
+                                                label: t('common:overlay').toString(),
+                                                value: EReportDataViewDescriptionDisplayType.OVERLAY
+                                            },
+                                            {
+                                                label: t('common:subtitle').toString(),
+                                                value: EReportDataViewDescriptionDisplayType.SUBTITLE
+                                            },
+                                        ]}
+                                        {...formik.getFieldProps('description_display_type')}
+                                    />
+                                    <div className="ml-3">
+                                        {formik.values.description_display_type === EReportDataViewDescriptionDisplayType.OVERLAY && (
+                                            <>{t('report:dataview.description_display_type_overlay_help')}</>
+                                        )}
+                                        {formik.values.description_display_type === EReportDataViewDescriptionDisplayType.SUBTITLE && (
+                                            <>{t('report:dataview.description_display_type_subtitle_help')}</>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className={`field col-12 ${formik.values.type === EDataViewType.GRAPH ? 'md:col-3' : ''}`}
+                                 style={{display: `${(!reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
+                            >
+                                <label htmlFor="type" className="block">{t('common:form.type')}</label>
+                                <Dropdown
+                                    value={formik.values.type}
+                                    id="type"
+                                    name="type"
+                                    optionLabel="name"
+                                    optionValue="id"
                                     options={[
                                         {
-                                            label: t('common:overlay').toString(),
-                                            value: EReportDataViewDescriptionDisplayType.OVERLAY
+                                            id: EDataViewType.TABLE,
+                                            name: t('report:types.table').toString(),
                                         },
                                         {
-                                            label: t('common:subtitle').toString(),
-                                            value: EReportDataViewDescriptionDisplayType.SUBTITLE
+                                            id: EDataViewType.GRAPH,
+                                            name: t('report:types.graph').toString(),
+                                        },
+                                        // {
+                                        //     id: EDataViewType.TREND,
+                                        //     name: t('report:types.trend').toString(),
+                                        // },
+                                        {
+                                            id: EDataViewType.METRIC,
+                                            name: t('report:types.metric').toString(),
+                                        },
+                                        {
+                                            id: EDataViewType.TEXT,
+                                            name: t('report:types.text').toString(),
                                         },
                                     ]}
-                                    {...formik.getFieldProps('description_display_type')}
+                                    onChange={(event) => {
+
+                                        formik.setFieldValue('type', event.value)
+
+                                        // We handle only on table lib, react-table
+                                        switch (event.value) {
+                                            case EDataViewType.TABLE:
+                                                // from bdd
+                                                formik.setFieldValue('report_data_view_lib_version_id', 1)
+                                                break;
+
+                                            case EDataViewType.GRAPH: {
+                                                // formik.values.report_data_view_lib_version_id = 3; // from bdd
+                                                formik.setFieldValue('report_data_view_lib_type_id', 22)
+                                                formik.setFieldValue('report_data_view_lib_version_id', 3)
+                                                break;
+                                            }
+
+                                            case EDataViewType.TREND: {
+                                                // from bdd
+                                                formik.setFieldValue('report_data_view_lib_version_id', 6)
+                                                break;
+                                            }
+
+                                            case EDataViewType.METRIC: {
+                                                // from bdd
+                                                formik.setFieldValue('report_data_view_lib_version_id', 5)
+
+                                                break;
+                                            }
+                                        }
+
+                                    }}
                                 />
-                                <div className="ml-3">
-                                    {formik.values.description_display_type === EReportDataViewDescriptionDisplayType.OVERLAY && (
-                                        <>{t('report:dataview.description_display_type_overlay_help')}</>
-                                    )}
-                                    {formik.values.description_display_type === EReportDataViewDescriptionDisplayType.SUBTITLE && (
-                                        <>{t('report:dataview.description_display_type_subtitle_help')}</>
-                                    )}
-                                </div>
+                            </div>
+
+                            <div className="field col-12 md:col-4"
+                                 style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
+                            >
+                                <label htmlFor="report_data_view_lib_version_id"
+                                       className="block">{t('report:form.library')}</label>
+                                <DropDownDataViewLibVersion
+                                    disabled={formik.values.type === EDataViewType.TABLE}
+                                    onChange={(event) => {
+
+                                        formik.setFieldValue('report_data_view_lib_version_id', event.value)
+
+                                        // For d3.js, default to.... default model.
+                                        if (event.value === 4) { // from bdd
+
+                                            // formik.values.report_data_view_lib_type_id = 8; // from bdd
+                                            formik.setFieldValue('report_data_view_lib_type_id', 29)
+                                        }
+                                        // Apache ECharts, default.
+                                        else if (event.value === 9) {
+                                            formik.setFieldValue('report_data_view_lib_type_id', 38)
+                                        }
+                                        // For ChartJS, default to Bar, because why not.
+                                        else {
+                                            formik.setFieldValue('report_data_view_lib_type_id', 22)
+                                        }
+                                    }}
+                                    id="report_data_view_lib_version_id"
+                                    dataViewTypeId={formik.values.type}
+                                    isInvalid={!!formik.errors.report_data_view_lib_version_id}
+                                    value={formik.values.report_data_view_lib_version_id}
+                                />
+                            </div>
+
+                            <div className="field col-12 md:col-5"
+                                 style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
+                            >
+                                <label htmlFor="report_data_view_lib_type_id"
+                                       className="block">{t('report:form.chart_model')}</label>
+                                <DropDownDataViewLibTypes
+                                    disabled={formik.values.type === EDataViewType.TABLE}
+                                    onChange={(event) => {
+                                        formik.setFieldValue('report_data_view_lib_type_id', event.value)
+                                    }}
+                                    id="report_data_view_lib_type_id"
+                                    dataViewLibVersionId={formik.values.report_data_view_lib_version_id}
+                                    isInvalid={!!formik.errors.report_data_view_lib_type_id}
+                                    value={formik.values.report_data_view_lib_type_id}
+                                />
+                            </div>
+
+                            {/*{formik.values.type === EDataViewType.GRAPH && (*/}
+                            {/*    <div className="field col-12">*/}
+                            {/*        <label htmlFor="max_width" className="block">{t('common:form.maxWidth')}</label>*/}
+                            {/*        <InputNumber*/}
+                            {/*            inputId="max_width"*/}
+                            {/*            {...formik.getFieldProps('max_width')}*/}
+                            {/*            className={!!formik.errors.max_width ? 'p-invalid' : ''}*/}
+                            {/*            onChange={(event) => {*/}
+                            {/*                formik.setFieldValue('max_width', event.value)*/}
+                            {/*            }}*/}
+                            {/*            showButtons*/}
+                            {/*            step={50}*/}
+                            {/*            suffix=" px"*/}
+                            {/*        />*/}
+                            {/*    </div>*/}
+                            {/*)}*/}
+
+                            <div className="field col-2">
+                                <label htmlFor="by_chunk">{t('report:dataview.by_chunk')}</label><br/>
+                                <InputSwitch
+                                    id="by_chunk"
+                                    checked={formik.values.by_chunk}
+                                    {...formik.getFieldProps('by_chunk')}
+                                />
+                            </div>
+                            <div className="field col-10 ">
+                                <label htmlFor="chunk_size">{t('report:dataview.chunk_size')}</label>
+                                <InputText id="chunk_size_view"
+                                           value={String(formik.values.chunk_size)} className="w-full"
+                                           readOnly/>
+                                <Slider
+                                    disabled={!formik.values.by_chunk}
+                                    id="chunk_size"
+                                    value={formik.values.chunk_size}
+                                    step={10}
+                                    min={10}
+                                    max={10000}
+                                    onChange={(event) => {
+                                        formik.setFieldValue('chunk_size', event.value)
+                                    }}
+                                />
+                            </div>
+
+                        </div>
+                        <div className="flex justify-content-end">
+                            <div className="mr-2">
+                                <ButtonWithSpinner
+                                    buttonStatus={submitButtonUpdate}
+                                    disabled={!formik.isValid}
+                                    labels={
+                                        (reportDataViewState.dataView && reportDataViewState.dataView.id > 0)
+                                            ? {
+                                                default: t('common:form.update').toString(),
+                                                validating: t('common:form.updating').toString(),
+                                                validated: t('common:form.updated').toString(),
+                                                notValidated: t('common:form.update_failed').toString(),
+                                            }
+                                            : {
+                                                default: t('common:form.create').toString(),
+                                                validating: t('common:form.creating').toString(),
+                                                validated: t('common:form.created').toString(),
+                                                notValidated: t('common:form.create_failed').toString(),
+                                            }
+                                    }
+                                    type="submit"
+                                />
                             </div>
                         </div>
 
-                        <div className={`field col-12 ${formik.values.type === EDataViewType.GRAPH ? 'md:col-3' : ''}`}
-                             style={{display: `${(!reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
-                        >
-                            <label htmlFor="type" className="block">{t('common:form.type')}</label>
-                            <Dropdown
-                                value={formik.values.type}
-                                id="type"
-                                name="type"
-                                optionLabel="name"
-                                optionValue="id"
-                                options={[
-                                    {
-                                        id: EDataViewType.TABLE,
-                                        name: t('report:types.table').toString(),
-                                    },
-                                    {
-                                        id: EDataViewType.GRAPH,
-                                        name: t('report:types.graph').toString(),
-                                    },
-                                    // {
-                                    //     id: EDataViewType.TREND,
-                                    //     name: t('report:types.trend').toString(),
-                                    // },
-                                    {
-                                        id: EDataViewType.METRIC,
-                                        name: t('report:types.metric').toString(),
-                                    },
-                                    {
-                                        id: EDataViewType.TEXT,
-                                        name: t('report:types.text').toString(),
-                                    },
-                                ]}
-                                onChange={(event) => {
+                        {displayError && <div className="col-12">
+                            <Message severity="error" text={errorMessage}/>
+                        </div>}
+                    </form>
+                )}
+            </Formik>
 
-                                    formik.setFieldValue('type', event.value)
+            <Divider align="center">
+                <div className={'inline-flex align-items-center'}>
+                    <i className="pi pi-share-alt mr-2"/>
+                    <b>{t('common:sharing_options')}</b>
+                </div>
+            </Divider>
 
-                                    // We handle only on table lib, react-table
-                                    switch (event.value) {
-                                        case EDataViewType.TABLE:
-                                            // from bdd
-                                            formik.setFieldValue('report_data_view_lib_version_id', 1)
-                                            break;
-
-                                        case EDataViewType.GRAPH: {
-                                            // formik.values.report_data_view_lib_version_id = 3; // from bdd
-                                            formik.setFieldValue('report_data_view_lib_type_id', 22)
-                                            formik.setFieldValue('report_data_view_lib_version_id', 3)
-                                            break;
-                                        }
-
-                                        case EDataViewType.TREND: {
-                                            // from bdd
-                                            formik.setFieldValue('report_data_view_lib_version_id', 6)
-                                            break;
-                                        }
-
-                                        case EDataViewType.METRIC: {
-                                            // from bdd
-                                            formik.setFieldValue('report_data_view_lib_version_id', 5)
-
-                                            break;
-                                        }
-                                    }
-
-                                }}
-                            />
-                        </div>
-
-                        <div className="field col-12 md:col-4"
-                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
-                        >
-                            <label htmlFor="report_data_view_lib_version_id"
-                                   className="block">{t('report:form.library')}</label>
-                            <DropDownDataViewLibVersion
-                                disabled={formik.values.type === EDataViewType.TABLE}
-                                onChange={(event) => {
-
-                                    formik.setFieldValue('report_data_view_lib_version_id', event.value)
-
-                                    // For d3.js, default to.... default model.
-                                    if (event.value === 4) { // from bdd
-
-                                        // formik.values.report_data_view_lib_type_id = 8; // from bdd
-                                        formik.setFieldValue('report_data_view_lib_type_id', 29)
-                                    }
-                                    // Apache ECharts, default.
-                                    else if (event.value === 9) {
-                                        formik.setFieldValue('report_data_view_lib_type_id', 38)
-                                    }
-                                    // For ChartJS, default to Bar, because why not.
-                                    else {
-                                        formik.setFieldValue('report_data_view_lib_type_id', 22)
-                                    }
-                                }}
-                                id="report_data_view_lib_version_id"
-                                dataViewTypeId={formik.values.type}
-                                isInvalid={!!formik.errors.report_data_view_lib_version_id}
-                                value={formik.values.report_data_view_lib_version_id}
-                            />
-                        </div>
-
-                        <div className="field col-12 md:col-5"
-                             style={{display: `${(formik.values.type === EDataViewType.GRAPH && !reportDataViewState.dataView?.id) ? 'block' : 'none'}`}}
-                        >
-                            <label htmlFor="report_data_view_lib_type_id"
-                                   className="block">{t('report:form.chart_model')}</label>
-                            <DropDownDataViewLibTypes
-                                disabled={formik.values.type === EDataViewType.TABLE}
-                                onChange={(event) => {
-                                    formik.setFieldValue('report_data_view_lib_type_id', event.value)
-                                }}
-                                id="report_data_view_lib_type_id"
-                                dataViewLibVersionId={formik.values.report_data_view_lib_version_id}
-                                isInvalid={!!formik.errors.report_data_view_lib_type_id}
-                                value={formik.values.report_data_view_lib_type_id}
-                            />
-                        </div>
-
-                        <div className="field col-12">
-                            {/*<label htmlFor="report_data_view_lib_type_id" className="block">{t('report:form.chart_model')}</label>*/}
-                            <label htmlFor="report_data_view_lib_type_id" className="block">Modules imports</label>
-                            <ReportDataViewFormModuleImports reportDataViewState={reportDataViewState}/>
-                        </div>
-
-                        {/*{formik.values.type === EDataViewType.GRAPH && (*/}
-                        {/*    <div className="field col-12">*/}
-                        {/*        <label htmlFor="max_width" className="block">{t('common:form.maxWidth')}</label>*/}
-                        {/*        <InputNumber*/}
-                        {/*            inputId="max_width"*/}
-                        {/*            {...formik.getFieldProps('max_width')}*/}
-                        {/*            className={!!formik.errors.max_width ? 'p-invalid' : ''}*/}
-                        {/*            onChange={(event) => {*/}
-                        {/*                formik.setFieldValue('max_width', event.value)*/}
-                        {/*            }}*/}
-                        {/*            showButtons*/}
-                        {/*            step={50}*/}
-                        {/*            suffix=" px"*/}
-                        {/*        />*/}
-                        {/*    </div>*/}
-                        {/*)}*/}
-
-                        <div className="field col-2">
-                            <label htmlFor="by_chunk">{t('report:dataview.by_chunk')}</label><br/>
-                            <InputSwitch
-                                id="by_chunk"
-                                checked={formik.values.by_chunk}
-                                {...formik.getFieldProps('by_chunk')}
-                            />
-                        </div>
-                        <div className="field col-10 ">
-                            <label htmlFor="chunk_size">{t('report:dataview.chunk_size')}</label>
-                            <InputText id="chunk_size_view"
-                                       value={String(formik.values.chunk_size)} className="w-full"
-                                       readOnly/>
-                            <Slider
-                                disabled={!formik.values.by_chunk}
-                                id="chunk_size"
-                                value={formik.values.chunk_size}
-                                step={10}
-                                min={10}
-                                max={10000}
-                                onChange={(event) => {
-                                    formik.setFieldValue('chunk_size', event.value)
-                                }}
-                            />
-                        </div>
-                    </div>
-                    <div className="flex justify-content-end">
-                        <div className="mr-2">
-                            <ButtonWithSpinner
-                                buttonStatus={submitButtonUpdate}
-                                disabled={!formik.isValid}
-                                labels={
-                                    (reportDataViewState.dataView && reportDataViewState.dataView.id > 0)
-                                        ? {
-                                            default: t('common:form.update').toString(),
-                                            validating: t('common:form.updating').toString(),
-                                            validated: t('common:form.updated').toString(),
-                                            notValidated: t('common:form.update_failed').toString(),
-                                        }
-                                        : {
-                                            default: t('common:form.create').toString(),
-                                            validating: t('common:form.creating').toString(),
-                                            validated: t('common:form.created').toString(),
-                                            notValidated: t('common:form.create_failed').toString(),
-                                        }
-                                }
-                                type="submit"
-                            />
-                        </div>
-                    </div>
-
-                    {displayError && <div className="col-12">
-                        <Message severity="error" text={errorMessage}/>
-                    </div>}
-                </form>
-            )}
-        </Formik>
+            <div className="field col-12">
+                <ReportDataViewFormModuleImportsList reportDataViewState={reportDataViewState}/>
+            </div>
+        </>
     )
 }
 

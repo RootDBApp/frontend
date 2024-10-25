@@ -20,6 +20,7 @@
  */
 
 type TJSModuleImport = {
+    id: number,
     url: string,
     as: string
 }

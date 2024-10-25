@@ -23,11 +23,11 @@ import * as React              from "react";
 import { AsyncActionHandlers } from 'use-reducer-async';
 import { t }                   from "i18next";
 
-import { IReportState }                         from "./initialState";
-import { EReportDevBarMessageType }             from "../../../types/application-event/EReportDevBarMessageType";
-import TReportAndDataViewEvent                  from "../../../types/TReportAndDataViewEvent";
-import EchoClient                               from "../../../services/EchoClient";
-import { notificationEvent, reportDevBarEvent } from "../../../utils/events";
+import { IReportState }                                 from "./initialState";
+import { EReportDevBarMessageType }                     from "../../../types/application-event/EReportDevBarMessageType";
+import TReportAndDataViewEvent                          from "../../../types/TReportAndDataViewEvent";
+import EchoClient                                       from "../../../services/EchoClient";
+import { notificationEvent, reportDevBarEvent }         from "../../../utils/events";
 import {
     gotReport,
     gotReportDataViewJs,
@@ -42,7 +42,7 @@ import {
     reportRunStart,
     reportShowDataViewAdd,
     TReportAction,
-}                                               from "./actions";
+}                                                       from "./actions";
 import {
     IGetReport,
     IListenPrivateChannelReport,
@@ -51,16 +51,18 @@ import {
     IPublicGetReportDataViews,
     IUpdateReportDataViewJs,
     IUpdateReportDataViewQuery,
+    IUpdateReportDataViewRuntimeConfig,
     TReportAsyncAction
-}                                               from "./asyncAction";
-import { apiSendRequest }                       from "../../../services/api";
-import { EAPIEndPoint }                         from "../../../types/EAPIEndPoint";
-import TReport                                  from "../../../types/TReport";
-import TReportDataView                          from "../../../types/TReportDataView";
-import { ECallbackStatus }                      from "../../../types/ECallbackStatus";
-import TReportDataViewJs      from "../../../types/TReportDataViewJs";
-import { TAPIResponse }       from "../../../types/TAPIResponse";
-import { TReportCacheStatus } from "../../../types/TReportCacheStatus";
+}                                                       from "./asyncAction";
+import { apiSendRequest }                               from "../../../services/api";
+import { EAPIEndPoint }                                 from "../../../types/EAPIEndPoint";
+import TReport                                          from "../../../types/TReport";
+import TReportDataView                                  from "../../../types/TReportDataView";
+import { ECallbackStatus }                              from "../../../types/ECallbackStatus";
+import TReportDataViewJs                                from "../../../types/TReportDataViewJs";
+import { TAPIResponse }                                 from "../../../types/TAPIResponse";
+import { TReportCacheStatus }                           from "../../../types/TReportCacheStatus";
+import { UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION } from "./types";
 
 const getReportDataViews = (
     dispatch: { (value: TReportAction): void },

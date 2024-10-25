@@ -19,6 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
+import { MenuItem } from "primereact/menuitem";
+
 import TCallbackResponse             from "./TCallbackResponse";
 import TDataViewTableColumnParameter from "./TDataViewTableParameter";
 import TReportLinkParameter          from "./TReportLinkParameter";
@@ -27,11 +29,12 @@ import TLaravelPagination            from "./TLaravelPagination";
 import TDataViewTableForm            from "./TDataViewTableForm";
 import TUser                         from "./TUser";
 import TOrganization                 from "./TOrganization";
-import { MenuItem }                  from "primereact/menuitem";
 import TExternalLink                 from "./TExternalLink";
 import TDataViewMetricForm           from "./TDataViewMetricForm";
 import TDataViewMetricRow            from "./TDataViewMetricRow";
 import TDataViewTextForm             from "./TDataViewTextForm";
+import TJSModuleImport               from "./TJSmoduleImport";
+import { ECrudAction }               from "./ECrudAction";
 
 export interface ICallbackCreateDataViewSuccess {
     (dataView: TReportDataView, dataViewJs?: TReportDataViewJs | undefined): void

@@ -19,142 +19,201 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { t }                                     from "i18next";
-import { InputText }                             from "primereact/inputtext";
-import * as React                                from 'react';
+import * as React    from 'react';
+import { Formik }    from "formik";
+import { t }         from "i18next";
+import { InputText } from "primereact/inputtext";
+import { Message }   from "primereact/message";
+import * as Yup      from "yup";
+
 import TJSModuleImport                           from "../../../types/TJSmoduleImport";
 import ButtonWithSpinner, { SubmitButtonStatus } from "../../common/form/ButtonWithSpinner";
-import TCategory                                 from "../../../types/TCategory";
 import { apiSendRequest }                        from "../../../services/api";
+import { EAPIEndPoint }                          from "../../../types/EAPIEndPoint";
+import TReportDataView                           from "../../../types/TReportDataView";
+import { TAPIResponse }                          from "../../../types/TAPIResponse";
+import TReportDataViewState                      from "../../../types/TReportDataViewState";
+import TReportDataViewRuntimeConfiguration       from "../../../types/TReportDataViewRuntimeConfiguration";
 
-const ReportDataViewFormModuleImportsForm: React.FC<{ jsModuleImport: TJSModuleImport }> = ({jsModuleImport}) => {
+const ReportDataViewFormModuleImportsForm: React.FC<{
+    jsModuleImport: TJSModuleImport,
+    reportDataViewState: TReportDataViewState
+}> = ({jsModuleImport, reportDataViewState}) => {
 
     const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonDelete, setSubmitButtonDelete] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
-
     const [displayError, setDisplayError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
 
-    const resetStates = (): void => {
+    const updateReportDataView = (runtimeConfiguration: TReportDataViewRuntimeConfiguration): void => {
 
-        setDisplayError(false);
-        setErrorMessage('');
+        apiSendRequest({
+            method: 'PUT',
+            endPoint: EAPIEndPoint.REPORT_DATA_VIEW,
+            formValues: {json_runtime_configuration: runtimeConfiguration},
+            resourceId: reportDataViewState?.dataView?.id,
+            extraUrlPath: 'json-runtime-configuration',
+            callbackSuccess: (response: TReportDataView) => {
+
+            },
+            callbackError: (error: TAPIResponse) => {
+
+                setSubmitButtonUpdate(SubmitButtonStatus.NotValidated);
+                setDisplayError(true);
+                setErrorMessage(error.message);
+            }
+        });
     }
 
-    const handleOnCreate = (values: TCategory): void => {
+    const getReportDataViewRuntimeConfiguration = (): TReportDataViewRuntimeConfiguration => {
 
-        resetStates();
+        if (reportDataViewState.dataView) {
+            // Recompute all IDs
+            reportDataViewState.dataView.json_runtime_configuration.jsModules = [
+
+                ...reportDataViewState.dataView.json_runtime_configuration.jsModules.map((jsModuleImport: TJSModuleImport, index: number) => {
+
+                    return {...jsModuleImport, id: (index + 1)};
+                })
+            ];
+
+            return reportDataViewState.dataView.json_runtime_configuration;
+        }
+
+        return {jsModules: []};
+    }
+    const handleOnCreate = (values: TJSModuleImport): void => {
+
         setSubmitButtonCreate(SubmitButtonStatus.Validating);
-
-        // apiSendRequest({
-        //     method: 'POST',
-        //     endPoint: EAPIEndPoint.CATEGORY,
-        //     formValues: values,
-        //     callbackSuccess: () => {
-        //         setSubmitButtonCreate(SubmitButtonStatus.Validated);
-        //     },
-        //     callbackError: (error) => {
-        //
-        //         setSubmitButtonCreate(SubmitButtonStatus.NotValidated);
-        //         setDisplayError(true);
-        //         setErrorMessage(error.message);
-        //     }
-        // });
+        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        runtimeConfiguration.jsModules = [
+            ...runtimeConfiguration.jsModules,
+            {
+                ...values,
+                id: runtimeConfiguration.jsModules.length + 1
+            }
+        ];
+        updateReportDataView(runtimeConfiguration);
+        setSubmitButtonCreate(SubmitButtonStatus.Validated);
     }
 
-    const handleOnUpdate = (values: TCategory): void => {
+    const handleOnUpdate = (values: TJSModuleImport): void => {
 
-        resetStates();
         setSubmitButtonUpdate(SubmitButtonStatus.Validating);
+        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        runtimeConfiguration.jsModules = [
+            ...runtimeConfiguration.jsModules.map((jsModuleImport: TJSModuleImport) => {
+                if (jsModuleImport.id === values.id) {
+                    return values;
+                }
 
-        // apiSendRequest({
-        //     method: 'PUT',
-        //     endPoint: EAPIEndPoint.CATEGORY,
-        //     formValues: values,
-        //     resourceId: values.id,
-        //     callbackSuccess: () => {
-        //         setSubmitButtonUpdate(SubmitButtonStatus.Validated);
-        //     },
-        //     callbackError: (error) => {
-        //
-        //         setSubmitButtonUpdate(SubmitButtonStatus.NotValidated);
-        //         setDisplayError(true);
-        //         setErrorMessage(error.message);
-        //     }
-        // });
+                return jsModuleImport;
+            })
+        ];
+        updateReportDataView(runtimeConfiguration);
+        setSubmitButtonUpdate(SubmitButtonStatus.Validated);
+
     };
 
-    const handleOnDelete = (values: TCategory): void => {
+    const handleOnDelete = (values: TJSModuleImport): void => {
 
-        resetStates();
         setSubmitButtonDelete(SubmitButtonStatus.Validating);
-
-        // apiSendRequest({
-        //     method: 'DELETE',
-        //     endPoint: EAPIEndPoint.CATEGORY,
-        //     resourceId: values.id,
-        //     callbackSuccess: () => {
-        //     },
-        //     callbackError: (error) => {
-        //
-        //         setSubmitButtonDelete(SubmitButtonStatus.NotValidated);
-        //         setDisplayError(true);
-        //         setErrorMessage(error.message);
-        //     }
-        // });
+        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        runtimeConfiguration.jsModules = [
+            ...runtimeConfiguration.jsModules.filter((jsModuleImport: TJSModuleImport) => (jsModuleImport.id !== values.id))
+        ];
+        updateReportDataView(runtimeConfiguration);
+        setSubmitButtonDelete(SubmitButtonStatus.Validated);
     }
 
-    return (<form onSubmit={() => {
-        }}>
-            <div className="formgrid grid">
-                <div className="field col-12">
-                    <div className="p-inputgroup">
-                        <span className="p-inputgroup-addon">Module's URL</span>
-                        <InputText placeholder="module URL" value={jsModuleImport.url}/>
-                        <span className="p-inputgroup-addon">Imported as</span>
-                        <InputText placeholder="module URL" value={jsModuleImport.as}/>
+    return (<Formik
+            key={jsModuleImport.url}
+            validateOnMount={true}
+            validationSchema={Yup.object({
+                url: Yup.string().required(),
+                as: Yup.string().required(),
+            })}
+            onSubmit={values => {
 
-                        <ButtonWithSpinner
-                            buttonStatus={submitButtonUpdate}
-                            labels={
-                                (jsModuleImport && jsModuleImport.url !== "")
-                                    ? {
-                                        default: t('common:form.update').toString(),
-                                        validating: t('common:form.updating').toString(),
-                                        validated: t('common:form.updated').toString(),
-                                        notValidated: t('common:form.update_failed').toString(),
+                if (jsModuleImport.url === '') {
+                    handleOnCreate(values);
+                } else {
+                    handleOnUpdate(values);
+                }
+            }}
+            initialValues={{...jsModuleImport}}
+        >
+            {(formik) => (
+                <form onSubmit={formik.handleSubmit}>
+                    <div className="formgrid grid">
+                        <div className="field col-12">
+                            <div className="p-inputgroup">
+                                <span className="p-inputgroup-addon">Module URL</span>
+                                <InputText
+                                    id={'jsmodule-import-url-' + jsModuleImport.id}
+                                    {...formik.getFieldProps('url')}
+                                    placeholder="module URL"
+                                />
+                                <span className="p-inputgroup-addon">Imported as</span>
+                                <InputText
+                                    id={'jsmodule-import-as-' + jsModuleImport.id}
+                                    {...formik.getFieldProps('as')}
+                                    placeholder="variable"
+                                />
+
+                                <ButtonWithSpinner
+                                    buttonStatus={submitButtonUpdate}
+                                    disabled={!formik.isValid}
+                                    labels={
+                                        (jsModuleImport && jsModuleImport.id !== 0)
+                                            ? {
+                                                default: t('common:form.update').toString(),
+                                                validating: t('common:form.updating').toString(),
+                                                validated: t('common:form.updated').toString(),
+                                                notValidated: t('common:form.update_failed').toString(),
+                                            }
+                                            : {
+                                                default: t('common:form.create').toString(),
+                                                validating: t('common:form.creating').toString(),
+                                                validated: t('common:form.created').toString(),
+                                                notValidated: t('common:form.create_failed').toString(),
+                                            }
                                     }
-                                    : {
-                                        default: t('common:form.create').toString(),
-                                        validating: t('common:form.creating').toString(),
-                                        validated: t('common:form.created').toString(),
-                                        notValidated: t('common:form.create_failed').toString(),
-                                    }
-                            }
-                            type="submit"
-                        />
-                        {jsModuleImport.url !== "" &&
-                            <ButtonWithSpinner
-                                type="button"
-                                buttonStatus={submitButtonDelete}
-                                labels={{
-                                    default: t('common:form.delete').toString(),
-                                    validating: t('common:form.deleting').toString(),
-                                    validated: t('common:form.deleted').toString(),
-                                    notValidated: t('common:form.delete_failed').toString(),
-                                }}
-                                severity="danger"
-                                onClick={(event) => {
-                                    event.preventDefault();
-                                }}
-                            />}
+                                    onClick={(event) => {
+                                        event.preventDefault();
+                                        jsModuleImport.id === 0 ? handleOnCreate(formik.values) : handleOnUpdate(formik.values);
+                                    }}
+                                />
+                                {jsModuleImport.id !== 0 &&
+                                    <ButtonWithSpinner
+                                        type="button"
+                                        buttonStatus={submitButtonDelete}
+                                        disabled={!formik.isValid}
+                                        labels={{
+                                            default: t('common:form.delete').toString(),
+                                            validating: t('common:form.deleting').toString(),
+                                            validated: t('common:form.deleted').toString(),
+                                            notValidated: t('common:form.delete_failed').toString(),
+                                        }}
+                                        severity="danger"
+                                        validateAction
+                                        validateActionCallback={() => handleOnDelete(formik.values)}
+                                        onClick={(event) => {
+                                            event.preventDefault();
+                                        }}
+                                    />}
+                            </div>
+                        </div>
+
+                        {displayError && <div className="col-12">
+                            <Message severity="error" text={errorMessage}/>
+                        </div>}
                     </div>
-                </div>
-            </div>
-        </form>
+                </form>
+            )}
+        </Formik>
     );
-
 }
 
 export default ReportDataViewFormModuleImportsForm;

@@ -140,6 +140,7 @@ const CustomEditor: React.FC<{
     const [dbHelpersInitialized, setDbHelpersInitialized] = React.useState<boolean>(false);
     const [jsHelpersInitialized, setJsHelpersInitialized] = React.useState<boolean>(false);
     const [changesNotSaved, setChangesNotSaved] = React.useState<boolean>(false);
+    const [cssMoveActionsButtonsbBelow, setCssMoveActionsButtonsbBelow] = React.useState<string>('');
 
     const overlayPanelRef = React.useRef<OverlayPanel>(null);
     const textareaRef = React.useRef<AceEditor>(null);
@@ -443,7 +444,7 @@ const CustomEditor: React.FC<{
         >
             <div className={`custom-editor flex flex-column ${isInvalid ? 'custom-editor-invalid' : ''}`}>
                 {displayButtons &&
-                    <div className="custom-editor-actions">
+                    <div className={`custom-editor-actions ${cssMoveActionsButtonsbBelow}`}>
 
                         {fullScreen ? (
                             <Button
@@ -571,15 +572,27 @@ const CustomEditor: React.FC<{
                     mode={mode}
                     name={id}
                     onBlur={(event, editor) => {
+
                         setFocused(false);
                         if (editor) {
                             handleBlur(editor.getValue());
+                        }
+
+                        // @ts-ignore
+                        if (editor?.searchBox && editor.searchBox.active === true) {
+                            setCssMoveActionsButtonsbBelow('custom-editor-actions-move-below');
                         }
                     }}
                     onChange={(value) => handleChange(value)}
                     onCursorChange={(selection) => setCursorPosition(selection.getCursor())}
                     onFocus={
-                        () => {
+                        (event: any, editor?: Ace.Editor) => {
+
+                            // @ts-ignore
+                            if (editor?.searchBox && editor.searchBox.active === false && cssMoveActionsButtonsbBelow !== '') {
+
+                                setCssMoveActionsButtonsbBelow('');
+                            }
                             setFocused(true);
                             // Re-add default completers...
                             setCompleters([snippetCompleter, textCompleter, keyWordCompleter]);

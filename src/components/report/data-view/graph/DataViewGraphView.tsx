@@ -159,10 +159,9 @@ const DataViewGraphView: React.FC<{
 
             let modules = {};
 
-            if(modulesToImport.length === 0) {
+            if (modulesToImport.length === 0) {
                 return modules;
             }
-
 
             for (let i = 0; i < modulesToImport.length; i++) {
 

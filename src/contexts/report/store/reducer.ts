@@ -65,7 +65,7 @@ import {
     REPORT_SHOW_DATAVIEW_QUERY,
     REPORT_TOGGLE_PANEL,
     REPORT_UPDATE_INFO,
-    RESET_REPORTS_STATE,
+    RESET_REPORTS_STATE, UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION,
     UPDATE_REPORT_PARAMETER_INPUT_VALUE,
     UPDATE_REPORT_PARAMETERS,
     UPDATE_REPORT_QUERY_CLEANUP,
@@ -86,6 +86,9 @@ import TReport                                            from "../../../types/T
 import { TNameValue }                                     from "../../../types/TNameValue";
 import { Layout }                                         from "react-grid-layout";
 import TReportDataViewJs                                  from "../../../types/TReportDataViewJs";
+import { IUpdateReportDataViewRuntimeConfig }             from "./asyncAction";
+import { uncompress }                                     from "../../../utils/tools";
+import TReportDataViewRunTimeConfiguration                from "../../../types/TReportDataViewRuntimeConfiguration";
 
 
 export const defaultDataViewInstance: TDataViewInstance = {
@@ -112,6 +115,8 @@ export const defaultDataView: TReportDataView = {
     chunk_size: 1000,
     id: 0,
     is_visible: true,
+    json_runtime_configuration: {jsModules: []},
+    json_runtime_configuration_minified: false,
     max_width: undefined,
     name: "",
     on_queue: false,
@@ -470,7 +475,22 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                     ...reportState,
                     report: {
                         ...reportState.report,
-                        dataViews: action.payload?.dataViews
+                        dataViews: action.payload?.dataViews?.map(
+                            (dataView: TReportDataView) => {
+
+                                let json_runtime_configuration: TReportDataViewRunTimeConfiguration = dataView.json_runtime_configuration_minified ? JSON.parse(uncompress(String(dataView.json_runtime_configuration))) : JSON.parse(String(dataView.json_runtime_configuration));
+                                if (!json_runtime_configuration.jsModules) {
+                                    json_runtime_configuration = {
+                                        jsModules: []
+                                    }
+                                }
+                                return {
+                                    ...dataView,
+                                    json_runtime_configuration: json_runtime_configuration
+                                }
+                            }
+                        )
+
                     },
                     instances: [
                         ...reportState.instances.map(
@@ -1266,6 +1286,36 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
 
         case RESET_REPORTS_STATE:
             return initialState;
+
+        case UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION:
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                (action as IUpdateReportDataViewRuntimeConfig).payload.reportId
+            );
+
+            const glop = updateReportState(
+                state,
+                (action as IUpdateReportDataViewRuntimeConfig).payload.reportId,
+                {
+                    report: {
+                        ...reportState.report,
+                        ...reportState.report?.dataViews?.map(dataView => {
+                            if (dataView.id === action.payload?.dataViewId) {
+
+                                return {
+                                    ...dataView,
+                                    json_runtime_configuration: action.payload.runtimeConfiguration
+                                }
+                            }
+                            return dataView;
+                        }),
+                    },
+                }
+            );
+
+            console.log('glop', glop);
+            return glop;
 
         case UPDATE_REPORT_PARAMETERS:
 

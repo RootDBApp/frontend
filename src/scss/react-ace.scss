@@ -44,7 +44,6 @@
 
 .custom-editor-actions {
   position: absolute;
-  top: 0;
   right: 0;
   padding: $spacer;
   opacity: 50%;
@@ -64,4 +63,8 @@
 
 .custom-editor-actions:hover {
   opacity: 100%;
+}
+
+.custom-editor-actions-move-below {
+  top: 3.2rem;
 }

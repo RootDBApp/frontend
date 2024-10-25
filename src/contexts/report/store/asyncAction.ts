@@ -19,12 +19,13 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as types        from "./types";
-import TReportDataViewJs from "../../../types/TReportDataViewJs";
+import * as types                          from "./types";
+import TReportDataViewJs                   from "../../../types/TReportDataViewJs";
 import {
     ICallbackGetReportDateViewsAndResponseStatus,
-}                        from "../../../types/ICallBacks";
-import { TNameValue }    from "../../../types/TNameValue";
+}                                          from "../../../types/ICallBacks";
+import { TNameValue }                      from "../../../types/TNameValue";
+import TReportDataViewRunTimeConfiguration from "../../../types/TReportDataViewRuntimeConfiguration";
 
 export interface IGetReport {
     type: types.TGetReport,
@@ -66,6 +67,11 @@ export interface IUpdateReportDataViewQuery {
     payload: { reportId: number, dataViewId: number, query: string, callback: ICallbackGetReportDateViewsAndResponseStatus },
 }
 
+export interface IUpdateReportDataViewRuntimeConfig {
+    type: types.TUpdateReportDataViewRunTimeConfiguration,
+    payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewRunTimeConfiguration },
+}
+
 export const getReport = (payload: { reportId: number, reportInstanceId: number }): IGetReport => ({
     type: types.GET_REPORT,
     payload: payload,
@@ -100,7 +106,6 @@ export const updateReportDataViewQuery = (payload: { reportId: number, dataViewI
     type: types.UPDATE_REPORT_DATAVIEW_QUERY,
     payload,
 });
-
 
 export type TReportAsyncAction =
     IGetReport
