@@ -88,7 +88,7 @@ import { Layout }                                         from "react-grid-layou
 import TReportDataViewJs                                  from "../../../types/TReportDataViewJs";
 import { IUpdateReportDataViewRuntimeConfig }             from "./asyncAction";
 import { uncompress }                                     from "../../../utils/tools";
-import TReportDataViewRunTimeConfiguration                from "../../../types/TReportDataViewRuntimeConfiguration";
+import TReportDataViewRunTimeConfiguration                from "../../../types/TReportDataViewJsRuntimeConfiguration";
 
 
 export const defaultDataViewInstance: TDataViewInstance = {
@@ -106,6 +106,8 @@ export const defaultDataViewJs: TReportDataViewJs = {
     report_data_view_lib_version_id: 1,
     json_form: '',
     json_form_minified: false,
+    json_runtime_configuration: {jsModules: []},
+    json_runtime_configuration_minified: false,
     js_code: '',
     js_code_minified: false,
 }
@@ -115,8 +117,6 @@ export const defaultDataView: TReportDataView = {
     chunk_size: 1000,
     id: 0,
     is_visible: true,
-    json_runtime_configuration: {jsModules: []},
-    json_runtime_configuration_minified: false,
     max_width: undefined,
     name: "",
     on_queue: false,
@@ -478,7 +478,7 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                         dataViews: action.payload?.dataViews?.map(
                             (dataView: TReportDataView) => {
 
-                                let json_runtime_configuration: TReportDataViewRunTimeConfiguration = dataView.json_runtime_configuration_minified ? JSON.parse(uncompress(String(dataView.json_runtime_configuration))) : JSON.parse(String(dataView.json_runtime_configuration));
+                                let json_runtime_configuration: TReportDataViewRunTimeConfiguration = dataView.report_data_view_js.json_runtime_configuration_minified ? JSON.parse(uncompress(String(dataView.report_data_view_js.json_runtime_configuration))) : JSON.parse(String(dataView.report_data_view_js.json_runtime_configuration));
                                 if (!json_runtime_configuration.jsModules) {
                                     json_runtime_configuration = {
                                         jsModules: []
@@ -486,7 +486,10 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                                 }
                                 return {
                                     ...dataView,
-                                    json_runtime_configuration: json_runtime_configuration
+                                    report_data_view_js: {
+                                        ...dataView.report_data_view_js,
+                                        json_runtime_configuration: json_runtime_configuration
+                                    }
                                 }
                             }
                         )

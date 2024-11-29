@@ -31,8 +31,8 @@ import { EDataViewFieldUpdate } from "../../../types/EDataViewFieldUpdate";
 import { TAddReportInstance }   from "./types";
 import TReportAndDataViewEvent  from "../../../types/TReportAndDataViewEvent";
 import { TReportCacheStatus }   from "../../../types/TReportCacheStatus";
-import { IUpdateReportDataViewRuntimeConfig } from "./asyncAction";
-import TReportDataViewRunTimeConfiguration from "../../../types/TReportDataViewRuntimeConfiguration";
+import { IUpdateReportDataViewRuntimeConfig }           from "./asyncAction";
+import TReportDataViewJsRunTimeConfiguration            from "../../../types/TReportDataViewJsRuntimeConfiguration";
 import { ICallbackGetReportDateViewsAndResponseStatus } from "../../../types/ICallBacks";
 
 export interface IAddReportInstance {
@@ -335,7 +335,7 @@ export const resetReportsState = (): IResetReportsState => ({
     payload: null,
 });
 
-export const updateReportDataViewRuntimeConfig = (payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewRunTimeConfiguration }): IUpdateReportDataViewRuntimeConfig => ({
+export const updateReportDataViewRuntimeConfig = (payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewJsRunTimeConfiguration }): IUpdateReportDataViewRuntimeConfig => ({
     type: types.UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION,
     payload,
 });

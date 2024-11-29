@@ -24,8 +24,8 @@ import TReportDataViewJs                   from "../../../types/TReportDataViewJ
 import {
     ICallbackGetReportDateViewsAndResponseStatus,
 }                                          from "../../../types/ICallBacks";
-import { TNameValue }                      from "../../../types/TNameValue";
-import TReportDataViewRunTimeConfiguration from "../../../types/TReportDataViewRuntimeConfiguration";
+import { TNameValue }                        from "../../../types/TNameValue";
+import TReportDataViewJsRunTimeConfiguration from "../../../types/TReportDataViewJsRuntimeConfiguration";
 
 export interface IGetReport {
     type: types.TGetReport,
@@ -69,7 +69,7 @@ export interface IUpdateReportDataViewQuery {
 
 export interface IUpdateReportDataViewRuntimeConfig {
     type: types.TUpdateReportDataViewRunTimeConfiguration,
-    payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewRunTimeConfiguration },
+    payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewJsRunTimeConfiguration },
 }
 
 export const getReport = (payload: { reportId: number, reportInstanceId: number }): IGetReport => ({

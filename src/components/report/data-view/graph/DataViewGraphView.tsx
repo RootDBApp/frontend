@@ -157,6 +157,7 @@ const DataViewGraphView: React.FC<{
 
         const load = async () => {
 
+            console.debug('-----------------------------------',dataViewJs);
             let modules = {};
 
             if (modulesToImport.length === 0) {
@@ -170,6 +171,9 @@ const DataViewGraphView: React.FC<{
 
             return modules
         }
+
+
+
 
         // Used to initialize the chart components, and eval the JS.
         React.useEffect(() => {

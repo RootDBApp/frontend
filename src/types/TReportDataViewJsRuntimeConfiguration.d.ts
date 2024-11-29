@@ -21,8 +21,8 @@
 
 import TJSModuleImport from "./TJSmoduleImport";
 
-type TReportDataViewRunTimeConfiguration = {
+type TReportDataViewJsRunTimeConfiguration = {
     jsModules: array<TJSModuleImport>
 }
 
-export = TReportDataViewRunTimeConfiguration;
+export = TReportDataViewJsRunTimeConfiguration;

@@ -32,8 +32,8 @@ import { apiSendRequest }                        from "../../../services/api";
 import { EAPIEndPoint }                          from "../../../types/EAPIEndPoint";
 import TReportDataView                           from "../../../types/TReportDataView";
 import { TAPIResponse }                          from "../../../types/TAPIResponse";
-import TReportDataViewState                      from "../../../types/TReportDataViewState";
-import TReportDataViewRuntimeConfiguration       from "../../../types/TReportDataViewRuntimeConfiguration";
+import TReportDataViewState                  from "../../../types/TReportDataViewState";
+import TReportDataViewJsRuntimeConfiguration from "../../../types/TReportDataViewJsRuntimeConfiguration";
 
 const ReportDataViewFormModuleImportsForm: React.FC<{
     jsModuleImport: TJSModuleImport,
@@ -46,13 +46,13 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
     const [displayError, setDisplayError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
 
-    const updateReportDataView = (runtimeConfiguration: TReportDataViewRuntimeConfiguration): void => {
+    const updateReportDataViewJs = (runtimeConfiguration: TReportDataViewJsRuntimeConfiguration): void => {
 
         apiSendRequest({
             method: 'PUT',
-            endPoint: EAPIEndPoint.REPORT_DATA_VIEW,
+            endPoint: EAPIEndPoint.REPORT_DATA_VIEW_JS,
             formValues: {json_runtime_configuration: runtimeConfiguration},
-            resourceId: reportDataViewState?.dataView?.id,
+            resourceId: reportDataViewState?.dataView?.report_data_view_js_id,
             extraUrlPath: 'json-runtime-configuration',
             callbackSuccess: (response: TReportDataView) => {
 
@@ -66,19 +66,19 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
         });
     }
 
-    const getReportDataViewRuntimeConfiguration = (): TReportDataViewRuntimeConfiguration => {
+    const getReportDataViewRuntimeConfiguration = (): TReportDataViewJsRuntimeConfiguration => {
 
-        if (reportDataViewState.dataView) {
+        if (reportDataViewState.dataView && reportDataViewState.dataView.report_data_view_js) {
             // Recompute all IDs
-            reportDataViewState.dataView.json_runtime_configuration.jsModules = [
+            reportDataViewState.dataView.report_data_view_js.json_runtime_configuration.jsModules = [
 
-                ...reportDataViewState.dataView.json_runtime_configuration.jsModules.map((jsModuleImport: TJSModuleImport, index: number) => {
+                ...reportDataViewState.dataView.report_data_view_js.json_runtime_configuration.jsModules.map((jsModuleImport: TJSModuleImport, index: number) => {
 
                     return {...jsModuleImport, id: (index + 1)};
                 })
             ];
 
-            return reportDataViewState.dataView.json_runtime_configuration;
+            return reportDataViewState.dataView.report_data_view_js.json_runtime_configuration;
         }
 
         return {jsModules: []};
@@ -86,7 +86,7 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
     const handleOnCreate = (values: TJSModuleImport): void => {
 
         setSubmitButtonCreate(SubmitButtonStatus.Validating);
-        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        let runtimeConfiguration: TReportDataViewJsRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
         runtimeConfiguration.jsModules = [
             ...runtimeConfiguration.jsModules,
             {
@@ -94,14 +94,14 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
                 id: runtimeConfiguration.jsModules.length + 1
             }
         ];
-        updateReportDataView(runtimeConfiguration);
+        updateReportDataViewJs(runtimeConfiguration);
         setSubmitButtonCreate(SubmitButtonStatus.Validated);
     }
 
     const handleOnUpdate = (values: TJSModuleImport): void => {
 
         setSubmitButtonUpdate(SubmitButtonStatus.Validating);
-        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        let runtimeConfiguration: TReportDataViewJsRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
         runtimeConfiguration.jsModules = [
             ...runtimeConfiguration.jsModules.map((jsModuleImport: TJSModuleImport) => {
                 if (jsModuleImport.id === values.id) {
@@ -111,7 +111,7 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
                 return jsModuleImport;
             })
         ];
-        updateReportDataView(runtimeConfiguration);
+        updateReportDataViewJs(runtimeConfiguration);
         setSubmitButtonUpdate(SubmitButtonStatus.Validated);
 
     };
@@ -119,11 +119,11 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
     const handleOnDelete = (values: TJSModuleImport): void => {
 
         setSubmitButtonDelete(SubmitButtonStatus.Validating);
-        let runtimeConfiguration: TReportDataViewRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
+        let runtimeConfiguration: TReportDataViewJsRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
         runtimeConfiguration.jsModules = [
             ...runtimeConfiguration.jsModules.filter((jsModuleImport: TJSModuleImport) => (jsModuleImport.id !== values.id))
         ];
-        updateReportDataView(runtimeConfiguration);
+        updateReportDataViewJs(runtimeConfiguration);
         setSubmitButtonDelete(SubmitButtonStatus.Validated);
     }
 

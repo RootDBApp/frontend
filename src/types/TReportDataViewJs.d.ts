@@ -21,6 +21,7 @@
 
 import TReportDataView           from "./TReportDataView";
 import TReportDataViewLibVersion from "./TReportDataViewLibVersion";
+import TReportDataViewJsRunTimeConfiguration from "./TReportDataViewJsRuntimeConfiguration";
 
 type TReportDataViewJs = {
     id: number,
@@ -28,6 +29,8 @@ type TReportDataViewJs = {
     report_data_view_lib_version_id: number,
     json_form: string,
     json_form_minified: boolean,
+    json_runtime_configuration: TReportDataViewJsRunTimeConfiguration,
+    json_runtime_configuration_minified: boolean,
     js_code: string,
     js_code_minified: boolean,
     created_at?: DateTime,

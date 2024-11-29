@@ -27,8 +27,10 @@ import ReportDataViewFormModuleImportsForm   from "./ReportDataViewFormModuleImp
 
 const ReportDataViewFormModuleImportsList: React.FC<{ reportDataViewState: TReportDataViewState }> = ({reportDataViewState}) => {
 
+
+    console.debug('------------------------', reportDataViewState);
     return (<>
-        {reportDataViewState.dataView?.json_runtime_configuration?.jsModules.map((jsModuleImport: TJSModuleImport) => (
+        {reportDataViewState.dataView?.report_data_view_js?.json_runtime_configuration?.jsModules.map((jsModuleImport: TJSModuleImport) => (
             <ReportDataViewFormModuleImportsForm
                 key={`jsmodule-import-${reportDataViewState.report?.id}-${reportDataViewState.dataView?.id}-${jsModuleImport.id}`}
                 jsModuleImport={jsModuleImport}

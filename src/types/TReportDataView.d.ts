@@ -21,8 +21,8 @@
 
 import { EDataViewType }                   from "./EDataViewType";
 import TReportDataViewJs                   from "./TReportDataViewJs";
-import TReportDataViewLibVersion           from "./TReportDataViewLibVersion";
-import TReportDataViewRunTimeConfiguration from "./TReportDataViewRuntimeConfiguration";
+import TReportDataViewLibVersion             from "./TReportDataViewLibVersion";
+import TReportDataViewJsRunTimeConfiguration from "./TReportDataViewJsRuntimeConfiguration";
 
 type TReportDataView = {
     id: number,
@@ -30,8 +30,6 @@ type TReportDataView = {
     chunk_size: number,
     description_display_type?: number,
     is_visible: boolean,
-    json_runtime_configuration: TReportDataViewRunTimeConfiguration,
-    json_runtime_configuration_minified: boolean,
     on_queue: boolean,
     max_width: number | undefined,
     name: string,
