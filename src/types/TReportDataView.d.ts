@@ -19,8 +19,8 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import { EDataViewType }                   from "./EDataViewType";
-import TReportDataViewJs                   from "./TReportDataViewJs";
+import { EDataViewType }                     from "./EDataViewType";
+import TReportDataViewJs                     from "./TReportDataViewJs";
 import TReportDataViewLibVersion             from "./TReportDataViewLibVersion";
 import TReportDataViewJsRunTimeConfiguration from "./TReportDataViewJsRuntimeConfiguration";
 
@@ -43,6 +43,7 @@ type TReportDataView = {
     description?: string,
     report_data_view_lib_type_id?: number,
     report_data_view_lib_version?: TReportDataViewLibVersion,
+    report_id?: number,
     title?: string,
     updated_at?: Date | null,
 }

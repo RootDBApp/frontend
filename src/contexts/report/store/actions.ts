@@ -19,21 +19,18 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as types               from './types';
-import TReport                  from "../../../types/TReport";
-import TReportParameter         from "../../../types/TReportParameter";
-import { TNameValue }           from "../../../types/TNameValue";
-import { EReportPanel }         from "../../../types/EReportPanels";
-import TReportDataView          from "../../../types/TReportDataView";
-import { EReportViewMode }      from "../../../types/EReportViewMode";
-import TReportDataViewJs        from "../../../types/TReportDataViewJs";
-import { EDataViewFieldUpdate } from "../../../types/EDataViewFieldUpdate";
-import { TAddReportInstance }   from "./types";
-import TReportAndDataViewEvent  from "../../../types/TReportAndDataViewEvent";
-import { TReportCacheStatus }   from "../../../types/TReportCacheStatus";
-import { IUpdateReportDataViewRuntimeConfig }           from "./asyncAction";
-import TReportDataViewJsRunTimeConfiguration            from "../../../types/TReportDataViewJsRuntimeConfiguration";
-import { ICallbackGetReportDateViewsAndResponseStatus } from "../../../types/ICallBacks";
+import * as types                                       from './types';
+import TReport                                          from "../../../types/TReport";
+import TReportParameter                                 from "../../../types/TReportParameter";
+import { TNameValue }                                   from "../../../types/TNameValue";
+import { EReportPanel }                                 from "../../../types/EReportPanels";
+import TReportDataView                                  from "../../../types/TReportDataView";
+import { EReportViewMode }                              from "../../../types/EReportViewMode";
+import TReportDataViewJs                                from "../../../types/TReportDataViewJs";
+import { EDataViewFieldUpdate }                         from "../../../types/EDataViewFieldUpdate";
+import { TAddReportInstance }                           from "./types";
+import TReportAndDataViewEvent                          from "../../../types/TReportAndDataViewEvent";
+import { TReportCacheStatus }                           from "../../../types/TReportCacheStatus";
 
 export interface IAddReportInstance {
     type: TAddReportInstance
@@ -123,6 +120,11 @@ export interface IUpdateReportQuery {
 export interface IReportCacheUpdated {
     type: types.TReportCacheUpdated,
     payload: TReportCacheStatus
+}
+
+export interface IReportDataViewJsUpdated {
+    type: types.TReportDataViewJsUpdated,
+    payload: TReportDataViewJs,
 }
 
 export interface IReportDataViewRunStart {
@@ -245,6 +247,11 @@ export const gotReportDataViewResults = (payload: TReportAndDataViewEvent): IGot
     payload
 })
 
+export const reportDataViewJsUpdated = (payload: TReportDataViewJs): IReportDataViewJsUpdated => ({
+    type: types.REPORT_DATAVIEW_JS_UPDATED,
+    payload
+});
+
 export const reportDataViewRunEnd = (payload: TReportAndDataViewEvent): IReportDataViewRunEnd => ({
     type: types.REPORT_DATAVIEW_RUN_END,
     payload
@@ -335,11 +342,6 @@ export const resetReportsState = (): IResetReportsState => ({
     payload: null,
 });
 
-export const updateReportDataViewRuntimeConfig = (payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewJsRunTimeConfiguration }): IUpdateReportDataViewRuntimeConfig => ({
-    type: types.UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION,
-    payload,
-});
-
 export const updateReportParameters = (payload: { report_id: number, parameters: TReportParameter[] }): IUpdateReportParameters => ({
     type: types.UPDATE_REPORT_PARAMETERS,
     payload
@@ -370,6 +372,7 @@ export type TReportAction =
     | IGotReportDataViewQuery
     | IGotReportDataViewResults
     | IReportCacheUpdated
+    | IReportDataViewJsUpdated
     | IReportDataViewRunStart
     | IReportDataViewRunEnd
     | IReportDataViewRunError
@@ -388,7 +391,6 @@ export type TReportAction =
     | IReportTogglePanel
     | IReportUpdateInfo
     | IResetReportsState
-    | IUpdateReportDataViewRuntimeConfig
     | IUpdateReportParameters
     | IUpdateReportParameterInputValue
     | IUpdateReportQuery

@@ -37,4 +37,5 @@ export const reportInitialState: IReportState = {
     instances: [],
     name: '',
 }
+
 export default initialState;

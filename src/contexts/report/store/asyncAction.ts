@@ -67,11 +67,6 @@ export interface IUpdateReportDataViewQuery {
     payload: { reportId: number, dataViewId: number, query: string, callback: ICallbackGetReportDateViewsAndResponseStatus },
 }
 
-export interface IUpdateReportDataViewRuntimeConfig {
-    type: types.TUpdateReportDataViewRunTimeConfiguration,
-    payload: { reportId: number, dataViewId: number, runtimeConfiguration: TReportDataViewJsRunTimeConfiguration },
-}
-
 export const getReport = (payload: { reportId: number, reportInstanceId: number }): IGetReport => ({
     type: types.GET_REPORT,
     payload: payload,

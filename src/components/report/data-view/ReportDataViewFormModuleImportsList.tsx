@@ -19,28 +19,49 @@
  * ROBIN Brice <brice@robri.net>
  */
 
-import * as React                            from 'react';
-import TJSModuleImport                       from "../../../types/TJSmoduleImport";
-import TReportDataViewState                  from "../../../types/TReportDataViewState";
-import ReportDataViewFormModuleImportsForm   from "./ReportDataViewFormModuleImportsForm";
+import * as React from 'react';
+
+import TJSModuleImport                     from "../../../types/TJSmoduleImport";
+import TReportDataViewState                from "../../../types/TReportDataViewState";
+import ReportDataViewFormModuleImportsForm from "./ReportDataViewFormModuleImportsForm";
+
+const ReportDataViewFormModuleImportsList: React.FC<{
+    reportDataViewState: TReportDataViewState
+}> = ({
+          reportDataViewState,
+      }) => {
 
 
-const ReportDataViewFormModuleImportsList: React.FC<{ reportDataViewState: TReportDataViewState }> = ({reportDataViewState}) => {
+    const [numModules, setNumModules] = React.useState<number>(0);
 
+    React.useEffect(() => {
 
-    console.debug('------------------------', reportDataViewState);
+        console.debug('Refresh JSModules list');
+        if(numModules > 0) {
+            setNumModules(0);
+        }
+    }, [numModules]);
+
     return (<>
         {reportDataViewState.dataView?.report_data_view_js?.json_runtime_configuration?.jsModules.map((jsModuleImport: TJSModuleImport) => (
             <ReportDataViewFormModuleImportsForm
                 key={`jsmodule-import-${reportDataViewState.report?.id}-${reportDataViewState.dataView?.id}-${jsModuleImport.id}`}
                 jsModuleImport={jsModuleImport}
                 reportDataViewState={reportDataViewState}
+                callbackOnDataViewJsModuleUpdated={(numModules: number) => {
+
+                    setNumModules(numModules);
+                }}
             />
         ))}
         <ReportDataViewFormModuleImportsForm
             key={`jsmodule-import-${reportDataViewState.report?.id}-${reportDataViewState.dataView?.id}-99999`}
             jsModuleImport={{id: 0, url: '', as: ''}}
             reportDataViewState={reportDataViewState}
+            callbackOnDataViewJsModuleUpdated={(numModules: number) => {
+
+                setNumModules(numModules);
+            }}
         />
     </>);
 }

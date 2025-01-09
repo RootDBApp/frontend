@@ -74,6 +74,7 @@ const ReportDataViewForm: React.FC<{
     const [displayError, setDisplayError] = React.useState(false);
     const [errorMessage, setErrorMessage] = React.useState('');
 
+
     const handleOnSubmit = (values: TReportDataView): void => {
 
         setDisplayError(false);
@@ -502,7 +503,11 @@ const ReportDataViewForm: React.FC<{
             </Divider>
 
             <div className="field col-12">
-                <ReportDataViewFormModuleImportsList reportDataViewState={reportDataViewState}/>
+                <ReportDataViewFormModuleImportsList
+                    // reportId={reportId}
+                    // dataViewId={dataViewId}
+                    reportDataViewState={reportDataViewState}
+                />
             </div>
         </>
     )

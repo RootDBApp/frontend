@@ -23,7 +23,7 @@ import {
     IDeletedReportDataView,
     IGotReportDataView,
     IGotReportDataViewJs,
-    IGotReportDataViewQuery,
+    IGotReportDataViewQuery, IReportDataViewJsUpdated,
     IReportDataViewRunEnd,
     IReportDataViewRunError,
     IReportDataViewRunStart,
@@ -49,6 +49,7 @@ import {
     GOT_REPORT_DATAVIEW_RESULTS,
     GOT_REPORT_DATAVIEWS,
     REPORT_CACHE_UPDATED,
+    REPORT_DATAVIEW_JS_UPDATED,
     REPORT_DATAVIEW_RUN_END,
     REPORT_DATAVIEW_RUN_ERROR,
     REPORT_DATAVIEW_RUN_START,
@@ -65,7 +66,7 @@ import {
     REPORT_SHOW_DATAVIEW_QUERY,
     REPORT_TOGGLE_PANEL,
     REPORT_UPDATE_INFO,
-    RESET_REPORTS_STATE, UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION,
+    RESET_REPORTS_STATE,
     UPDATE_REPORT_PARAMETER_INPUT_VALUE,
     UPDATE_REPORT_PARAMETERS,
     UPDATE_REPORT_QUERY_CLEANUP,
@@ -86,7 +87,6 @@ import TReport                                            from "../../../types/T
 import { TNameValue }                                     from "../../../types/TNameValue";
 import { Layout }                                         from "react-grid-layout";
 import TReportDataViewJs                                  from "../../../types/TReportDataViewJs";
-import { IUpdateReportDataViewRuntimeConfig }             from "./asyncAction";
 import { uncompress }                                     from "../../../utils/tools";
 import TReportDataViewRunTimeConfiguration                from "../../../types/TReportDataViewJsRuntimeConfiguration";
 
@@ -737,6 +737,45 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
                 }
             );
 
+        case REPORT_DATAVIEW_JS_UPDATED:
+
+            if ((action as IReportDataViewJsUpdated).payload.report_data_view?.report_id === undefined
+                && ((action as IReportDataViewJsUpdated).payload.report_data_view?.report_id !== null)) {
+
+                return state;
+            }
+
+
+            reportState = extractReportStateFromReportId(
+                [...state],
+                // @ts-ignore
+                (action as IReportDataViewJsUpdated).payload.report_data_view.report_id
+            );
+
+            return updateReportState(
+                state,
+                // @ts-ignore
+                (action as IReportDataViewJsUpdated).payload.report_data_view?.report_id,
+                {
+                    report: {
+                        ...reportState.report,
+                        ...reportState.report?.dataViews?.map(dataView => {
+                            if (dataView.id === action.payload?.report_data_view_id) {
+
+                                return {
+                                    ...dataView,
+                                    json_runtime_configuration: action.payload.json_runtime_configuration
+                                }
+                            }
+                            return dataView;
+                        }),
+                    },
+                }
+            );
+
+            // console.log('----> glop ---->', glop);
+            // return glop;
+
         case REPORT_DATAVIEW_RUN_END:
 
             reportState = extractReportStateFromReportId(
@@ -1289,36 +1328,6 @@ const reducer = (state: IReportState[], action: TReportAction): IReportState[] =
 
         case RESET_REPORTS_STATE:
             return initialState;
-
-        case UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION:
-
-            reportState = extractReportStateFromReportId(
-                [...state],
-                (action as IUpdateReportDataViewRuntimeConfig).payload.reportId
-            );
-
-            const glop = updateReportState(
-                state,
-                (action as IUpdateReportDataViewRuntimeConfig).payload.reportId,
-                {
-                    report: {
-                        ...reportState.report,
-                        ...reportState.report?.dataViews?.map(dataView => {
-                            if (dataView.id === action.payload?.dataViewId) {
-
-                                return {
-                                    ...dataView,
-                                    json_runtime_configuration: action.payload.runtimeConfiguration
-                                }
-                            }
-                            return dataView;
-                        }),
-                    },
-                }
-            );
-
-            console.log('glop', glop);
-            return glop;
 
         case UPDATE_REPORT_PARAMETERS:
 

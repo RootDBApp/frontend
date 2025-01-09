@@ -34,7 +34,7 @@ import {
     gotReportDataViewQuery,
     gotReportDataViewResults,
     gotReportDataViews,
-    reportCacheUpdated,
+    reportCacheUpdated, reportDataViewJsUpdated,
     reportDataViewRunEnd,
     reportDataViewRunError,
     reportDataViewRunStart,
@@ -42,7 +42,7 @@ import {
     reportRunStart,
     reportShowDataViewAdd,
     TReportAction,
-}                                                       from "./actions";
+} from "./actions";
 import {
     IGetReport,
     IListenPrivateChannelReport,
@@ -51,7 +51,6 @@ import {
     IPublicGetReportDataViews,
     IUpdateReportDataViewJs,
     IUpdateReportDataViewQuery,
-    IUpdateReportDataViewRuntimeConfig,
     TReportAsyncAction
 }                                                       from "./asyncAction";
 import { apiSendRequest }                               from "../../../services/api";
@@ -62,7 +61,6 @@ import { ECallbackStatus }                              from "../../../types/ECa
 import TReportDataViewJs                                from "../../../types/TReportDataViewJs";
 import { TAPIResponse }                                 from "../../../types/TAPIResponse";
 import { TReportCacheStatus }                           from "../../../types/TReportCacheStatus";
-import { UPDATE_REPORT_DATAVIEW_RUNTIME_CONFIGURATION } from "./types";
 
 const getReportDataViews = (
     dispatch: { (value: TReportAction): void },
@@ -182,6 +180,11 @@ const asyncActionHandlers: AsyncActionHandlers<React.Reducer<IReportState, TRepo
             //
             // Report events.
             //
+            .listen('ReportDataViewJsUpdated', (reportDataviewJs: TReportDataViewJs) => {
+
+                console.debug('ws - ReportDataViewJsUpdated', reportDataviewJs);
+                dispatch(reportDataViewJsUpdated(reportDataviewJs));
+            })
             .listen('ReportCacheUpdated', (reportCacheStatus: TReportCacheStatus) => {
 
                 console.debug('ws - ReportCacheUpdated', reportCacheStatus);

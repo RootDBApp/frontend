@@ -72,6 +72,11 @@ export interface ICallbackOnCreateOrUpdateDataViewInfoParam {
     (column: TDataViewMetricRow): void
 }
 
+export interface ICallbackOnDataViewJsModuleUpdated {
+    (numModules: number): void
+}
+
+
 export interface ICallbackOnReportLinkParamatersUpdate {
     (reportLinkParameters: Array<TReportLinkParameter>): void
 }

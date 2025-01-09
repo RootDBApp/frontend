@@ -32,13 +32,15 @@ import { apiSendRequest }                        from "../../../services/api";
 import { EAPIEndPoint }                          from "../../../types/EAPIEndPoint";
 import TReportDataView                           from "../../../types/TReportDataView";
 import { TAPIResponse }                          from "../../../types/TAPIResponse";
-import TReportDataViewState                  from "../../../types/TReportDataViewState";
-import TReportDataViewJsRuntimeConfiguration from "../../../types/TReportDataViewJsRuntimeConfiguration";
+import TReportDataViewState                      from "../../../types/TReportDataViewState";
+import TReportDataViewJsRuntimeConfiguration     from "../../../types/TReportDataViewJsRuntimeConfiguration";
+import { ICallbackOnDataViewJsModuleUpdated }    from "../../../types/ICallBacks";
 
 const ReportDataViewFormModuleImportsForm: React.FC<{
     jsModuleImport: TJSModuleImport,
     reportDataViewState: TReportDataViewState
-}> = ({jsModuleImport, reportDataViewState}) => {
+    callbackOnDataViewJsModuleUpdated: ICallbackOnDataViewJsModuleUpdated
+}> = ({jsModuleImport, reportDataViewState, callbackOnDataViewJsModuleUpdated}) => {
 
     const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
@@ -56,6 +58,7 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
             extraUrlPath: 'json-runtime-configuration',
             callbackSuccess: (response: TReportDataView) => {
 
+                callbackOnDataViewJsModuleUpdated(runtimeConfiguration.jsModules.length);
             },
             callbackError: (error: TAPIResponse) => {
 
@@ -83,6 +86,7 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
 
         return {jsModules: []};
     }
+
     const handleOnCreate = (values: TJSModuleImport): void => {
 
         setSubmitButtonCreate(SubmitButtonStatus.Validating);
