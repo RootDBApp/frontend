@@ -151,28 +151,22 @@ const DataViewGraphView: React.FC<{
             }
         }
 
-        const modulesToImport: Array<{ url: string, as: string }> = [
-            {url: "https://cdn.skypack.dev/topojson@3.0.2", as: "topojson"},
-        ];
-
+        // Will loaded data view JS modules on the fly.
         const load = async () => {
 
-            console.debug('-----------------------------------',dataViewJs);
             let modules = {};
 
-            if (modulesToImport.length === 0) {
+            if (dataViewJs.json_runtime_configuration.jsModules && dataViewJs.json_runtime_configuration.jsModules.length === 0) {
                 return modules;
             }
 
-            for (let i = 0; i < modulesToImport.length; i++) {
+            for (let i = 0; i < dataViewJs.json_runtime_configuration.jsModules.length; i++) {
 
-                modules = {...modules, [modulesToImport[i].as]: await import(/* webpackIgnore: true */ modulesToImport[i].url)};
+                modules = {...modules, [dataViewJs.json_runtime_configuration.jsModules[i].as]: await import(/* webpackIgnore: true */ dataViewJs.json_runtime_configuration.jsModules[i].url)};
             }
 
             return modules
         }
-
-
 
 
         // Used to initialize the chart components, and eval the JS.
