@@ -153,17 +153,17 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
                     <div className="formgrid grid">
                         <div className="field col-12">
                             <div className="p-inputgroup">
-                                <span className="p-inputgroup-addon">Module URL</span>
+                                <span className="p-inputgroup-addon">{t("report:dataview.runtime_configuration.module_url")}</span>
                                 <InputText
                                     id={'jsmodule-import-url-' + jsModuleImport.id}
                                     {...formik.getFieldProps('url')}
-                                    placeholder="module URL"
+                                    placeholder={t("report:dataview.runtime_configuration.module_url")}
                                 />
-                                <span className="p-inputgroup-addon">Imported as</span>
+                                <span className="p-inputgroup-addon">{t("report:dataview.runtime_configuration.imported_as")}</span>
                                 <InputText
                                     id={'jsmodule-import-as-' + jsModuleImport.id}
                                     {...formik.getFieldProps('as')}
-                                    placeholder="variable"
+                                    placeholder={t("report:dataview.runtime_configuration.variable_name")}
                                 />
 
                                 <ButtonWithSpinner

@@ -43,13 +43,18 @@
         "asset_filter_by_storage" : "Filter by storage type",
         "asset_source" : "Asset source",
         "asset_uploaded" : "Asset uploaded.",
+        "contents": "Asset contents",
         "choose_storage" : "Choose a storage type",
         "create_to_upload" : "Create the asset in order to upload asset content.",
         "current_asset_file" : "Current asset file :",
+        "database": "Database",
+        "file": "File",
+        "filesystem": "Filesystem",
         "name" : "Asset name",
         "new_asset" : "New asset",
         "storage_location" : "Storage location",
         "storage_type" : "Storage type",
+        "string": "String",
         "upload_asset" : "Upload asset",
         "upload_in_progress" : "Upload in progress..."
     },
@@ -134,6 +139,12 @@
         "report_data_view_configuration" : "Data view configuration",
         "reset_error_click" : "Click on the button above to retry",
         "run" : "Run data view",
+        "runtime_configuration": {
+            "external_js_modules": "External JS modules",
+            "imported_as": "Imported as",
+            "module_url": "Module URL",
+        "variable_name": "variable_name (in dataview's js code)"
+        },
         "show_sql_panel" : "Show SQL query",
         "sections" : {
             "sql" : "SQL",

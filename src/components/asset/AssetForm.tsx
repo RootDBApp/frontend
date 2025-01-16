@@ -325,17 +325,17 @@ const AssetForm: React.FC<{
                                                         value={EAssetSource.FILE}
                                                         checked={formik.values.asset_source === EAssetSource.FILE}
                                                     />
-                                                    <label htmlFor={'asset_source_file_' + completeAsset.id} className="ml-2">File</label>
+                                                    <label htmlFor={'asset_source_file_' + completeAsset.id} className="ml-2">{t('report:asset.file').toString()}</label>
                                                 </div>
                                                 <div className="flex align-items-center">
                                                     <RadioButton
                                                         inputId={'asset_source_string_' + completeAsset.id}
                                                         {...formik.getFieldProps('asset_source')}
-                                                        className={!!formik.errors.asset_source ? 'p-invalid w-full' : 'w-full'}
+                                                        className={!!formik.errors.asset_source ? 'p-invalid ' : ''}
                                                         value={EAssetSource.STRING}
                                                         checked={formik.values.asset_source === EAssetSource.STRING}
                                                     />
-                                                    <label htmlFor={'asset_source_string_' + completeAsset.id} className="ml-2">String</label>
+                                                    <label htmlFor={'asset_source_string_' + completeAsset.id} className="ml-1">{t('report:asset.string').toString()}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -344,7 +344,7 @@ const AssetForm: React.FC<{
                                     {(formik.values.storage_type === EAssetStorageType.DATABASE && formik.values.asset_source === EAssetSource.STRING) &&
                                         <div className="field col-12 md:col-12">
                                             <label htmlFor={'data_content_' + completeAsset.id}>
-                                                {t('report:form.query').toString()}
+                                                {t('report:asset.contents').toString()}
                                             </label>
                                             <div>
                                                 <CustomEditor

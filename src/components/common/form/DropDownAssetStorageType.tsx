@@ -41,8 +41,8 @@ const DropDownAssetStorageType: React.FC<{
     const {t} = useTranslation(['report']);
 
     const storage_types = [
-        {name: 'Filesystem', code: EAssetStorageType.FILESYSTEM},
-        {name: 'Database', code: EAssetStorageType.DATABASE},
+        {name: t('report:asset.filesystem').toString(), code: EAssetStorageType.FILESYSTEM},
+        {name: t('report:asset.database').toString(), code: EAssetStorageType.DATABASE},
     ];
 
     return (

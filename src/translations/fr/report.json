@@ -44,12 +44,17 @@
         "asset_source" : "Source de l'élément",
         "asset_uploaded" : "Fichier téléversé.",
         "choose_storage": "Choisissez un type de stockage",
+        "contents": "Contenu de l'asset",
         "create_to_upload" : "Créer cet élément pour pouvoir téléverser le contenu.",
         "current_asset_file" : "Fichier associé à cet élement :",
+        "database": "Base de données",
+        "file": "Fichier",
+        "filesystem": "Système de fichiers",
         "name" : "Nom de l'élément",
         "new_asset" : "Nouvel élement",
         "storage_location" : "Emplacement de stockage",
         "storage_type" : "Type de stockage",
+        "string": "Chaîne de caractères",
         "upload_asset" : "Téléverser un fichier",
         "upload_in_progress" : "Téléversementen cours..."
     },
@@ -134,6 +139,12 @@
         "report_data_view_configuration" : "Configuration de la vue",
         "reset_error_click" : "Cliquez sur le bouton ci-dessous pour réessayer.",
         "run" : "Exécuter la vue",
+        "runtime_configuration": {
+            "external_js_modules": "Modules JS externes",
+            "imported_as": "Importé comme",
+            "module_url": "URL du module",
+            "variable_name": "nom_variable (dans le code JS de la vue)"
+        },
         "show_sql_panel" : "Afficher la requête SQL",
         "sections" : {
             "sql" : "SQL",

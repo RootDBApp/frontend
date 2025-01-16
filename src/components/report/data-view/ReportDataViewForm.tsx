@@ -498,14 +498,12 @@ const ReportDataViewForm: React.FC<{
             <Divider align="center">
                 <div className={'inline-flex align-items-center'}>
                     <i className="pi pi-share-alt mr-2"/>
-                    <b>{t('common:sharing_options')}</b>
+                    <b>{t('report:dataview.runtime_configuration.external_js_modules')}</b>
                 </div>
             </Divider>
 
             <div className="field col-12">
                 <ReportDataViewFormModuleImportsList
-                    // reportId={reportId}
-                    // dataViewId={dataViewId}
                     reportDataViewState={reportDataViewState}
                 />
             </div>

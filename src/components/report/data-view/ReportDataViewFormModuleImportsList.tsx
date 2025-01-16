@@ -31,13 +31,11 @@ const ReportDataViewFormModuleImportsList: React.FC<{
           reportDataViewState,
       }) => {
 
-
     const [numModules, setNumModules] = React.useState<number>(0);
 
     React.useEffect(() => {
 
-        console.debug('Refresh JSModules list');
-        if(numModules > 0) {
+        if (numModules > 0) {
             setNumModules(0);
         }
     }, [numModules]);
