@@ -25,7 +25,6 @@ import {
     ICallbackGetReportDateViewsAndResponseStatus,
 }                                          from "../../../types/ICallBacks";
 import { TNameValue }                        from "../../../types/TNameValue";
-import TReportDataViewJsRunTimeConfiguration from "../../../types/TReportDataViewJsRuntimeConfiguration";
 
 export interface IGetReport {
     type: types.TGetReport,

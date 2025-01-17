@@ -4350,14 +4350,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.2":
-  version: 1.7.2
-  resolution: "axios@npm:1.7.2"
+"axios@npm:^1.7.4":
+  version: 1.7.9
+  resolution: "axios@npm:1.7.9"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/6ae80dda9736bb4762ce717f1a26ff997d94672d3a5799ad9941c24d4fb019c1dff45be8272f08d1975d7950bac281f3ba24aff5ecd49ef5a04d872ec428782f
+  checksum: 10/b7a5f660ea53ba9c2a745bf5ad77ad8bf4f1338e13ccc3f9f09f810267d6c638c03dac88b55dae8dc98b79c57d2d6835be651d58d2af97c174f43d289a9fd007
   languageName: node
   linkType: hard
 
@@ -13946,7 +13946,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^8.0.0"
     "@typescript-eslint/scope-manager": "npm:^8.0.0"
     ace-builds: "npm:~1.35.4"
-    axios: "npm:^1.7.2"
+    axios: "npm:^1.7.4"
     buffer: "npm:^6.0.3"
     chart.js: "npm:^4.4.3"
     classnames: "npm:^2.5.1"

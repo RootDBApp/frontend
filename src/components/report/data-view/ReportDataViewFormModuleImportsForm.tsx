@@ -42,7 +42,6 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
     callbackOnDataViewJsModuleUpdated: ICallbackOnDataViewJsModuleUpdated
 }> = ({jsModuleImport, reportDataViewState, callbackOnDataViewJsModuleUpdated}) => {
 
-    const [submitButtonCreate, setSubmitButtonCreate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonUpdate, setSubmitButtonUpdate] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [submitButtonDelete, setSubmitButtonDelete] = React.useState<SubmitButtonStatus>(SubmitButtonStatus.ToValidate);
     const [displayError, setDisplayError] = React.useState(false);
@@ -89,7 +88,6 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
 
     const handleOnCreate = (values: TJSModuleImport): void => {
 
-        setSubmitButtonCreate(SubmitButtonStatus.Validating);
         let runtimeConfiguration: TReportDataViewJsRuntimeConfiguration = getReportDataViewRuntimeConfiguration();
         runtimeConfiguration.jsModules = [
             ...runtimeConfiguration.jsModules,
@@ -99,7 +97,6 @@ const ReportDataViewFormModuleImportsForm: React.FC<{
             }
         ];
         updateReportDataViewJs(runtimeConfiguration);
-        setSubmitButtonCreate(SubmitButtonStatus.Validated);
     }
 
     const handleOnUpdate = (values: TJSModuleImport): void => {
