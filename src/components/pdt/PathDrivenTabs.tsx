@@ -22,7 +22,7 @@
 import { ContextMenu }                                                          from "primereact/contextmenu";
 import { MenuItem }                                                             from "primereact/menuitem";
 import * as React                                                               from "react";
-import { DragDropContext, Draggable, DraggableProvided, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, DraggableProvided, Droppable, DropResult } from "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration";
 import { useTranslation }                                                       from "react-i18next";
 import { matchRoutes, useLocation, useMatch, useNavigate }                      from "react-router-dom";
 

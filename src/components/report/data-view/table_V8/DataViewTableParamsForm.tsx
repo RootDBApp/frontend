@@ -24,7 +24,7 @@ import { Card }                                                                 
 import { TabPanel, TabView }                                                    from "primereact/tabview";
 import * as React                                                               from 'react';
 import { useTranslation }                                                       from "react-i18next";
-import { DragDropContext, Draggable, DraggableProvided, Droppable, DropResult } from "react-beautiful-dnd";
+import { DragDropContext, Draggable, DraggableProvided, Droppable, DropResult } from "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration";
 
 
 import { ICallbackTableJsonFormOnChange }  from "../../../../types/ICallBacks";

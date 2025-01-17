@@ -22,7 +22,7 @@
 import { Menubar }           from "primereact/menubar";
 import { Tooltip }           from "primereact/tooltip";
 import * as React            from "react";
-import { DraggableProvided } from "react-beautiful-dnd";
+import { DraggableProvided } from "@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration";
 import { useNavigate }       from "react-router-dom";
 import { VscDebugConsole }   from "react-icons/vsc";
 import { useTranslation }    from "react-i18next";
