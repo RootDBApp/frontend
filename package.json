@@ -44,7 +44,7 @@
     "lodash.difference": "^4.5.0",
     "lodash.pull": "^4.1.0",
     "lodash.round": "^4.0.4",
-    "match-sorter": "^6.3.4",
+    "match-sorter": "^8.0.0",
     "pako": "^2.1.0",
     "primeflex": "^3.3.1",
     "primeicons": "^7.0.0",
