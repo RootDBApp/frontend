@@ -4486,17 +4486,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ace-builds@npm:^1.36.3":
+"ace-builds@npm:^1.36.3, ace-builds@npm:^1.37.5":
   version: 1.37.5
   resolution: "ace-builds@npm:1.37.5"
   checksum: 10/cf8e0d0fe2a3cfbf69cf3e441c32523f8ec4a6ad5341cdfbeaf669f3ceed2ea136bfc60170f4b0757a98dab74f98a0e446984aff09a0a45f203aa02d6d031157
-  languageName: node
-  linkType: hard
-
-"ace-builds@npm:~1.35.4":
-  version: 1.35.4
-  resolution: "ace-builds@npm:1.35.4"
-  checksum: 10/448bfacec39c0ab1ff6ef67abe767dff119cca7a47867f68c50c97814978f8ca5a6c43ee32c2c6311e1652372c1dd7bc947ac15f9e1101e44d22b518c3f35c07
   languageName: node
   linkType: hard
 
@@ -14685,7 +14678,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
     "@typescript-eslint/parser": "npm:^8.0.0"
     "@typescript-eslint/scope-manager": "npm:^8.0.0"
-    ace-builds: "npm:~1.35.4"
+    ace-builds: "npm:^1.37.5"
     axios: "npm:^1.7.4"
     buffer: "npm:^6.0.3"
     chart.js: "npm:^4.4.3"
