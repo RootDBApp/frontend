@@ -102,7 +102,7 @@ const ReportDataViewEditInitJSCodeForm: React.FC<{
                             <label htmlFor="is_visible">{t('report:dataview.register_code')}</label><br/>
                             <div>
                                 <CustomEditor
-                                    id={'js_register__' + reportDataView.dataView?.id ?? 0}
+                                    id={'js_register__' + reportDataView.dataView?.id.toString() === undefined ? '0' : 'js_register__' + reportDataView.dataView?.id.toString()}
                                     value={formik.values.js_register}
                                     onChangeCallback={(js_register: string) => {
 
@@ -126,7 +126,7 @@ const ReportDataViewEditInitJSCodeForm: React.FC<{
                             <label htmlFor="is_visible">{t('report:dataview.init_code')}</label><br/>
                             <div>
                                 <CustomEditor
-                                    id={'js_register_' + reportDataView.dataView?.id ?? 0}
+                                    id={'js_register_' + reportDataView.dataView?.id.toString() === undefined ? '0' : 'js_register_' + reportDataView.dataView?.id.toString()}
                                     value={formik.values.js_init}
                                     onChangeCallback={(js_init: string) => {
 

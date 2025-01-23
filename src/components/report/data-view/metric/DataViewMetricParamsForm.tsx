@@ -180,10 +180,10 @@ const DataViewMetricParamsForm: React.FC<{
                 />
 
                 {/*I'm here only to load inline styles*/}
-                <Accordion style={{ display: "none" }} />
+                <Accordion style={{display: "none"}}/>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <Droppable droppableId="droppable" direction="vertical">
-                        {(provided) => (
+                        {(provided: any) => (
 
                             <div className="p-accordion p-component" ref={provided.innerRef} {...provided.droppableProps}>
                                 {rows?.map((columnParameter: TDataViewMetricRow, index: number) => (

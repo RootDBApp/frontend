@@ -181,7 +181,7 @@ const DataViewTableParamsForm: React.FC<{
                         <Accordion style={{display: "none"}}/>
                         <DragDropContext onDragEnd={onDragEnd}>
                             <Droppable droppableId="droppable" direction="vertical">
-                                {(provided) => (
+                                {(provided: any) => (
 
                                     <div className="p-accordion p-component" ref={provided.innerRef} {...provided.droppableProps}>
                                         {columnParameters.map((columnParameter: TDataViewTableColumnParameter, index) => (

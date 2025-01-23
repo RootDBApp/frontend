@@ -396,7 +396,7 @@ const PathDrivenTabs: React.FC<{
                     <Droppable
                         droppableId="droppable"
                         direction="horizontal">
-                        {(provided) => (
+                        {(provided: any) => (
                             <div className="p-tabview p-component">
                                 <ul ref={provided.innerRef}
                                     {...provided.droppableProps}
