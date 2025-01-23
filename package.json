@@ -70,7 +70,7 @@
     "react-tracked": "^2.0.1",
     "react-transition-group": "^4.4.5",
     "react-virtual": "^2.10.4",
-    "sass": "^1.77.8",
+    "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "stream-browserify": "^3.0.0",
     "use-reducer-async": "^2.1.1",
