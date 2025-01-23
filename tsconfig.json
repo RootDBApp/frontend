@@ -1,7 +1,7 @@
 {
     "compilerOptions" : {
         "experimentalDecorators" : true,
-        "target" : "ES2023",
+        "target" : "ES2024",
         "module" : "ESNext",
         "strict" : true,
         "esModuleInterop" : true,
