@@ -130,16 +130,19 @@ const Login = () => {
             else {
 
                 apiDataDispatch({
-                    type: GOT_ORGANIZATIONS, payload:
-                        authState.user.organization_users.map((organization_user: TOrganizationUser) => {
-                            return organization_user.organization;
-                        })
+                    type: GOT_ORGANIZATIONS,
+                    payload:
+                        authState.user.organization_users.map(
+                            (organization_user: TOrganizationUser) => {
+                                return organization_user.organization;
+                            }
+                        )
                 });
                 apiDataCacheRefresh(authState.user.organization_user.organization_id, apiDataDispatch).then();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
-        apiDataDispatch,
         apiDataState.reports,
         authState.user.is_super_admin,
         authState.isLoggedIn,
@@ -148,7 +151,6 @@ const Login = () => {
         authState.user.organization_user.organization_id,
         navigate,
         preferencesDispatch,
-        reportDispatch,
     ]);
 
     // Handle navigate to tab opened in the last user session.
